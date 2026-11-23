@@ -1,0 +1,25 @@
+{
+  "name": "malu-roque-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Maria Luiza Roque — entre o visível e o simbólico. Site editorial de psicologia, cultura e subjetividade.",
+  "scripts": {
+    "dev": "next dev -p 3333",
+    "build": "next build",
+    "preview": "node scripts/servir.mjs",
+    "imagens": "node scripts/otimizar-imagens.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "sharp": "^0.35.5",
+    "typescript": "^7.0.2"
+  }
+}

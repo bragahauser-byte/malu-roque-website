@@ -1,0 +1,584 @@
+/* ─────────────────────────────────────────────────────────────
+   CADERNO — índice, mesa de cartões, cartões e página de texto
+   ───────────────────────────────────────────────────────────── */
+
+.caderno-indice__barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  padding-block: 1rem;
+  margin-bottom: 2rem;
+  border-block: 1px solid var(--linha);
+  position: sticky;
+  top: 3.6rem;
+  z-index: 20;
+  background: color-mix(in srgb, var(--papel) 90%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.caderno-indice__filtros {
+  line-height: 1.9;
+}
+
+.caderno-indice__filtro {
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.caderno-indice__filtro:hover,
+.caderno-indice__filtro.ativo {
+  opacity: 1;
+}
+
+.caderno-indice__filtro.ativo {
+  font-style: italic;
+  font-family: var(--serif);
+  font-size: 1.05em;
+}
+
+.caderno-indice__direita {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: auto;
+}
+
+.caderno-indice__modos {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.caderno-indice__modos button {
+  width: 1.9rem;
+  height: 1.9rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  opacity: 0.4;
+  transition: opacity 0.3s, background 0.3s;
+}
+
+.caderno-indice__modos button[aria-pressed="true"] {
+  opacity: 1;
+  background: var(--lavanda);
+}
+
+.caderno-indice__modos svg {
+  width: 0.85rem;
+  fill: currentColor;
+}
+
+.caderno-indice__lista {
+  padding-bottom: var(--secao);
+}
+
+/* ── Mesa: grade de 12 colunas com larguras variadas ──────── */
+.mesa {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(2.5rem, 5vw, 4.5rem) var(--calha);
+  align-items: start;
+  padding-bottom: var(--secao);
+}
+
+.destaques .mesa {
+  padding-bottom: 0;
+}
+
+.g3 { grid-column: span 3; }
+.g4 { grid-column: span 4; }
+.g5 { grid-column: span 5; }
+.g6 { grid-column: span 6; }
+.g7 { grid-column: span 7; }
+.g8 { grid-column: span 8; }
+.g12 { grid-column: span 12; }
+
+/* deslocamentos sutis para quebrar a régua */
+.mesa > .g5:nth-child(2) { margin-top: 5rem; }
+.mesa > .g4:nth-child(4) { margin-top: 3rem; }
+.mesa > .g5:nth-child(6) { margin-top: 4rem; }
+.mesa--tres > .g4 { margin-top: 4rem; }
+.mesa--tres > .g3 { margin-top: 8rem; }
+
+@media (max-width: 1000px) {
+  .g3, .g4, .g5 { grid-column: span 6; }
+  .g6, .g7, .g8, .g12 { grid-column: span 12; }
+  .mesa > * { margin-top: 0 !important; }
+  .mesa--tres > .g3 { grid-column: span 12; }
+}
+
+@media (max-width: 620px) {
+  .mesa > * { grid-column: span 12 !important; }
+}
+
+/* ── Cartão (base) ────────────────────────────────────────── */
+.cartao__link {
+  display: block;
+}
+
+.cartao__visual {
+  position: relative;
+  overflow: hidden;
+  background: var(--c);
+  border-radius: var(--raio);
+  transition: border-radius 0.8s var(--ease-saida);
+}
+
+.cartao__img {
+  overflow: hidden;
+  height: 100%;
+}
+
+.cartao__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.1s var(--ease-saida), clip-path 0.9s var(--ease-saida), filter 0.8s;
+}
+
+.cartao__texto {
+  padding-top: 1rem;
+}
+
+.cartao__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  opacity: 0.75;
+  margin-bottom: 0.7rem;
+}
+
+.cartao__rascunho {
+  padding: 0.25em 0.55em 0.2em;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px currentColor;
+  font-size: 0.6rem;
+}
+
+.cartao__titulo {
+  font-size: var(--t-h3);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  transition: color 0.4s;
+}
+
+.g7 .cartao__titulo,
+.g8 .cartao__titulo,
+.g12 .cartao__titulo {
+  font-size: clamp(1.7rem, 3vw, 2.8rem);
+}
+
+.cartao__chamada {
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--texto-suave);
+  max-width: 46ch;
+}
+
+.cartao__link:hover .cartao__titulo,
+.cartao__link:focus-visible .cartao__titulo {
+  font-style: italic;
+}
+
+/* ── capa: imagem que encolhe dentro de uma moldura colorida ── */
+.cartao--capa .cartao__visual {
+  aspect-ratio: 4 / 3;
+}
+
+.g4.cartao--capa .cartao__visual,
+.g3.cartao--capa .cartao__visual {
+  aspect-ratio: 4 / 5;
+}
+
+.cartao--capa .cartao__img img {
+  clip-path: inset(0 0 0 0 round 0);
+}
+
+.cartao--capa .cartao__link:hover .cartao__img img,
+.cartao--capa .cartao__link:focus-visible .cartao__img img {
+  clip-path: inset(9% 14% 9% 14% round 999px 999px 4px 4px);
+  transform: scale(1.04);
+}
+
+/* ── retrato: imagem vertical que inclina, cor por trás ───── */
+.cartao--retrato .cartao__visual {
+  aspect-ratio: 4 / 5;
+  background: transparent;
+  overflow: visible;
+}
+
+.cartao--retrato .cartao__visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--c);
+  border-radius: var(--raio);
+  transform: rotate(0deg);
+  transition: transform 0.9s var(--ease-saida);
+}
+
+.cartao--retrato .cartao__img {
+  position: relative;
+  border-radius: var(--raio);
+  transition: transform 0.9s var(--ease-saida);
+}
+
+.cartao--retrato .cartao__link:hover .cartao__visual::before,
+.cartao--retrato .cartao__link:focus-visible .cartao__visual::before {
+  transform: rotate(-5deg) scale(0.98);
+}
+
+.cartao--retrato .cartao__link:hover .cartao__img,
+.cartao--retrato .cartao__link:focus-visible .cartao__img {
+  transform: rotate(3deg) translate(4%, -3%) scale(0.92);
+}
+
+.g6.cartao--retrato .cartao__visual,
+.g7.cartao--retrato .cartao__visual,
+.g8.cartao--retrato .cartao__visual {
+  aspect-ratio: 16 / 10;
+}
+
+/* ── citação: só tipografia ───────────────────────────────── */
+.cartao--citacao .cartao__visual {
+  aspect-ratio: 5 / 4;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  color: var(--papel);
+}
+
+.cartao__citacao {
+  text-align: center;
+}
+
+.cartao__citacao p {
+  font-size: clamp(1.6rem, 2.8vw, 2.7rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  transition: transform 0.8s var(--ease-saida);
+}
+
+.cartao__citacao-estrela {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--ambar);
+  transition: transform 1.2s var(--ease-saida);
+}
+
+.cartao--citacao .cartao__link:hover .cartao__citacao p {
+  font-style: italic;
+  transform: scale(1.04);
+}
+
+.cartao--citacao .cartao__link:hover .cartao__citacao-estrela {
+  transform: rotate(180deg) scale(1.3);
+}
+
+.cartao--citacao[style*="--tule"] .cartao__visual,
+.cartao--citacao[style*="--ambar"] .cartao__visual {
+  color: var(--tinta);
+}
+
+/* ── disco: o vinil sai da capa e gira ───────────────────── */
+.cartao--disco .cartao__visual {
+  aspect-ratio: 4 / 3;
+  background: var(--papel-2);
+}
+
+.cartao__disco {
+  position: absolute;
+  inset: 12% 10% 12% 8%;
+}
+
+.cartao__capa-disco {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  aspect-ratio: 1;
+  max-width: 62%;
+  background:
+    radial-gradient(circle at 70% 30%, var(--ambar), transparent 45%),
+    radial-gradient(circle at 20% 80%, var(--lavanda), transparent 50%),
+    var(--c);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  box-shadow: 6px 8px 0 rgb(43 43 43 / 0.12);
+}
+
+.cartao__capa-disco-titulo {
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  line-height: 1;
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+.cartao__vinil {
+  position: absolute;
+  top: 2%;
+  bottom: 2%;
+  left: 4%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 18%, rgb(255 255 255 / 0.05) 18.5% 19%, transparent 19.5% 26%, rgb(255 255 255 / 0.06) 26.5% 27%, transparent 27.5% 34%, rgb(255 255 255 / 0.05) 34.5% 35%, transparent 35.5%),
+    conic-gradient(from 30deg, #161616, #2b2b2b 12%, #121212 25%, #2e2e2e 40%, #141414 55%, #2a2a2a 75%, #161616);
+  display: grid;
+  place-items: center;
+  transition: transform 1.2s var(--ease-saida);
+}
+
+.cartao__vinil-selo {
+  width: 32%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--tinta) 0 6%, var(--lavanda) 7%);
+}
+
+.cartao--disco .cartao__link:hover .cartao__vinil,
+.cartao--disco .cartao__link:focus-visible .cartao__vinil {
+  transform: translateX(48%);
+}
+
+.cartao--disco .cartao__link:hover .cartao__vinil-selo {
+  animation: girar 1.8s linear infinite;
+}
+
+/* ── postal: vira e mostra o verso ───────────────────────── */
+.cartao--postal .cartao__visual {
+  aspect-ratio: 3 / 2;
+  background: transparent;
+  overflow: visible;
+  perspective: 1200px;
+}
+
+.cartao__postal {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 1.1s var(--ease-saida);
+}
+
+.cartao__postal-frente,
+.cartao__postal-verso {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: 0 10px 30px -18px rgb(43 43 43 / 0.5);
+}
+
+.cartao__postal-frente img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cartao__postal-saudacao {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.8rem;
+  color: var(--papel);
+  font-size: clamp(1.3rem, 2.4vw, 2.2rem);
+  font-style: italic;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgb(0 0 0 / 0.4);
+}
+
+.cartao__postal-verso {
+  transform: rotateY(180deg);
+  background: var(--papel-2);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+  padding: 1.2rem;
+  gap: 0.6rem;
+}
+
+.cartao__selo {
+  grid-column: 2;
+  width: 3.4rem;
+  height: 4rem;
+  display: grid;
+  place-items: center;
+  background: var(--c);
+  outline: 3px dotted var(--papel-2);
+  outline-offset: -3px;
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+.cartao__carimbo {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: start;
+  justify-self: start;
+  padding: 0.5rem 0.8rem;
+  border: 1.5px solid var(--ardosia);
+  border-radius: 50%;
+  color: var(--ardosia);
+  font: 600 0.6rem / 1.2 var(--sans);
+  letter-spacing: 0.1em;
+  transform: rotate(-8deg);
+}
+
+.cartao__postal-linhas {
+  grid-column: 1 / -1;
+  background: repeating-linear-gradient(transparent 0 1.6rem, var(--linha) 1.6rem calc(1.6rem + 1px));
+}
+
+.cartao--postal .cartao__link:hover .cartao__postal,
+.cartao--postal .cartao__link:focus-visible .cartao__postal {
+  transform: rotateY(180deg) rotateZ(-1.5deg);
+}
+
+/* ── lista: itens deslizam em escada ─────────────────────── */
+.cartao--lista .cartao__visual {
+  aspect-ratio: 4 / 3;
+  padding: 1.4rem;
+}
+
+.cartao__lista {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: 1.2rem;
+  height: 100%;
+  align-items: center;
+}
+
+.cartao__lista-img {
+  height: 100%;
+  border-radius: 999px 999px 4px 4px;
+  overflow: hidden;
+}
+
+.cartao__lista-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cartao__lista li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgb(43 43 43 / 0.2);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-style: italic;
+  transition: transform 0.6s var(--ease-saida);
+  transition-delay: calc(var(--n, 0) * 60ms);
+}
+
+.cartao__lista li:nth-child(2) { --n: 1; }
+.cartao__lista li:nth-child(3) { --n: 2; }
+.cartao__lista li:nth-child(4) { --n: 3; }
+
+.cartao--lista .cartao__link:hover li {
+  transform: translateX(0.8rem);
+}
+
+/* ── Página de um texto ───────────────────────────────────── */
+.texto-pagina {
+  padding-top: 7.5rem;
+  padding-bottom: var(--secao);
+}
+
+.texto-pagina__aviso {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.9rem 1.1rem;
+  background: var(--lavanda-clara);
+  border-radius: var(--raio);
+  margin-bottom: 3rem;
+}
+
+.texto-pagina__cabeca {
+  row-gap: 2rem;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.texto-pagina__voltar {
+  grid-column: 1 / -1;
+}
+
+.texto-pagina__meta {
+  grid-column: 1 / span 3;
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+}
+
+.texto-pagina__titulo {
+  grid-column: 4 / span 9;
+  font-size: var(--t-h1);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.texto-pagina__chamada {
+  grid-column: 4 / span 7;
+}
+
+.texto-pagina__figura {
+  grid-column: 1 / -1;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.texto-pagina__figura img {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: cover;
+  border-radius: var(--raio);
+}
+
+.texto-pagina__corpo {
+  grid-column: 4 / span 6;
+  font-size: 1.22rem;
+  line-height: 1.65;
+}
+
+.texto-pagina__corpo p + p {
+  margin-top: 1.2em;
+}
+
+.texto-pagina__fim {
+  grid-column: 4 / span 6;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--linha);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 860px) {
+  .texto-pagina__meta,
+  .texto-pagina__titulo,
+  .texto-pagina__chamada,
+  .texto-pagina__corpo,
+  .texto-pagina__fim {
+    grid-column: 1 / -1;
+  }
+}
+
+.g3.cartao--citacao .cartao__citacao p,
+.g4.cartao--citacao .cartao__citacao p {
+  font-size: clamp(1.4rem, 2vw, 2rem);
+}
+
+.g12.cartao--retrato .cartao__visual,
+.g12.cartao--capa .cartao__visual {
+  aspect-ratio: 21 / 9;
+}

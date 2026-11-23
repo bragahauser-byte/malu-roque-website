@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env*
+.vercel
+.DS_Store
+Thumbs.db
+# materiais pessoais e originais pesados ficam fora do repositório
+recursos/
+# gerado automaticamente pelo next dev
+AGENTS.md
+CLAUDE.md

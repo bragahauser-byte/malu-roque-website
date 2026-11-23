@@ -1,0 +1,59 @@
+/* ─────────────────────────────────────────────────────────────
+   TOKENS — cores, tipografia, espaçamentos e movimento.
+   Para mudar a identidade, comece por aqui.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Paleta de origem (identidade anterior) */
+  --lavanda: #a79cb8;        /* Smoky Lavender */
+  --papel: #f7f4f1;          /* Soft White */
+  --ardosia: #465468;        /* Deep Slate Blue */
+  --nevoa: #d9d5d9;          /* Mist */
+  --malva: #c7b3be;          /* Dusty Mauve */
+  --tinta: #2b2b2b;          /* Soft Charcoal */
+
+  /* Extensões: profundidade, luz e acentos pontuais */
+  --papel-2: #efe9e3;        /* papel um pouco mais quente, para blocos */
+  --lavanda-clara: #d6cfe2;
+  --lavanda-funda: #6f6488;
+  --noite: #1d2232;          /* o azul da camada simbólica */
+  --noite-2: #2a3047;
+  --ambar: #eaa43f;          /* a luz amarelada da sala */
+  --tule: #f0844c;           /* laranja de tule, cor expressiva */
+  --portal: #8fd8e2;         /* ciano luminoso, a porta do jardim */
+  --lima: #dfe57a;           /* acento raro, quase um vaga-lume */
+
+  --fundo: var(--papel);
+  --texto: var(--tinta);
+  --texto-suave: #5d5a61;
+  --linha: rgb(43 43 43 / 0.16);
+
+  /* Tipografia
+     Serifada: Georgia (do sistema). Onde ela não existe (Android, Linux),
+     entra a Gelasio, desenhada com as mesmas métricas da Georgia.
+     Sem serifa: Montserrat, alternativa livre e próxima da Gotham. */
+  --serif: Georgia, var(--font-gelasio), "Times New Roman", serif;
+  --sans: var(--font-montserrat), "Gotham", "Helvetica Neue", Arial, sans-serif;
+
+  /* Escala tipográfica fluida */
+  --t-mega: clamp(3.4rem, 11.6vw, 12.5rem);
+  --t-display: clamp(2.8rem, 7.4vw, 7.5rem);
+  --t-h1: clamp(2.4rem, 5.6vw, 5.25rem);
+  --t-h2: clamp(1.9rem, 3.6vw, 3.5rem);
+  --t-h3: clamp(1.35rem, 2vw, 1.9rem);
+  --t-lead: clamp(1.2rem, 1.65vw, 1.6rem);
+  --t-corpo: clamp(1.02rem, 1.1vw, 1.15rem);
+  --t-ui: 0.8125rem;   /* 13px: menus, legendas */
+  --t-micro: 0.6875rem; /* 11px: rótulos em caixa-alta */
+
+  /* Grade e espaço */
+  --margem: clamp(1.1rem, 3.2vw, 3rem);
+  --calha: clamp(0.75rem, 1.6vw, 1.5rem);
+  --secao: clamp(5rem, 12vw, 11rem);
+  --raio: 4px;
+
+  /* Movimento */
+  --ease-saida: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-suave: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur: 0.9s;
+}
