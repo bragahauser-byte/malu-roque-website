@@ -37,19 +37,28 @@ export default function Creditos() {
         </div>
         <ul className="linhas">
           {chaves.map((k) => {
-            const o = arte[k];
+            const o: { titulo: string; artista: string; ano: string; acervo: string; licenca: string; url?: string } = arte[k];
+            const conteudo = (
+              <>
+                <span className="creditos__licenca rotulo">{o.licenca}</span>
+                <span className="linha__titulo">
+                  <em>{o.titulo}</em>, {o.artista} ({o.ano})
+                </span>
+                <span className="linha__info ui suave">{o.acervo}</span>
+                <span className="linha__seta" aria-hidden="true">
+                  {o.url ? "↗" : ""}
+                </span>
+              </>
+            );
             return (
               <li key={k}>
-                <a className="linha creditos__linha grade" href={o.url} target="_blank" rel="noopener noreferrer">
-                  <span className="creditos__licenca rotulo">{o.licenca}</span>
-                  <span className="linha__titulo">
-                    <em>{o.titulo}</em>, {o.artista} ({o.ano})
-                  </span>
-                  <span className="linha__info ui suave">{o.acervo}</span>
-                  <span className="linha__seta" aria-hidden="true">
-                    ↗
-                  </span>
-                </a>
+                {o.url ? (
+                  <a className="linha creditos__linha grade" href={o.url} target="_blank" rel="noopener noreferrer">
+                    {conteudo}
+                  </a>
+                ) : (
+                  <div className="linha linha--estatica creditos__linha grade">{conteudo}</div>
+                )}
               </li>
             );
           })}

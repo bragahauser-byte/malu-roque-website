@@ -176,3 +176,36 @@ e **The Fame Monster** têm só 250 px e ficam um pouco suaves em telas de alta
 densidade. Se ela quiser, dá para trocar por arquivos maiores.
 
 Direitos das capas: pertencem aos artistas e gravadoras.
+
+## Rodada 5 — capa, "Se fosse uma experiência" e favicon
+
+### Fotografia da capa (pasta "imagens para pagina inicial com qualidade maxima")
+
+A pasta tinha dois arquivos:
+
+| Arquivo | O que é | Tamanho | Decisão |
+| --- | --- | --- | --- |
+| `1.jpg` | pastel de **Odilon Redon**: figura de perfil, olhos baixos, sob um grande **arco azul**, com ramos de flores vermelhas | 1591 × 2000 | **escolhida** → `redon-perfil-flores` |
+| `2.jpg` | *Rua de Paris, dia de chuva*, de Caillebotte (versão quadrada) | 1800 × 1800 | não usada: é a imagem "das pessoas de terno na rua" que ela pediu para tirar |
+
+Por que `1.jpg` funciona na composição real (e não só por ser bonita):
+- é **vertical** (4:5), como o arco do portal, e não perde nada no recorte em arco (5:7 no desktop, 4:5 no celular de borda a borda);
+- a própria pintura tem um **arco azul** sobre a figura: a forma da identidade aparece dentro da imagem;
+- tons de creme, azul e vermelho conversam com o creme e o verde da paleta; o rosto fica no centro, fora das bordas recortadas;
+- resolução suficiente para 2× no celular (390 px de tela → 780 px; arquivo de 1591 px) e no desktop (portal de ~ 430 px → 860 px). Gerada em 640, 1024 e 1591 px, WebP qualidade 86, **sem ampliar**.
+
+Direitos: Redon morreu em 1916; obra em domínio público. **Título exato e acervo não vieram com o arquivo** e não foram confirmados (há vários pastéis de Redon com perfil e arco); o crédito diz "acervo a confirmar". Sem alteração da obra.
+
+Com isso, o portal mostra, no lado visível, esse pastel; no lado simbólico, *O carro de Apolo* (Met, CC0), que já estava no site. A rua de Caillebotte continua só no Caderno ("Sonhar acordado num dia de chuva"), não na capa. As faixas pretas da digitalização de *O carro de Apolo* (topo e base) foram recortadas.
+
+### "Se fosse uma experiência"
+
+- Arquivo enviado: `Se fosse uma experiência.jpg` (751 × 900). É *Olhos fechados* (1890), de Odilon Redon, óleo sobre tela do Musée d'Orsay (assinatura e data visíveis na tela). Domínio público.
+- Usado exatamente como enviado; só a **moldura dourada** da fotografia foi recortada (`redon-olhos-fechados-tela` em `RECORTES`), resultando em 698 × 864, sem ampliar (versões 640 e 698).
+- Enquadramento: no arco 5:7 o rosto fica centralizado e os cabelos tocam a curva do topo; nada essencial é cortado.
+- Observação de qualidade: é o menor arquivo do site. No arco (até ~ 440 px no desktop) fica nítido em 1×; em telas 2× fica um pouco abaixo da densidade ideal. O site já tinha a versão do Met (litografia, 2830 px), mas o pedido foi usar este arquivo.
+
+### Favicon
+
+- Arquivo enviado: `favcon.png` (1544 × 1544): **só o arco creme** (#FEFAEE) em fundo transparente, sem letra.
+- Gerado por `scripts/gerar-favicon.mjs` (arco do arquivo + M em Gotham Condensed Bold, verde #084E32), a partir de `recursos/favicon/arco.png` (cópia do arquivo, fora do git).

@@ -288,7 +288,7 @@ export const outroLado = [
   {
     pergunta: "Se fosse uma experiência",
     resposta: "Entrar numa loja de discos enquanto toca, bem alto, uma música que se ama. Prazer, nostalgia e vontade de ficar.",
-    imagem: null,
+    imagem: "redon-olhos-fechados-tela",
   },
 ] as const;
 

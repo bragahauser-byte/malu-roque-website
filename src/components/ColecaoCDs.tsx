@@ -6,8 +6,10 @@ import { fonteImagem } from "@/lib/imagens";
 
 /**
  * ESTANTE DE CDs — coleção física, anos 2000, acabamento atual.
- * As caixas ficam numa linha horizontal, levemente giradas em 3D (lombada,
- * dobradiça e um reflexo sólido no plástico). Passar o mouse, focar com o
+ * As caixas ficam numa linha horizontal sobre uma prateleira, giradas em 3D:
+ * seis faces com espessura real, tampa transparente com dobradiça, encarte,
+ * bandeja, lombada, reflexos especulares e sombra de contato (ver
+ * especiais.css). Passar o mouse, focar com o
  * teclado ou tocar destaca um disco: a caixa vira de frente, o CD sai um
  * pouco da caixa e a ficha ao lado mostra título, artista, ano e faixas.
  * Setas do teclado percorrem a estante. Nada se move sozinho.
@@ -43,7 +45,7 @@ export function ColecaoCDs({ discos, rotulo }: { discos: Disco[]; rotulo: string
               }}
               type="button"
               className={`cd ${i === ativo ? "cd--ativo" : ""}`}
-              style={{ "--i": i, "--d": Math.abs(i - ativo) } as React.CSSProperties}
+              style={{ "--i": i, "--d": Math.abs(i - ativo), "--lado": i < ativo ? -1 : 1 } as React.CSSProperties}
               aria-pressed={i === ativo}
               aria-label={`${disco.titulo}, ${disco.artista}, ${disco.ano}`}
               tabIndex={i === ativo ? 0 : -1}
@@ -52,20 +54,26 @@ export function ColecaoCDs({ discos, rotulo }: { discos: Disco[]; rotulo: string
               onFocus={() => setAtivo(i)}
               onKeyDown={(e) => teclas(e, i)}
             >
-              <span className="cd__caixa">
-                <span className="cd__disco" aria-hidden="true">
+              <span className="cd__sombra" aria-hidden="true" />
+              <span className="cd__caixa" aria-hidden="true">
+                <span className="cd__face cd__fundo" />
+                <span className="cd__disco">
                   <span className="cd__furo" />
                 </span>
-                <span className="cd__frente">
+                <span className="cd__face cd__frente">
                   <img src={f.src} srcSet={f.srcSet} sizes="(max-width: 639px) 60vw, 240px" alt="" loading="lazy" decoding="async" />
-                  <span className="cd__dobradica" aria-hidden="true" />
-                  <span className="cd__reflexo" aria-hidden="true" />
+                  <span className="cd__dobradica" />
+                  <span className="cd__brilho cd__brilho--1" />
+                  <span className="cd__brilho cd__brilho--2" />
                 </span>
-                <span className="cd__lombada" aria-hidden="true">
+                <span className="cd__face cd__lombada">
                   <span>
                     {disco.artista} · {disco.titulo}
                   </span>
                 </span>
+                <span className="cd__face cd__borda--direita" />
+                <span className="cd__face cd__borda--topo" />
+                <span className="cd__face cd__borda--base" />
               </span>
             </button>
           );

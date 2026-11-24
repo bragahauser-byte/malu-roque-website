@@ -10,7 +10,7 @@ import { Passagens } from "@/components/Passagens";
 import { asset } from "@/lib/asset";
 import { scriptMundo } from "@/lib/mundo";
 
-/** Entrada: só na primeira página da visita e sem "reduzir movimento". */
+/** Entrada (forma → tipografia, ver motion.css): só na primeira página da visita e sem "reduzir movimento". */
 const scriptEntrada = `try{if(!sessionStorage.getItem("malu-entrou")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("entrando")}catch(e){}`;
 import "@/styles/tokens.css";
 import "@/styles/base.css";
@@ -47,15 +47,17 @@ export const metadata: Metadata = {
   title: { default: `${site.nome} — Psicóloga · CRP ${site.crp}`, template: `%s · ${site.apelido}` },
   description: site.descricao,
   openGraph: { title: `${site.nome} — ${site.conceito}`, description: site.descricao, locale: "pt_BR", type: "website" },
+  // ?v=5: força o navegador a trocar o favicon antigo (ícones ficam muito tempo em cache)
+  manifest: asset("/site.webmanifest"),
   icons: {
     icon: [
-      { url: asset("/favicon.ico"), sizes: "48x48" },
-      { url: asset("/favicon-32.png"), sizes: "32x32", type: "image/png" },
-      { url: asset("/favicon-16.png"), sizes: "16x16", type: "image/png" },
-      { url: asset("/icon-192.png"), sizes: "192x192", type: "image/png" },
-      { url: asset("/icon-512.png"), sizes: "512x512", type: "image/png" },
+      { url: asset("/favicon.ico?v=5"), sizes: "16x16 32x32 48x48" },
+      { url: asset("/favicon-32.png?v=5"), sizes: "32x32", type: "image/png" },
+      { url: asset("/favicon-16.png?v=5"), sizes: "16x16", type: "image/png" },
+      { url: asset("/icon-192.png?v=5"), sizes: "192x192", type: "image/png" },
+      { url: asset("/icon-512.png?v=5"), sizes: "512x512", type: "image/png" },
     ],
-    apple: { url: asset("/apple-touch-icon.png"), sizes: "180x180" },
+    apple: { url: asset("/apple-touch-icon.png?v=5"), sizes: "180x180" },
   },
 };
 
@@ -70,12 +72,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {temGotham && <style dangerouslySetInnerHTML={{ __html: fontesGotham }} />}
       </head>
       <body>
-        <div className="entrada" aria-hidden="true">
-          <span className="entrada__nome">
-            Maria Luiza <em>Roque</em>
-          </span>
-          <span className="entrada__sub">Psicóloga · CRP {site.crp}</span>
-        </div>
         <Cabecalho />
         <main id="conteudo">{children}</main>
         <Rodape />

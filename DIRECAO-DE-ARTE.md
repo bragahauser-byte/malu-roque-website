@@ -1,7 +1,7 @@
 # Direção de arte — Maria Luiza Roque
 
 Registro das decisões do projeto, para continuar o trabalho em outras sessões
-sem perder o fio. **Versão 4** (viagens, música, intercâmbios e motion, novembro de 2026).
+sem perder o fio. **Versão 5** (motion a partir da forma, grade 12/8/4, ritmo, cores tipográficas, novembro de 2026).
 
 ## Conceito
 
@@ -130,45 +130,56 @@ web. Online, a interface usa a reserva (Arial Narrow ou Helvetica). Ver README.
 
 ## Espaçamento: múltiplos de 4
 
-- **Escala em `tokens.css`:** `--s-1` a `--s-10` = 4, 8, 12, 16, 24, 32, 48,
-  64, 96 e 128 px.
-- **Fluidos (extremos múltiplos de 4):**
-  - margem lateral: 20→56;
-  - calha: 16→24;
-  - espaço entre seções: 64→144.
-- **Componentes:**
-  - cabeçalho: 72 px (64 no celular);
-  - botões e alvos de toque: 48 px;
-  - régua de seção: 4 px.
-- **Verificação:** `npm run auditar` (`scripts/auditar-medidas.cjs`) varre
-  todas as folhas de estilo.
-- **Exceções que ficaram:**
-  - corpo de texto em 18 px e legendas/rótulos em 14 px: medidas clássicas de
-    leitura, mantidas por legibilidade (as entrelinhas, 28, 20 e 16 px, seguem
-    a escala de 4);
-  - breakpoints em `max-width` (479/639/1023 px);
-  - linhas finas de 1 a 2 px;
-  - os sulcos do vinil desenhado.
+- **Escala em `tokens.css`** (a única do projeto; a antiga `--s-*` foi substituída):
+
+| Token | px | Token | px |
+| --- | ---: | --- | ---: |
+| `--space-1` | 4 | `--space-10` | 40 |
+| `--space-2` | 8 | `--space-12` | 48 |
+| `--space-3` | 12 | `--space-16` | 64 |
+| `--space-4` | 16 | `--space-20` | 80 |
+| `--space-5` | 20 | `--space-24` | 96 |
+| `--space-6` | 24 | `--space-32` | 128 |
+| `--space-8` | 32 | `--space-40` | 160 |
+
+- **Ritmo (papéis, não valores soltos), fluidos entre 390 e 1440 px:**
+
+| Papel | Token | Celular → desktop |
+| --- | --- | --- |
+| entre grandes seções | `--secao` | 96 → 160 (128 no tablet) |
+| régua/título da seção → conteúdo | `--secao-cab` | 48 → 80 |
+| entre blocos de uma mesma seção | `--bloco` | 64 → 96 |
+
+  Antes: 64 → 144 entre seções e 48/64 fixos depois do título. O respiro novo
+  vale sobretudo para a passagem entre o fim de uma seção e a régua da próxima,
+  e para as trocas de lado (rodapé, campos de cor).
+- **Componentes:** cabeçalho 72 px (64 no celular); botões e alvos de toque 48 px; régua de seção 4 px.
+- **Verificação:** `npm run auditar` (`scripts/auditar-medidas.cjs`).
+- **Exceções que ficaram:** corpo 18 px e legendas 14 px (leitura; entrelinhas 28/20/16 seguem a escala); linhas finas de 1–2 px; sulcos do CD.
 
 ## Grade
 
-- **Colunas:** 12 no desktop, 6 no tablet (< 1024 px) e 4 no celular (< 640 px).
-  - Classe `.grade` em `base.css`, com `--cols`.
-  - **Margem lateral global `--margem`: 40 px no desktop**, diminuindo até 20 px
-    no celular (fluida entre 390 e 1440 px).
-  - Largura máxima de 1920 px, para os 40 px valerem também em telas grandes.
-  - Verificado: cabeçalho, títulos, réguas e rodapé começam todos a 40 px da borda.
-- **Dois eixos fixos:**
-  - **coluna 1**: rótulos, títulos de página, imagens;
-  - **coluna 7**: títulos de seção e textos que acompanham uma imagem.
-- **Abertura de toda seção:** régua de 4 px, número na coluna 1, nome em
-  Gotham Bold na coluna 2 e título em Georgia na coluna 7.
-- **De onde vem a variação:** imagem e texto alternam entre os dois eixos
-  (Pesquisa, "Se fosse…"), há escalas diferentes (mosaico) e colunas
-  desencontradas (atlas). Nunca posições arbitrárias.
-- **No tablet e no celular:** os blocos ocupam a largura toda, e as imagens
-  ficam com 3 de 6 ou 3 de 4 colunas, para não ampliar as fotos além da
-  resolução original.
+Um só sistema (`.grade` em `base.css`, `--cols`/`--margem`/`--calha` em `tokens.css`). Muda a organização, não a identidade.
+
+| Faixa | Colunas | Margem | Calha | Observação |
+| --- | ---: | ---: | ---: | --- |
+| Desktop ≥ 1024 px | 12 | 40 | 24 | conteúdo até **1440 px** (caixa de 1520 com as margens); em monitores maiores, centraliza |
+| Tablet 640–1023 px | 8 | 32 | 20 | metades = 4 + 4 colunas; imagens em 4–5 colunas |
+| Celular < 640 px | 4 | 24 | 16 | ≤ 374 px: margem 20, calha 12 |
+| Dobrável aberto (2 segmentos) | 8 | 28 | ≥ 20 | ver abaixo |
+
+- **Eixos fixos no desktop:** coluna 1 (rótulos, títulos de página, imagens) e coluna 7 (títulos de seção, textos que acompanham imagens).
+- **Abertura de toda seção:** régua de 4 px, número na coluna 1, nome em Gotham Bold na coluna 2, título em Georgia na coluna 7.
+- **Tablet (novo, 8 colunas):** todas as regras que eram "3 de 6" viraram "4 de 8" (metade), "4 de 6" → "5 de 8"; as janelas de viagem ficam em 2 + 2 + 2.
+- **Exceção controlada (celular):** o portal "Atravessar para o outro lado" sai das margens e ocupa a tela de borda a borda (referência Camicado). É a única quebra da grade; a legenda e o botão voltam para a margem de 24 px.
+
+### Telas dobráveis (avaliação)
+
+- "iPhone Duo" foi tratado como **categoria** (aparelhos com tela externa compacta e tela interna dobrável), não como produto ou API.
+- **Tela compacta:** cai no celular comum (4 colunas, margem 24 ou 20, calha 16/12). Nenhuma regra especial.
+- **Tela interna aberta:** quando o navegador expõe a *Viewport Segments API* (`@media (horizontal-viewport-segments: 2)` e `env(viewport-segment-*)`, hoje só em navegadores Chromium em aparelhos que a suportam), a grade passa a 8 colunas (4 + 4), margem 28 px, e a calha cresce até a largura real da dobradiça (mínimo 20 px). Assim, as composições "metade + metade" do tablet caem uma em cada segmento e nada essencial atravessa o centro.
+- **Sem suporte à API:** vale o layout responsivo comum pela largura (uma tela interna de ~ 700–900 px cai no tablet de 8 colunas). Nada depende da API para funcionar.
+- **Não verificado em aparelho real.** Os valores (área central de 32–48 px etc.) eram hipóteses do briefing; o código usa a largura informada pelo próprio aparelho em vez de um número fixo.
 
 ## Cores
 
@@ -185,19 +196,34 @@ Medidas na imagem `paleta de cor/image 4162.jpg`:
 | `--preto` | #0C0D08 |
 | `--lilas` | #B8B7FB |
 
-Sem gradientes: verificado no navegador, com zero regras `gradient()`.
+Sem gradientes de cor: os reflexos dos CDs são faixas sólidas translúcidas.
+
+### Cores tipográficas
+
+A hierarquia é feita em quatro dimensões: **família** (Georgia = voz editorial; Gotham Condensed = interface, rótulos, dados), **peso**, **tamanho** e **cor**. O tom desce do nanquim ao cinza-oliva conforme a importância cai. Os componentes usam os papéis `--tx-*`, que trocam de escala sozinhos no lado simbólico, no rodapé (`.tema-escuro`) e nos campos de cor.
+
+| Papel (`--tx-*`) | Fundo claro (creme) | contraste | Fundo escuro (verde) | contraste |
+| --- | --- | ---: | --- | ---: |
+| título principal | #0C0D08 | 18.7 | #FEFAEE | 9.4 |
+| título secundário, `.lead`, `.chapeu` | #1D1F18 | 16.0 | #F3EDDA | 8.4 |
+| texto corrido (carvão, não preto puro) | #2A2C24 | 13.6 | #E6E2CF | 7.5 |
+| texto secundário (`.suave`) | #4A4C43 | 8.4 | #CFD6C6 | 6.6 |
+| legendas e créditos | #5A5C52 | 6.5 | #BCCAB9 | 5.7 |
+| metadados (`.meta`) | #66685E | 5.4 (4.9 sobre creme-2) | #A9BBA8 | 4.8 |
+| links | #084E32 (verde) | 9.4 | #F0CE5B (amarelo) | 6.4 |
+| destaques | #084E32 | 9.4 | #F0CE5B | 6.4 |
+| interativo ativo/foco | anel #0C0D08 | — | #F897F0 (rosa) | 5.0 |
+| desabilitado (nunca para leitura) | #8F9087 | 3.1 | #7F9B86 | 3.2 |
+
+No campo rosa do lado simbólico, todo texto pequeno usa no mínimo #2A2C24 (7.2:1).
+
+**Links e estados** (`.link-linha`): cor própria + sublinhado de 1 px; **hover** não depende só da cor: o campo de destaque entra por trás da palavra (o mesmo gesto do menu); **focus** anel de 2 px (`--foco`); **active** = campo de destaque; **visited** mantém a cor (o site é curto e a cor de visitado poluiria a hierarquia).
 
 ## Movimento
 
-Regra: **todo movimento responde a um gesto ou acontece uma vez.**
+Ver **MOTION.md** (sistema completo: curvas, durações, regras, acessibilidade) e **REFERENCIAS-MOTION.md** (a pesquisa).
 
-- A passagem entre os lados (clique) é a única transição grande.
-- Hover:
-  - pílula no menu e nos botões;
-  - o arco interno do portal se abre um pouco;
-  - nos cartões do caderno, a imagem se recolhe num arco, o vinil sai da capa e o postal vira.
-- Ao rolar, os blocos aparecem uma vez, com 16 px de subida.
-- Verificado: zero animações contínuas. Com movimento reduzido, nada se mexe.
+Regra: **todo movimento responde a um gesto ou acontece uma vez, e nasce da forma do arco.**
 
 ## Imagens
 
@@ -225,20 +251,14 @@ conteúdo real:
 - No índice do Caderno, os especiais vêm antes dos rascunhos.
 - Na capa (lado simbólico), aparecem em "Do caderno".
 
-### Janelinha de avião (referência AC Concierge)
+### Janelinha de avião e a vitrine de destinos (referência AC Concierge)
 
-- **Forma:** retângulo vertical com cantos elípticos (`border-radius: 48% / 34%`),
-  sem moldura.
-- **A persiana:**
-  - fica fechada até a janela entrar na tela e então sobe (o mesmo gesto de
-    abertura do motion);
-  - termina de subir no hover;
-  - no toque, abre por completo.
-- **Destinos:**
-  - no desktop, quatro colunas com alturas desencontradas;
-  - no celular, fileira horizontal com encaixe.
-- **Intercâmbios:** aparece só na foto de abertura de cada capítulo e numa
-  pequena sequência de viagem. As outras fotos seguem o formato editorial.
+- **Forma da janela:** retângulo vertical com cantos elípticos (`border-radius: 48% / 34%`), sem moldura.
+- **O que a referência tem e entrou na vitrine (v5):** uma **única janela grande no centro** (não uma grade de cards); contador "01 / 12" com filete; setas redondas; **trio de metadados** separados por filetes verticais (continente, capital, número da janela: dados públicos do país, nada sobre a viagem); nome do país em corpo grande com a bandeira ao lado; descrição em tom secundário do outro lado da janela; **filete atravessando a composição na linha de base**; grande numeral "12" à direita da cabeça da seção; índice de todas as janelas embaixo (uma por coluna no desktop), que também navega.
+- **O que é da Malu:** Georgia + Gotham, creme e verde, a grade de 12, e o gesto do site: a foto nova entra na janela com a borda de ataque arredondada, pela direita ao avançar e pela esquerda ao voltar.
+- **Celular:** a ordem da referência mobile: contador e setas, janela, dados, nome, descrição; índice em fileira com deslize.
+- **Interação:** setas, teclado (← → Home End), deslizar no toque, clique no índice.
+- **Intercâmbios:** a janela aparece na foto de abertura de cada capítulo e numa pequena sequência de viagem, com a persiana que abre ao entrar na tela.
 
 ### Bandeiras
 
@@ -249,23 +269,16 @@ conteúdo real:
 - No Vaticano e em Malta, o brasão e a cruz aparecem simplificados, porque não
   são legíveis em 14 px.
 
-### Estante de CDs
+### Estante de CDs (v5: materialidade)
 
-- **Composição horizontal:**
-  - as caixas ficam lado a lado, giradas 38° em 3D;
-  - têm lombada (com artista e título), dobradiça e um reflexo **sólido** no
-    plástico, sem degradê;
-  - o disco é prateado sólido, com sulcos.
-- **Ao escolher um disco:**
-  - a caixa vira de frente e o CD sai um pouco;
-  - a ficha abaixo, na grade, mostra título, artista, ano de lançamento,
-    faixas conhecidas e a observação sobre Lemonade.
-- **Interação:** mouse, toque ou teclado (setas, Home, End). Depois de usar o
-  teclado, o mouse parado não "rouba" a seleção. Nada se move sozinho.
-- **Celular:** fileira com encaixe, um disco em destaque por vez.
-- **Referência:** as imagens de CDs em 3D citadas como anexo **não chegaram**.
-  A composição seguiu a descrição: mais horizontal, menos diagonal.
-- **Ordem:** a mesma da lista enviada. Não é um ranking.
+- **Composição horizontal mantida**, sobre uma prateleira (plano sólido um tom abaixo do fundo).
+- **Cada caixa é um objeto CSS 3D** com seis faces e espessura real (10 mm em 133): tampa transparente com borda clara em cima/esquerda e escura embaixo/direita; dobradiça fumê com frisos; encarte por baixo da tampa (capa original, sem alteração); bandeja preta; lombada com artista e título; bordas de plástico.
+- **Luz de cima e da esquerda:** lombada e borda de cima iluminadas, borda direita e base na sombra; sombra de contato na prateleira.
+- **Reflexos especulares:** duas faixas sólidas translúcidas na diagonal da luz (sem degradê). Quando a caixa gira para a frente, as faixas deslizam: é o único movimento além da escolha.
+- **Física da fileira:** as caixas giram para longe do disco escolhido e cada uma pousa sobre a anterior, então as lombadas ficam à vista. (Antes giravam todas para o mesmo lado com a sobreposição invertida, o que achatava o 3D.)
+- **Ao escolher:** a caixa vem para a frente (6°), o CD sai pela borda aberta, a ficha abaixo mostra os dados. Nada gira sozinho.
+- **Técnica:** só `transform`, `opacity` e camadas; sem WebGL.
+- Ordem: a da lista enviada. Não é um ranking.
 
 ### Cartões do Caderno: um só componente
 
@@ -287,9 +300,9 @@ conteúdo real:
 
 ### Portal "Atravessar para o outro lado"
 
-- Agora é uma imagem editorial em arco, como as outras: sem batente, contorno
-  ou arco interno.
-- A força está na imagem e na passagem.
+- Imagem editorial em arco, sem batente, contorno ou arco interno.
+- **v5:** no lado visível, o pastel de Redon com o arco azul e as flores (arquivo enviado, ver IMAGENS.md); no lado simbólico, *O carro de Apolo*. A rua de Caillebotte saiu da capa.
+- **Celular:** exceção controlada da grade, arco de borda a borda (proporção 4:5), legenda e botão na margem, alinhados à esquerda.
 
 ### Cabeçalho no celular (referência: Camicado mobile)
 
@@ -301,38 +314,12 @@ conteúdo real:
 
 ### Favicon
 
-- Letra **M** em Gotham Condensed Bold, renderizada a partir do arquivo local
-  da fonte, em verde #084E32.
-- Arquivos: favicon.ico (16, 32 e 48), PNG 16/32/192/512 e apple-touch-icon
-  180, este com fundo creme.
-- Não tem nenhum outro desenho.
+- **v5:** o arquivo enviado (`favcon.png`) contém só o **arco creme**, sem letra. Foi usado como base: o arco creme do arquivo + a letra **M** em Gotham Condensed Bold, verde #084E32 (`scripts/gerar-favicon.mjs`). **Pendente de aprovação**, porque o briefing também pede para não usar o símbolo da passagem.
+- Arquivos: favicon.ico (16, 32, 48), PNG 16/32/192/512 transparentes; apple-touch-icon 180 e ícone *maskable* 512 com campo verde (iOS/Android recortam o ícone e preencheriam a transparência de preto); `site.webmanifest`. URLs com `?v=5` para furar o cache.
 
-### Motion: "o arco que atravessa a tela"
+### Motion
 
-Um único elemento recorrente: um arco (topo em semicírculo) que sobe para
-cobrir e continua subindo para revelar.
-
-| Momento | O que acontece | Duração |
-| --- | --- | --- |
-| Entrada (uma vez por visita) | o nome aparece e o arco sobe revelando a página; clique ou tecla pulam | ≈1,3 s |
-| Navegação | o arco sobe cobrindo a tela, com o nome do destino em Gotham; a página troca; o arco continua subindo e revela | 0,42 s + 0,56 s |
-| Voltar (navegador) | o mesmo arco, invertido: desce e revela | 0,56 s |
-| Troca de lado | o arco cresce a partir do portal clicado | 0,82 s |
-
-Ao rolar, as entradas seguem a hierarquia:
-- **textos:** sobem 12 px;
-- **títulos:** sobem 24 px e se descobrem de baixo para cima;
-- **imagens:** o arco se abre, o mesmo gesto em pequena escala.
-
-Regras:
-- âncoras na mesma página não acionam a cortina;
-- o teclado e o Enter funcionam normalmente;
-- nada bloqueia a navegação;
-- com "reduzir movimento", tudo é imediato.
-
-Não há parallax, nem elementos flutuando ou movimento contínuo.
-
-Código: `src/components/Passagens.tsx`, `src/styles/motion.css` e `src/lib/mundo.ts`.
+Substituído na v5: ver **MOTION.md**.
 
 ## Ideia separada (não implementada): sazonalidade
 
@@ -344,5 +331,6 @@ Caderno.
 
 - Confirmar a licença web da Gotham antes de publicá-la.
 - Textos reais do Caderno (os atuais são rascunhos de demonstração).
-- Rever as duas referências de composição que não chegaram, se ela quiser
-  comparar com a interpretação feita.
+- Aprovar o favicon (arco do arquivo + M) ou indicar outro arquivo só com o M.
+- Confirmar título e acervo do pastel de Redon da capa (o arquivo não trazia a informação).
+

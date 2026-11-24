@@ -132,13 +132,13 @@
  },
  "redon-carro-apolo": {
   "pasta": "arte",
-  "w": 1953,
-  "h": 1574,
+  "w": 1941,
+  "h": 1544,
   "larguras": [
    640,
    1024,
    1600,
-   1953
+   1941
   ]
  },
  "redon-dream-vision": {
@@ -159,6 +159,15 @@
    640,
    1024,
    1200
+  ]
+ },
+ "redon-olhos-fechados-tela": {
+  "pasta": "arte",
+  "w": 698,
+  "h": 864,
+  "larguras": [
+   640,
+   698
   ]
  },
  "redon-olhos-fechados": {
@@ -192,6 +201,16 @@
    1024,
    1600,
    2400
+  ]
+ },
+ "redon-perfil-flores": {
+  "pasta": "arte",
+  "w": 1591,
+  "h": 2000,
+  "larguras": [
+   640,
+   1024,
+   1591
   ]
  },
  "redon-sita": {

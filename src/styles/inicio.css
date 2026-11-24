@@ -4,21 +4,21 @@
 
 .capa {
   min-height: 100svh;
-  padding-top: calc(var(--cabecalho) + var(--s-7));
-  padding-bottom: var(--s-7);
+  padding-top: calc(var(--cabecalho) + var(--space-12));
+  padding-bottom: var(--space-12);
   align-items: center;
-  row-gap: var(--s-7);
+  row-gap: var(--space-12);
 }
 .capa__texto { grid-column: 1 / span 6; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
-.capa__kicker { margin-bottom: var(--s-6); }
+.capa__kicker { margin-bottom: var(--space-8); }
 .capa__titulo { font-size: var(--t-display); line-height: 0.92; letter-spacing: -0.04em; }
 .capa__titulo em { display: block; }
-.capa__lead { margin-top: var(--s-6); }
-.capa__botoes { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+.capa__lead { margin-top: var(--space-8); }
+.capa__botoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
 
 /* Os dois lados, como legenda: sempre se sabe onde se está */
-.capa__lados { margin-top: var(--s-8); border-top: 1px solid var(--linha); max-width: var(--medida); }
-.capa__lado { display: flex; align-items: center; gap: var(--s-2); min-height: var(--botao); border-bottom: 1px solid var(--linha); color: var(--texto-suave); }
+.capa__lados { margin-top: var(--space-16); border-top: 1px solid var(--linha); max-width: var(--medida); }
+.capa__lado { display: flex; align-items: center; gap: var(--space-2); min-height: var(--botao); border-bottom: 1px solid var(--linha); color: var(--texto-suave); }
 .capa__ponto { width: 12px; height: 12px; border-radius: 50%; border: 2px solid currentColor; flex: none; }
 .capa__lado--visivel .capa__ponto { background: var(--creme); }
 .capa__lado--simbolico .capa__ponto { background: var(--verde); }
@@ -27,16 +27,16 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 
 /* O portal: uma imagem editorial em arco, como as outras, e a passagem */
 .capa__portal { grid-column: 8 / -1; justify-self: stretch; }
-.portal { display: flex; flex-direction: column; align-items: center; gap: var(--s-5); width: 100%; text-align: center; }
+.portal { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); width: 100%; text-align: center; }
 .portal__arco { width: min(100%, calc(64svh * 5 / 7)); }
 .portal__vista { position: absolute; inset: 0; }
 .portal__vista img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
 @media (hover: hover) { .portal:hover .portal__vista img { transform: scale(1.03); } }
 .portal:focus-visible { outline: none; }
-.portal:focus-visible .portal__arco { outline: 2px solid var(--texto); outline-offset: var(--s-2); }
+.portal:focus-visible .portal__arco { outline: 2px solid var(--texto); outline-offset: var(--space-2); }
 
-.portal__legenda { display: grid; gap: var(--s-2); justify-items: center; max-width: 24rem; }
-.portal__acao { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--botao); padding: var(--s-3) var(--s-5); border-radius: 999px; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
+.portal__legenda { display: grid; gap: var(--space-2); justify-items: center; max-width: 24rem; }
+.portal__acao { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--botao); padding: var(--space-3) var(--space-6); border-radius: 999px; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
 .portal:hover .portal__acao { background: var(--destaque); color: var(--sobre-destaque); }
 .portal__seta { transition: transform 0.3s var(--ease); }
 .portal:hover .portal__seta { transform: translateX(4px); }
@@ -45,10 +45,26 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 @media (max-width: 1023px) {
   .capa { min-height: auto; }
   .capa__texto { grid-column: 1 / -1; }
-  .capa__portal { grid-column: 1 / -1; justify-self: stretch; padding-top: var(--s-4); }
+  .capa__portal { grid-column: 1 / -1; justify-self: stretch; padding-top: var(--space-4); }
   .portal { width: 100%; }
-  .portal__arco { width: min(64%, 22rem); }
-  .capa__lados { margin-top: var(--s-7); }
+  .portal__arco { width: min(72%, 26rem); }
+  .capa__lados { margin-top: var(--space-12); }
+}
+
+/* Celular — EXCEÇÃO CONTROLADA DA GRADE (referência: Camicado mobile).
+   Só aqui o portal sai das margens: o arco ocupa a largura inteira da tela,
+   da borda à borda, como uma imagem de grande presença. A legenda e o botão
+   voltam para a margem de 24 px e alinham à esquerda, com o texto da capa.
+   Nada mais na página quebra a grade. */
+@media (max-width: 639px) {
+  .capa { padding-bottom: 0; row-gap: var(--space-10); }
+  .capa__portal { margin-inline: calc(var(--margem) * -1); padding-top: 0; }
+  .portal { align-items: stretch; gap: var(--space-6); text-align: left; }
+  .portal__arco { width: 100%; --proporcao: 4 / 5; }
+  .portal__legenda { justify-items: start; max-width: none; padding-inline: var(--margem); }
+  /* no toque não há hover: a ação ganha contorno de botão, com alvo de 48 px */
+  .portal__acao { box-shadow: inset 0 0 0 2px currentColor; }
+  .portal__nota { max-width: 20rem; }
 }
 
 /* ── Frase com imagens intercaladas (texto + imagem + texto) ── */
@@ -64,30 +80,30 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 .frase__img--circulo { width: 0.72em; border-radius: 50%; }
 .frase__img--retangulo { border-radius: 4px; }
 
-.manifesto { padding-top: var(--secao); row-gap: var(--s-6); }
+.manifesto { padding-top: var(--secao); row-gap: var(--space-8); }
 .manifesto__frase { grid-column: 1 / -1; }
 .manifesto__nota { grid-column: 7 / span 5; font-size: var(--t-corpo-p); line-height: 1.5rem; }
 @media (max-width: 1023px) { .manifesto__nota { grid-column: 1 / -1; } }
 
 /* ── Fatos do atendimento ──────────────────────────────────── */
-.fatos { row-gap: var(--s-6); }
-.fatos__item { grid-column: span 3; border-top: 1px solid var(--linha); padding-top: var(--s-4); }
-.fatos__item dt { margin-bottom: var(--s-3); color: var(--texto-suave); }
+.fatos { row-gap: var(--space-8); }
+.fatos__item { grid-column: span 3; border-top: 1px solid var(--linha); padding-top: var(--space-4); }
+.fatos__item dt { margin-bottom: var(--space-3); color: var(--texto-suave); }
 .fatos__item dd { font-size: var(--t-h4); line-height: 1.75rem; letter-spacing: -0.01em; }
-.fatos__link { grid-column: 1 / -1; justify-self: start; margin-top: var(--s-7); }
+.fatos__link { grid-column: 1 / -1; justify-self: start; margin-top: var(--space-12); }
 @media (max-width: 639px) { .fatos__item { grid-column: 1 / -1; } }
 
 /* ── Quem escuta ───────────────────────────────────────────── */
-.quem { row-gap: var(--s-7); align-items: start; }
+.quem { row-gap: var(--space-12); align-items: start; }
 .quem__foto { grid-column: 1 / span 4; }
-.quem__texto { grid-column: 7 / span 5; display: grid; gap: var(--s-5); justify-items: start; }
+.quem__texto { grid-column: 7 / span 5; display: grid; gap: var(--space-6); justify-items: start; }
 .quem__texto > p { max-width: var(--medida); }
-.quem__linha { width: 100%; margin: var(--s-3) 0 var(--s-4); border-top: 1px solid var(--linha); }
-.quem__linha li { display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--s-4); padding: var(--s-4) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-corpo-p); line-height: 1.5rem; }
+.quem__linha { width: 100%; margin: var(--space-3) 0 var(--space-4); border-top: 1px solid var(--linha); }
+.quem__linha li { display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-corpo-p); line-height: 1.5rem; }
 .quem__ano { font: 700 1rem / 1.5rem var(--gotham); letter-spacing: 0.02em; }
 @media (max-width: 1023px) {
-  .quem__foto { grid-column: 1 / span 3; }
-  .quem__texto { grid-column: 4 / -1; }
+  .quem__foto { grid-column: 1 / span 4; }
+  .quem__texto { grid-column: 5 / -1; }
 }
 @media (max-width: 639px) {
   .quem__foto { grid-column: 1 / span 3; }
@@ -98,7 +114,7 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 .linhas { max-width: var(--largura-max); margin-inline: auto; padding-inline: var(--margem); }
 .linhas li { border-top: 1px solid var(--linha); }
 .linhas li:last-child { border-bottom: 1px solid var(--linha); }
-.linha { padding-block: var(--s-6); padding-inline: 0; align-items: baseline; transition: background-color 0.2s var(--ease), color 0.2s var(--ease), box-shadow 0.2s var(--ease); }
+.linha { padding-block: var(--space-8); padding-inline: 0; align-items: baseline; transition: background-color 0.2s var(--ease), color 0.2s var(--ease), box-shadow 0.2s var(--ease); }
 .linha:not(.linha--estatica):hover { background: var(--destaque); color: var(--sobre-destaque); box-shadow: -16px 0 0 var(--destaque), 16px 0 0 var(--destaque); }
 .linha:hover .suave { color: inherit; }
 .linha__ano { grid-column: 1 / span 2; font: 300 clamp(2rem, 1.443rem + 2.29vw, 3.5rem) / 1 var(--gotham); letter-spacing: -0.01em; }
@@ -109,33 +125,33 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 @media (max-width: 1023px) {
   .linha__ano { grid-column: 1 / span 1; }
   .linha__titulo { grid-column: 2 / -1; }
-  .linha__info { grid-column: 2 / -2; margin-top: var(--s-3); }
+  .linha__info { grid-column: 2 / -2; margin-top: var(--space-3); }
   .linha__seta { grid-column: -2 / -1; }
 }
 @media (max-width: 639px) {
-  .linha__ano { grid-column: 1 / -1; margin-bottom: var(--s-2); }
+  .linha__ano { grid-column: 1 / -1; margin-bottom: var(--space-2); }
   .linha__titulo, .linha__info { grid-column: 1 / -2; }
 }
 
 /* ── Universo: palavras e imagens, depois um mosaico ───────── */
 .universo { padding-top: var(--secao); }
-.universo__rotulo { grid-column: 1 / -1; padding-top: var(--s-4); border-top: 4px solid var(--regua); margin-bottom: var(--s-6); }
+.universo__rotulo { grid-column: 1 / -1; padding-top: var(--space-4); border-top: 4px solid var(--regua); margin-bottom: var(--space-8); }
 .universo__frase { grid-column: 1 / span 11; font-family: var(--serif); font-weight: 400; text-transform: none; font-size: var(--t-h1); line-height: 1.12; letter-spacing: -0.025em; }
 .universo__frase .frase__img { height: 0.8em; vertical-align: -0.1em; }
 .universo__frase .frase__img--circulo { width: 0.8em; }
 @media (max-width: 1023px) { .universo__frase { grid-column: 1 / -1; } }
 
-.mosaico { margin-top: var(--s-9); row-gap: var(--s-6); align-items: end; color: var(--texto); }
+.mosaico { margin-top: var(--bloco); row-gap: var(--space-8); align-items: end; color: var(--texto); }
 .mosaico figure img { width: 100%; height: auto; }
 .mosaico__a { grid-column: 1 / span 5; grid-row: 1 / span 2; }
 .mosaico__texto { grid-column: 7 / span 5; grid-row: 1; align-self: start; }
 .mosaico__b { grid-column: 7 / span 3; grid-row: 2; }
 .mosaico__c { grid-column: 11 / span 2; grid-row: 2; align-self: start; }
 @media (max-width: 1023px) {
-  .mosaico__a { grid-column: 1 / span 4; grid-row: auto; }
+  .mosaico__a { grid-column: 1 / span 5; grid-row: auto; }
   .mosaico__texto { grid-column: 1 / -1; grid-row: auto; }
-  .mosaico__b { grid-column: 1 / span 3; grid-row: auto; }
-  .mosaico__c { grid-column: 4 / span 2; grid-row: auto; }
+  .mosaico__b { grid-column: 1 / span 4; grid-row: auto; }
+  .mosaico__c { grid-column: 5 / span 3; grid-row: auto; }
 }
 @media (max-width: 639px) {
   .mosaico__a { grid-column: 1 / -1; }
@@ -144,21 +160,21 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 }
 
 /* ── Atlas do inconsciente ─────────────────────────────────── */
-.atlas__nota { margin-top: calc(var(--s-6) * -1); margin-bottom: var(--s-8); }
+.atlas__nota { margin-top: calc(var(--space-8) * -1); margin-bottom: var(--space-16); }
 .atlas__nota span { grid-column: 7 / span 5; font-size: var(--t-corpo-p); line-height: 1.5rem; color: var(--texto-suave); }
-.atlas { align-items: start; row-gap: var(--s-9); }
-.atlas__coluna { grid-column: span 4; display: grid; gap: var(--s-9); }
-.atlas__coluna--2 { padding-top: var(--s-10); }
-.atlas__coluna--3 { padding-top: var(--s-8); }
+.atlas { align-items: start; row-gap: var(--space-24); }
+.atlas__coluna { grid-column: span 4; display: grid; gap: var(--space-24); }
+.atlas__coluna--2 { padding-top: var(--space-32); }
+.atlas__coluna--3 { padding-top: var(--space-16); }
 .atlas__img img { width: 100%; height: auto; }
-.atlas figcaption { display: grid; gap: var(--s-2); padding-top: var(--s-5); border-top: 1px solid var(--linha); margin-top: var(--s-5); }
+.atlas figcaption { display: grid; gap: var(--space-2); padding-top: var(--space-6); border-top: 1px solid var(--linha); margin-top: var(--space-6); }
 .atlas__ideia { font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; font-style: italic; }
 .atlas__texto { font-size: var(--t-corpo-p); line-height: 1.5rem; max-width: 30rem; }
-.atlas .credito { margin-top: var(--s-2); }
+.atlas .credito { margin-top: var(--space-2); }
 @media (max-width: 1023px) {
   .atlas__nota span { grid-column: 1 / -1; }
-  .atlas__coluna { grid-column: span 3; }
-  .atlas__coluna--2 { padding-top: var(--s-9); }
+  .atlas__coluna { grid-column: span 4; }
+  .atlas__coluna--2 { padding-top: var(--space-24); }
   .atlas__coluna--3 { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; column-gap: var(--calha); padding-top: 0; }
 }
 @media (max-width: 639px) {
@@ -166,16 +182,16 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 }
 
 /* ── O outro lado: "Se fosse…" ─────────────────────────────── */
-.imagens { display: grid; gap: var(--s-9); }
-.imagem { align-items: center; row-gap: var(--s-6); }
+.imagens { display: grid; gap: var(--bloco); }
+.imagem { align-items: center; row-gap: var(--space-8); }
 .imagem__arco { grid-column: 2 / span 4; --cor-moldura: var(--texto); }
-.imagem__texto { grid-column: 7 / span 5; display: grid; gap: var(--s-4); justify-items: start; }
+.imagem__texto { grid-column: 7 / span 5; display: grid; gap: var(--space-4); justify-items: start; }
 .imagem--inversa .imagem__arco { grid-column: 8 / span 4; grid-row: 1; }
 .imagem--inversa .imagem__texto { grid-column: 2 / span 5; grid-row: 1; }
 .imagem .chapeu { color: var(--destaque); }
 @media (max-width: 1023px) {
-  .imagem__arco, .imagem--inversa .imagem__arco { grid-column: 1 / span 3; grid-row: auto; }
-  .imagem__texto, .imagem--inversa .imagem__texto { grid-column: 4 / -1; grid-row: auto; }
+  .imagem__arco, .imagem--inversa .imagem__arco { grid-column: 1 / span 4; grid-row: auto; }
+  .imagem__texto, .imagem--inversa .imagem__texto { grid-column: 5 / -1; grid-row: auto; }
 }
 @media (max-width: 639px) {
   .imagem__arco, .imagem--inversa .imagem__arco { grid-column: 1 / span 3; }
@@ -193,9 +209,9 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 .disco__selo::after { content: ""; position: absolute; inset: 44%; border-radius: 50%; background: var(--amarelo); }
 
 /* ── Ponte para a clínica ──────────────────────────────────── */
-.ponte { row-gap: var(--s-6); align-items: start; }
+.ponte { row-gap: var(--space-8); align-items: start; }
 .ponte__texto { grid-column: 1 / span 5; }
 .ponte__lista { grid-column: 7 / -1; border-top: 1px solid var(--linha); }
-.ponte__lista li { display: flex; align-items: baseline; gap: var(--s-5); padding: var(--s-4) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
-.ponte__lista .rotulo { color: var(--texto-suave); width: var(--s-6); flex: none; }
+.ponte__lista li { display: flex; align-items: baseline; gap: var(--space-6); padding: var(--space-4) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
+.ponte__lista .rotulo { color: var(--texto-suave); width: var(--space-8); flex: none; }
 @media (max-width: 1023px) { .ponte__texto, .ponte__lista { grid-column: 1 / -1; } }

@@ -26,15 +26,15 @@ export function BotaoPassagem() {
 /**
  * O PORTAL da capa: uma imagem editorial em arco, como as outras do site,
  * sem bordas nem molduras próprias. Mostra sempre o OUTRO lado (no visível,
- * O carro de Apolo, de Redon; no simbólico, a rua de Caillebotte). Clicar é
+ * o pastel de Redon com o arco azul e as flores; no simbólico, O carro de Apolo). Clicar é
  * atravessar: o novo lado se abre a partir deste arco.
  */
 export function PortalCapa() {
   return (
     <button type="button" className="portal" onClick={(e) => atravessar(e.currentTarget.querySelector(".arco__vista"))}>
       <Arco className="portal__arco">
-        <span className="portal__vista so-visivel"><Obra chave="redon-carro-apolo" prioridade alt="" tamanhos="(max-width: 1023px) 60vw, 26vw" /></span>
-        <span className="portal__vista so-simbolico"><Obra chave="caillebotte-rain" alt="" tamanhos="(max-width: 1023px) 60vw, 26vw" /></span>
+        <span className="portal__vista so-visivel"><Obra chave="redon-perfil-flores" prioridade alt="" tamanhos="(max-width: 639px) 100vw, (max-width: 1023px) 60vw, 30vw" /></span>
+        <span className="portal__vista so-simbolico"><Obra chave="redon-carro-apolo" alt="" tamanhos="(max-width: 639px) 100vw, (max-width: 1023px) 60vw, 30vw" /></span>
       </Arco>
       <span className="portal__legenda">
         <span className="portal__acao chapeu">

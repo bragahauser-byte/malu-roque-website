@@ -1,75 +1,98 @@
 /* ─────────────────────────────────────────────────────────────
-   MOTION — "o arco que atravessa a tela"
-   Um elemento recorrente: um arco (topo em semicírculo) que sobe para
-   cobrir e continua subindo para revelar. Aparece na entrada, entre
-   páginas, no retorno (invertido) e, em escala menor, na revelação das
-   imagens ao rolar. A troca de lado usa o mesmo arco, a partir do portal.
-   Curvas: --ease-passagem (entrada e saída firmes, meio rápido).
+   MOTION — "a superfície em arco que atravessa a tela"
+   A forma da identidade (laterais retas, topo em semicírculo, sem
+   divisórias) é o gesto de todo o movimento do site:
+
+   1. ENTRE PÁGINAS — a página nova chega DENTRO de um arco que entra pelo
+      canto inferior direito, sobe em diagonal para a esquerda e se amplia
+      até cobrir a anterior (avançar). Voltar espelha o gesto: o arco vem da
+      esquerda (o histórico tem direção). Ver Passagens.tsx.
+   2. ENTRADA NO SITE — primeiro a forma se estabelece, depois a tipografia,
+      em hierarquia (abaixo, html.entrando).
+   3. TROCA DE LADO — o novo lado cresce a partir do arco clicado (lib/mundo.ts).
+   4. AO ROLAR — imagens abrem em arco; títulos sobem descobertos; textos
+      apenas assentam. Três intensidades, nunca a mesma curva para tudo.
+
+   Curvas e durações: tokens.css (--ease, --ease-passagem, --dur-*).
+   Documentação completa: MOTION.md.
    ───────────────────────────────────────────────────────────── */
 
-:root { --ease-passagem: cubic-bezier(0.76, 0, 0.24, 1); }
+/* ── 1. Entre páginas (View Transitions API) ──────────────────
+   A animação em si é feita por Passagens.tsx (Web Animations no
+   pseudo-elemento), porque o arco é calculado em pixels a partir da tela.
+   Aqui só se garante que nada mais se mova durante a passagem. */
+::view-transition-group(root) { animation-duration: var(--dur-passagem); }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+::view-transition-old(root) { z-index: 1; transform-origin: 0 0; }
+/* entre páginas o cabeçalho fixo é a mesma superfície: não atravessa.
+   (Na troca de lado ele atravessa junto, porque muda de cor.) */
+html.navegando .cabecalho { view-transition-name: cabecalho; }
+::view-transition-group(cabecalho) { animation: none; z-index: 3; }
+::view-transition-old(cabecalho) { display: none; }
+::view-transition-new(cabecalho) { animation: none; }
 
-/* ── A cortina entre páginas ───────────────────────────────── */
-.passagem {
-  position: fixed; inset: 0; z-index: 150;
-  display: grid; place-items: center;
-  background: var(--fundo-2); color: var(--texto);
-  pointer-events: none;
-  clip-path: inset(100% 0 0 0 round 50vw 50vw 0 0);
-  visibility: hidden;
+/* ── 2. Entrada no site (primeira página da visita) ───────────
+   html.entrando é marcado por um script no <head>, antes da primeira
+   pintura, só na primeira página da sessão e sem "reduzir movimento".
+   Nada bloqueia o clique: é só a ordem em que as coisas aparecem.
+   Etapa 1 (0–720 ms): a forma — o arco do portal sobe do pé, vindo de
+   baixo e da direita, e a imagem assenta dentro dele.
+   Etapa 2 (360–1160 ms no desktop; 60–860 ms no celular): a tipografia —
+   rótulo, nome, sobrenome, apresentação, chamadas e, por último, a navegação. */
+@keyframes forma-chega {
+  from { clip-path: inset(100% 0 0 0 round 0); transform: translate(6%, 10%); }
+  to { clip-path: inset(0 0 0 0 round 0); transform: none; }
 }
-.passagem__nome {
-  font: 700 clamp(2rem, 1.2rem + 3.2vw, 4rem) / 1 var(--gotham);
-  letter-spacing: 0.01em; text-transform: uppercase;
-  opacity: 0;
+@keyframes vista-assenta { from { transform: scale(1.14); } to { transform: none; } }
+@keyframes texto-sobe { from { opacity: 0.01; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes titulo-sobe {
+  from { opacity: 0.01; transform: translateY(0.35em); clip-path: inset(0 -10% 100% -10%); }
+  to { opacity: 1; transform: none; clip-path: inset(-20% -10% -25% -10%); }
 }
-/* cobrir: o arco sobe do pé da tela até ocupá-la */
-.passagem--cobrindo, .passagem--coberto { visibility: visible; animation: arco-cobre 420ms var(--ease-passagem) forwards; }
-.passagem--cobrindo .passagem__nome, .passagem--coberto .passagem__nome { animation: nome-aparece 360ms 120ms var(--ease) forwards; }
-.passagem--coberto { clip-path: inset(0 round 0); animation: none; }
-.passagem--coberto .passagem__nome { opacity: 1; animation: none; }
-/* revelar: o arco continua subindo e descobre a página nova */
-.passagem--revelando { visibility: visible; animation: arco-revela 560ms var(--ease-passagem) forwards; }
-.passagem--revelando .passagem__nome { opacity: 1; animation: nome-some 240ms ease-in forwards; }
-/* voltar: o mesmo arco, invertido — desce e descobre a página anterior */
-.passagem--voltando { visibility: visible; animation: arco-volta 560ms var(--ease-passagem) forwards; }
+@keyframes some-aparece { from { opacity: 0.01; } to { opacity: 1; } }
+/* Por que 0.01 e não 0: o Chrome só conta o texto para o LCP quando ele deixa
+   de ter opacidade 0, e com a entrada isso empurrava o LCP para ~1,7 s. 0.01 é
+   invisível e mantém o LCP no primeiro quadro (medido: 1748 ms → 120 ms). */
 
-@keyframes arco-cobre { from { clip-path: inset(100% 0 0 0 round 50vw 50vw 0 0); } to { clip-path: inset(0 0 0 0 round 0 0 0 0); } }
-@keyframes arco-revela { from { clip-path: inset(0 0 0 0 round 0 0 0 0); } to { clip-path: inset(0 0 100% 0 round 0 0 50vw 50vw); } }
-@keyframes arco-volta { from { clip-path: inset(0 0 0 0 round 0 0 0 0); } to { clip-path: inset(100% 0 0 0 round 50vw 50vw 0 0); } }
-@keyframes nome-aparece { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-@keyframes nome-some { to { opacity: 0; transform: translateY(-12px); } }
+html.entrando .portal__arco { animation: forma-chega 720ms var(--ease-passagem) both; }
+html.entrando .portal__vista img { animation: vista-assenta 1100ms var(--ease) both; }
+/* --e0: quando a tipografia começa. No desktop, depois que o arco já se
+   estabeleceu; no celular, o portal fica abaixo da dobra, então o texto não
+   espera por uma forma que ainda não se vê. */
+:root { --e0: 360ms; }
+@media (max-width: 1023px) { :root { --e0: 60ms; } }
+html.entrando .portal__legenda { animation: texto-sobe 480ms 760ms var(--ease) both; }
+html.entrando .capa__kicker { animation: texto-sobe 440ms var(--e0) var(--ease) both; }
+html.entrando .capa__titulo { animation: titulo-sobe 600ms calc(var(--e0) + 60ms) var(--ease) both; }
+html.entrando .capa__titulo em { display: block; animation: titulo-sobe 600ms calc(var(--e0) + 140ms) var(--ease) both; }
+html.entrando .capa__lead { animation: texto-sobe 480ms calc(var(--e0) + 220ms) var(--ease) both; }
+html.entrando .capa__botoes { animation: texto-sobe 440ms calc(var(--e0) + 280ms) var(--ease) both; }
+html.entrando .capa__lados { animation: some-aparece 440ms calc(var(--e0) + 340ms) var(--ease) both; }
+html.entrando .cabecalho__barra { animation: some-aparece 400ms calc(var(--e0) + 400ms) var(--ease) both; }
+/* em outras páginas, a primeira visita só faz a abertura assentar */
+html.entrando .abertura__kicker { animation: texto-sobe 480ms 80ms var(--ease) both; }
+html.entrando .abertura__titulo { animation: titulo-sobe 640ms 160ms var(--ease) both; }
 
-/* ── Entrada no site (uma vez por visita) ──────────────────── */
-.entrada { display: none; }
-html.entrando .entrada {
-  position: fixed; inset: 0; z-index: 160;
-  display: grid; place-content: center; justify-items: center; gap: var(--s-2);
-  background: var(--fundo); color: var(--texto);
-  pointer-events: none;
-  animation: arco-revela 700ms 600ms var(--ease-passagem) forwards;
-}
-.entrada__nome { font-family: var(--serif); font-size: clamp(2rem, 1.2rem + 3.2vw, 4rem); line-height: 1; letter-spacing: -0.03em; opacity: 0; animation: nome-aparece 420ms 60ms var(--ease) forwards; }
-.entrada__nome em { font-style: italic; }
-.entrada__sub { font: 500 var(--t-rotulo) / 1rem var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-suave); opacity: 0; animation: nome-aparece 420ms 180ms var(--ease) forwards; }
-
-/* ── Ao rolar: três entradas, conforme a hierarquia ────────── */
-/* 1. blocos de texto: sobem pouco e aparecem (padrão) */
-.js .revelar { opacity: 0; transform: translateY(12px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); transition-delay: var(--atraso, 0s); }
+/* ── 4. Ao rolar: três entradas, conforme a hierarquia ────────── */
+/* textos: sobem pouco e aparecem (padrão) */
+.js .revelar { opacity: 0; transform: translateY(12px); transition: opacity 0.56s var(--ease), transform 0.56s var(--ease); transition-delay: var(--atraso, 0s); }
 .js .revelar.visto { opacity: 1; transform: none; }
-/* 2. títulos: sobem mais, descobertos de baixo para cima */
-.js .titulo.revelar { transform: translateY(24px); clip-path: inset(-20% -10% 40% -10%); transition: opacity 0.8s var(--ease), transform 0.9s var(--ease), clip-path 0.9s var(--ease); }
+/* títulos: sobem mais, descobertos de baixo para cima */
+.js .titulo.revelar { transform: translateY(24px); clip-path: inset(-20% -10% 40% -10%); transition: opacity 0.72s var(--ease), transform 0.8s var(--ease), clip-path 0.8s var(--ease); }
 .js .titulo.revelar.visto { clip-path: inset(-20% -10% -25% -10%); }
-/* 3. imagens: o arco que se abre (o mesmo gesto da passagem, em pequeno) */
+/* imagens: o arco que se abre — o mesmo gesto da passagem, em pequeno */
 .js figure.revelar, .js .revelar:has(> .arco), .js .revelar:has(> .aviao) {
   transform: translateY(24px);
   clip-path: inset(24% 0 0 0 round 40% 40% 0 0);
-  transition: opacity 0.7s var(--ease), transform 1s var(--ease), clip-path 1s var(--ease-passagem);
+  transition: opacity 0.6s var(--ease), transform 0.8s var(--ease), clip-path 0.8s var(--ease-passagem);
 }
 .js figure.revelar.visto, .js .revelar.visto:has(> .arco), .js .revelar.visto:has(> .aviao) { clip-path: inset(0 0 0 0 round 0 0 0 0); }
 
-/* ── Movimento reduzido: nada se move, tudo aparece ────────── */
+/* ── Movimento reduzido: nada se desloca, tudo aparece ─────────
+   A passagem entre páginas vira uma troca de opacidade curta
+   (Passagens.tsx); entrada e revelações ficam desligadas. */
 @media (prefers-reduced-motion: reduce) {
-  .passagem, html.entrando .entrada { display: none !important; }
+  html.entrando *, html.entrando .capa__titulo em { animation: none !important; }
   .js .revelar, .js .titulo.revelar, .js figure.revelar { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }

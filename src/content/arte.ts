@@ -16,13 +16,17 @@ export type Obra = {
   ano: string;
   acervo: string;
   licenca: Licenca;
-  url: string;
+  /** página da obra no acervo; ausente quando o arquivo foi enviado pela Malu e o acervo não foi confirmado */
+  url?: string;
 };
 
 const AIC = (id: number) => `https://www.artic.edu/artworks/${id}`;
 const MET = (id: number) => `https://www.metmuseum.org/art/collection/search/${id}`;
 
 export const arte = {
+  // ── Arquivos enviados pela Malu (domínio público: Redon morreu em 1916) ──
+  "redon-perfil-flores": { titulo: "Perfil com flores (pastel)", artista: "Odilon Redon", ano: "c. 1900–1910", acervo: "Arquivo enviado pela Malu; acervo a confirmar", licenca: "Domínio público" },
+  "redon-olhos-fechados-tela": { titulo: "Olhos fechados", artista: "Odilon Redon", ano: "1890", acervo: "Musée d'Orsay (óleo sobre tela); arquivo enviado pela Malu", licenca: "Domínio público" },
   // ── O outro lado: o atlas simbólico ──────────────────────────
   "redon-olhos-fechados": { titulo: "Olhos fechados", artista: "Odilon Redon", ano: "1890", acervo: "The Metropolitan Museum of Art", licenca: "CC0", url: MET(356778) },
   "goya-sono-da-razao": {

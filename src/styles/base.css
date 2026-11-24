@@ -7,7 +7,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--cabecalho) + var(--s-4));
+  scroll-padding-top: calc(var(--cabecalho) + var(--space-4));
   background: var(--fundo);
   color-scheme: light;
 }
@@ -17,7 +17,7 @@ html[data-mundo="simbolico"] { color-scheme: dark; }
 body {
   margin: 0;
   background: var(--fundo);
-  color: var(--texto);
+  color: var(--tx-corpo);
   font-family: var(--serif);
   font-size: var(--t-corpo);
   line-height: 1.75rem; /* 28 */
@@ -32,13 +32,13 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
-h1, h2, h3, h4 { font-weight: 400; line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; color: var(--tx-titulo); }
 p { text-wrap: pretty; }
 strong { font-weight: 700; }
 
 ::selection { background: var(--destaque); color: var(--sobre-destaque); }
 
-:focus-visible { outline: 2px solid var(--texto); outline-offset: 4px; border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--foco); outline-offset: 4px; border-radius: 2px; }
 
 .sr-only {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -46,8 +46,8 @@ strong { font-weight: 700; }
 }
 
 .pular {
-  position: fixed; top: var(--s-3); left: var(--s-3); z-index: 200;
-  padding: var(--s-3) var(--s-4); border-radius: 999px;
+  position: fixed; top: var(--space-3); left: var(--space-3); z-index: 200;
+  padding: var(--space-3) var(--space-4); border-radius: 999px;
   background: var(--texto); color: var(--fundo);
   font: 500 var(--t-botao) / 1 var(--gotham);
   transform: translateY(-200%);
@@ -121,21 +121,23 @@ strong { font-weight: 700; }
   letter-spacing: 0.01em;
   text-transform: uppercase;
 }
-.suave { color: var(--texto-suave); }
+.suave { color: var(--tx-secundario); }
+.meta { color: var(--tx-meta); }
+.lead { color: var(--tx-titulo-2); }
+.chapeu { color: var(--tx-titulo-2); }
 
 /* ── Cabeça de seção ─────────────────────────────────────────
    Régua grossa + número + nome (Gotham) + título (Georgia),
    sempre nas mesmas colunas. */
 .secao { padding-top: var(--secao); }
-.secao-cabeca { row-gap: var(--s-4); align-items: baseline; margin-bottom: var(--s-8); }
-.secao-cabeca::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--regua); margin-bottom: var(--s-2); }
+.secao-cabeca { row-gap: var(--space-4); align-items: baseline; margin-bottom: var(--secao-cab); }
+.secao-cabeca::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--regua); margin-bottom: var(--space-2); }
 .secao-cabeca__num { grid-column: 1 / span 1; }
 .secao-cabeca__nome { grid-column: 2 / span 5; }
 .secao-cabeca__titulo { grid-column: 7 / -1; font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.025em; }
 @media (max-width: 1023px) {
-  .secao-cabeca { margin-bottom: var(--s-7); }
   .secao-cabeca__nome { grid-column: 2 / -1; }
-  .secao-cabeca__titulo { grid-column: 1 / -1; margin-top: var(--s-3); }
+  .secao-cabeca__titulo { grid-column: 1 / -1; margin-top: var(--space-3); }
 }
 
 /* ── Botões ──────────────────────────────────────────────────
@@ -143,8 +145,8 @@ strong { font-weight: 700; }
    48 px de altura, alvo de toque confortável. No hover o campo se
    enche de cor: o mesmo gesto do menu. */
 .botao {
-  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
-  min-height: var(--botao); padding: var(--s-3) var(--s-5);
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: var(--botao); padding: var(--space-3) var(--space-6);
   border: 2px solid currentColor; border-radius: 999px;
   font: 500 var(--t-botao) / 1.5rem var(--gotham); letter-spacing: 0.02em;
   transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
@@ -157,8 +159,20 @@ strong { font-weight: 700; }
 .botao .seta { display: inline-block; transition: transform 0.24s var(--ease); }
 .botao:hover .seta { transform: translateX(4px); }
 
-.link-linha { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; }
-.link-linha:hover { text-decoration-thickness: 2px; }
+/* Links no texto: cor própria + sublinhado fino. Hover não depende só da cor:
+   o campo de destaque entra por trás da palavra (o mesmo gesto do menu). */
+.link-linha {
+  color: var(--tx-link);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em;
+  border-radius: 2px;
+  transition: background-color var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease), box-shadow var(--dur-micro) var(--ease);
+}
+.link-linha:visited { color: var(--tx-link); }
+@media (hover: hover) {
+  .link-linha:hover { background: var(--destaque); color: var(--sobre-destaque); text-decoration-color: transparent; box-shadow: 0 0 0 0.2em var(--destaque); }
+}
+.link-linha:active { background: var(--destaque); color: var(--sobre-destaque); box-shadow: 0 0 0 0.2em var(--destaque); }
+.link-linha:focus-visible { outline: 2px solid var(--foco); outline-offset: 4px; }
 
 /* ── Etiquetas empilhadas (da referência 4162) ─────────────── */
 .etiquetas { display: inline-flex; flex-direction: column; align-items: flex-start; }
@@ -182,10 +196,6 @@ strong { font-weight: 700; }
 .arco__vista img { width: 100%; height: 100%; object-fit: cover; }
 
 /* Revelação ao rolar: ver motion.css */
-
-/* ── Passagem entre os lados (View Transitions API) ────────── */
-::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
-::view-transition-new(root) { z-index: 2; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }

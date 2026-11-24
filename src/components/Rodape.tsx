@@ -5,7 +5,7 @@ import { BotaoWhatsapp } from "./BotaoWhatsapp";
 /** Rodapé: um campo de cor sólida, a grade de sempre, o registro profissional. */
 export function Rodape() {
   return (
-    <footer className="rodape">
+    <footer className="rodape tema-escuro">
       <div className="rodape__topo grade">
         <p className="rodape__convite">
           Para agendar ou tirar dúvidas, <em>escreva.</em>
@@ -65,9 +65,15 @@ export function Rodape() {
         </div>
       </div>
 
-      <p className="rodape__nota grade ui">
-        <span>Este site tem caráter informativo e não substitui atendimento de urgência. Em crise, ligue para o CVV (188) ou para o SAMU (192).</span>
-      </p>
+      <div className="rodape__nota grade ui">
+        <p>Este site tem caráter informativo e não substitui atendimento de urgência. Em crise, ligue para o CVV (188) ou para o SAMU (192).</p>
+        <p className="rodape__autoria">
+          Site concebido e desenvolvido por{" "}
+          <a href="https://bragahouser.com.br/" target="_blank" rel="noopener" className="link-linha">
+            Gabriel Braga
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }

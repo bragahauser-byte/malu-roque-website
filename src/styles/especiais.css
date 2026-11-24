@@ -5,7 +5,7 @@
 
 /* ── Bandeira: marcador editorial pequeno ──────────────────── */
 .bandeira { display: inline-block; width: 1.5em; height: 1em; vertical-align: -0.08em; border-radius: 2px; flex: none; }
-.bandeira--inline { width: 18px; height: 12px; margin-right: var(--s-1); vertical-align: -1px; }
+.bandeira--inline { width: 18px; height: 12px; margin-right: var(--space-1); vertical-align: -1px; }
 
 /* ── Janelinha de avião (AC Concierge) ─────────────────────── */
 .aviao {
@@ -31,44 +31,106 @@
 @media (hover: none) { .visto .aviao__persiana { transform: translateY(-100%); } }
 html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 
-/* ── Destinos: coleção de 12 janelas ───────────────────────── */
-.destinos { row-gap: var(--s-8); align-items: start; }
-.destino { grid-column: span 3; }
-.destino--2 { margin-top: var(--s-9); }
-.destino--3 { margin-top: var(--s-6); }
-.destino--4 { margin-top: var(--s-10); }
-.destino__legenda { display: grid; gap: var(--s-1); margin-top: var(--s-4); }
-.destino__linha { display: flex; align-items: center; gap: var(--s-2); }
-.destino__n { color: var(--texto-suave); }
-.destino__bandeira { width: 21px; height: 14px; }
-.destino__pais { font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
-.destino__descricao { font-size: var(--t-corpo-p); line-height: 1.5rem; color: var(--texto-suave); }
-.destino__credito { margin-top: var(--s-1); }
-.destinos__dica { display: none; }
-@media (max-width: 1023px) {
-  .destino { grid-column: span 3; }
-  .destino--2, .destino--4 { margin-top: var(--s-8); }
-  .destino--3 { margin-top: 0; }
+/* ── Destinos: a vitrine (leitura da referência AC Concierge) ──
+   Desktop, 12 colunas:  país (1–4) · janela (5–8) · descrição e setas (9–12),
+   um filete atravessando na linha de base, o índice das 12 janelas embaixo
+   (uma janela por coluna). Tablet e celular: empilhado na ordem da
+   referência mobile — contador e setas, janela, dados, nome, descrição. */
+.vitrine {
+  display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha);
+  grid-template-rows: 1fr auto auto 1fr auto;
+  align-items: end;
 }
-/* celular: fileira horizontal com encaixe, uma janela e um pedaço da próxima */
-@media (max-width: 639px) {
-  .destinos {
-    display: flex; gap: var(--calha); overflow-x: auto; scroll-snap-type: x mandatory;
-    padding-bottom: var(--s-4); scrollbar-width: thin;
-    scroll-padding-inline: var(--margem);
+.vitrine:focus-within .vitrine__aviao { outline: none; }
+.vitrine__janela { grid-column: 5 / span 4; grid-row: 1 / span 4; align-self: center; touch-action: pan-y; user-select: none; }
+.vitrine__aviao { aspect-ratio: 3 / 4; }
+.vitrine__foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
+.vitrine__credito { text-align: center; }
+
+/* o país: dados, nome e bandeira, sobre o filete */
+.vitrine__pais { grid-column: 1 / span 4; grid-row: 2 / span 2; padding-bottom: var(--space-6); border-bottom: 1px solid var(--linha); animation: texto-sobe 360ms var(--ease) both; }
+.vitrine__dados { display: flex; margin-bottom: var(--space-8); }
+.vitrine__dados > div { padding-inline: var(--space-4); border-left: 1px solid var(--linha); }
+.vitrine__dados > div:first-child { padding-left: 0; border-left: 0; }
+.vitrine__dados dt { font: 400 var(--t-legenda) / 1.25rem var(--gotham); letter-spacing: 0.02em; }
+.vitrine__dados dd { font: 400 var(--t-h4) / 1.75rem var(--gotham); letter-spacing: 0.01em; color: var(--tx-titulo); }
+.vitrine__nome { display: flex; align-items: center; gap: var(--space-4); font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; }
+.vitrine__bandeira { width: 0.5em; height: 0.34em; border-radius: 3px; flex: none; }
+
+/* a descrição, em tom secundário, do outro lado da janela */
+.vitrine__descricao {
+  grid-column: 9 / span 4; grid-row: 2;
+  padding-bottom: var(--space-6); border-bottom: 1px solid var(--linha);
+  font-size: var(--t-corpo-g); line-height: 1.4; letter-spacing: -0.01em; color: var(--tx-secundario);
+  animation: texto-sobe 360ms 60ms var(--ease) both;
+}
+.vitrine__controles { grid-column: 9 / span 4; grid-row: 3; align-self: start; display: flex; align-items: center; justify-content: space-between; padding-top: var(--space-4); }
+.vitrine__contador { display: flex; align-items: center; gap: var(--space-3); }
+.vitrine__contador-total { color: var(--tx-meta); padding-left: var(--space-3); border-left: 1px solid var(--linha); }
+.vitrine__setas { display: flex; gap: var(--space-2); }
+.vitrine__seta {
+  width: var(--botao); height: var(--botao); border-radius: 50%;
+  display: grid; place-items: center;
+  box-shadow: inset 0 0 0 1px var(--linha); font: 400 1.25rem / 1 var(--gotham);
+  transition: background-color var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease), box-shadow var(--dur-micro) var(--ease);
+}
+@media (hover: hover) { .vitrine__seta:hover { background: var(--destaque); color: var(--sobre-destaque); box-shadow: none; } }
+.vitrine__seta:active { transform: scale(0.96); }
+
+/* a troca: a foto nova entra na janela com a borda de ataque arredondada
+   (o arco deitado), pela direita ao avançar, pela esquerda ao voltar */
+@keyframes janela-entra-avancar { from { clip-path: inset(0 0 0 100% round 9999px 0 0 9999px); transform: translateX(6%); } to { clip-path: inset(0 0 0 0 round 0); transform: none; } }
+@keyframes janela-entra-voltar { from { clip-path: inset(0 100% 0 0 round 0 9999px 9999px 0); transform: translateX(-6%); } to { clip-path: inset(0 0 0 0 round 0); transform: none; } }
+@keyframes janela-sai-avancar { to { transform: translateX(-12%) scale(1.04); } }
+@keyframes janela-sai-voltar { to { transform: translateX(12%) scale(1.04); } }
+.vitrine__foto--entra { z-index: 1; }
+.vitrine__foto--entra.vitrine__foto--avancar { animation: janela-entra-avancar 520ms var(--ease-passagem) both; }
+.vitrine__foto--entra.vitrine__foto--voltar { animation: janela-entra-voltar 520ms var(--ease-passagem) both; }
+.vitrine__foto--sai.vitrine__foto--avancar { animation: janela-sai-avancar 520ms var(--ease-passagem) both; }
+.vitrine__foto--sai.vitrine__foto--voltar { animation: janela-sai-voltar 520ms var(--ease-passagem) both; }
+
+/* índice: as doze janelas, uma por coluna */
+.vitrine__indice { grid-column: 1 / -1; grid-row: 5; margin-top: var(--bloco); padding-top: var(--space-6); border-top: 1px solid var(--linha); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--calha); }
+.vitrine__item { display: grid; gap: var(--space-2); width: 100%; text-align: left; opacity: 0.56; transition: opacity var(--dur-micro) var(--ease); }
+.vitrine__item:hover, .vitrine__item:focus-visible, .vitrine__item--atual { opacity: 1; }
+.vitrine__mini { aspect-ratio: 3 / 4; border-radius: 48% / 34%; }
+.vitrine__mini img { width: 100%; height: 100%; object-fit: cover; }
+.vitrine__item-n { font: 500 0.75rem / 1rem var(--gotham); letter-spacing: 0.08em; margin-top: var(--space-1); }
+.vitrine__item-pais { font-size: var(--t-corpo-p); line-height: 1.25rem; }
+.vitrine__item--atual .vitrine__item-pais { font-style: italic; }
+
+/* tablet e celular: empilhado, como na referência mobile */
+@media (max-width: 1023px) {
+  .vitrine { display: flex; flex-direction: column; align-items: stretch; }
+  .vitrine__controles { order: 1; align-self: stretch; padding-top: 0; margin-bottom: var(--space-8); }
+  .vitrine__janela { order: 2; width: min(64%, 22rem); align-self: center; }
+  .vitrine__pais { order: 3; margin-top: var(--space-10); padding-bottom: var(--space-4); }
+  .vitrine__dados { margin-bottom: var(--space-6); }
+  .vitrine__descricao { order: 4; padding-top: var(--space-4); border-bottom: 0; max-width: var(--medida); }
+  .vitrine__indice {
+    order: 5; display: flex; gap: var(--calha); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none;
+    margin-inline: calc(var(--margem) * -1); padding-inline: var(--margem); scroll-padding-inline: var(--margem);
   }
-  .destino { flex: 0 0 72%; scroll-snap-align: start; margin-top: 0 !important; }
-  .destinos__dica { display: grid; margin-top: var(--s-3); }
-  .destinos__dica span { grid-column: 1 / -1; }
+  .vitrine__indice::-webkit-scrollbar { display: none; }
+  .vitrine__indice li { flex: 0 0 5.5rem; scroll-snap-align: start; }
+}
+@media (max-width: 639px) {
+  .vitrine__janela { width: 72%; }
+  .vitrine__dados > div { padding-inline: var(--space-3); }
+  .vitrine__dados dd { font-size: var(--t-corpo-p); line-height: 1.5rem; }
+  .vitrine__descricao { font-size: var(--t-corpo); line-height: 1.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vitrine__foto--entra, .vitrine__foto--sai, .vitrine__pais, .vitrine__descricao { animation-duration: 1ms !important; }
 }
 
 /* ── Intercâmbios ──────────────────────────────────────────── */
-.indice-capitulos { display: grid; gap: var(--s-2); }
-.indice-capitulos a { display: inline-flex; align-items: center; min-height: var(--s-7); }
-.capitulo__cabeca { row-gap: var(--s-3); align-items: baseline; margin-bottom: var(--s-8); }
-.capitulo__cabeca::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--regua); margin-bottom: var(--s-2); }
+.indice-capitulos { display: grid; gap: var(--space-2); }
+.indice-capitulos a { display: inline-flex; align-items: center; min-height: var(--space-12); }
+.capitulo__cabeca { row-gap: var(--space-3); align-items: baseline; margin-bottom: var(--space-16); }
+.capitulo__cabeca::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--regua); margin-bottom: var(--space-2); }
 .capitulo__n { grid-column: 1 / span 1; }
-.capitulo__lugar { grid-column: 2 / span 7; font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; display: flex; align-items: center; gap: var(--s-4); flex-wrap: wrap; }
+.capitulo__lugar { grid-column: 2 / span 7; font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
 .capitulo__bandeira { width: 0.6em; height: 0.4em; border-radius: 3px; }
 .capitulo__data { grid-column: 10 / -1; justify-self: end; }
 @media (max-width: 1023px) {
@@ -76,7 +138,7 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
   .capitulo__data { grid-column: 1 / -1; justify-self: start; }
 }
 
-.capitulo__abertura { row-gap: var(--s-7); align-items: start; }
+.capitulo__abertura { row-gap: var(--space-12); align-items: start; }
 .capitulo__janela { grid-column: 1 / span 5; }
 .capitulo__texto { grid-column: 7 / span 5; align-self: center; }
 .capitulo__texto > p { max-width: var(--medida); }
@@ -84,27 +146,27 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 .capitulo__abertura--inversa .capitulo__texto { grid-column: 1 / span 6; grid-row: 1; }
 .capitulo__instituicao { color: var(--destaque); }
 [data-mundo="visivel"] .capitulo__instituicao, html:not([data-mundo="simbolico"]) .capitulo__instituicao { color: var(--verde); }
-.capitulo__foto--londres { grid-column: 8 / span 3; margin-top: calc(var(--s-9) * -1); }
+.capitulo__foto--londres { grid-column: 8 / span 3; margin-top: calc(var(--space-24) * -1); }
 .capitulo__foto img, .sequencia img, .disciplinas img, .viagem img { width: 100%; height: auto; }
 @media (max-width: 1023px) {
-  .capitulo__janela, .capitulo__abertura--inversa .capitulo__janela { grid-column: 1 / span 4; grid-row: auto; }
+  .capitulo__janela, .capitulo__abertura--inversa .capitulo__janela { grid-column: 1 / span 5; grid-row: auto; }
   .capitulo__texto, .capitulo__abertura--inversa .capitulo__texto { grid-column: 1 / -1; grid-row: auto; }
-  .capitulo__foto--londres { grid-column: 3 / -1; margin-top: 0; }
+  .capitulo__foto--londres { grid-column: 4 / -1; margin-top: 0; }
 }
 @media (max-width: 639px) {
-  .capitulo__janela, .capitulo__abertura--inversa .capitulo__janela { grid-column: 1 / -1; padding-inline: var(--s-6); }
+  .capitulo__janela, .capitulo__abertura--inversa .capitulo__janela { grid-column: 1 / -1; padding-inline: var(--space-8); }
   .capitulo__foto--londres { grid-column: 2 / -1; }
 }
 
 /* sequência editorial: alturas e escalas diferentes, mesma grade */
-.sequencia { margin-top: var(--s-9); row-gap: var(--s-6); align-items: end; }
+.sequencia { margin-top: var(--bloco); row-gap: var(--space-8); align-items: end; }
 .sequencia__a { grid-column: 1 / span 3; }
 .sequencia__b { grid-column: 5 / span 4; }
-.sequencia__c { grid-column: 10 / span 3; align-self: start; margin-top: var(--s-8); }
+.sequencia__c { grid-column: 10 / span 3; align-self: start; margin-top: var(--space-16); }
 @media (max-width: 1023px) {
-  .sequencia__a { grid-column: 1 / span 2; }
-  .sequencia__b { grid-column: 3 / span 4; }
-  .sequencia__c { grid-column: 2 / span 3; margin-top: 0; }
+  .sequencia__a { grid-column: 1 / span 3; }
+  .sequencia__b { grid-column: 4 / span 5; }
+  .sequencia__c { grid-column: 2 / span 4; margin-top: 0; }
 }
 @media (max-width: 639px) {
   .sequencia__a { grid-column: 1 / span 2; }
@@ -112,24 +174,24 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
   .sequencia__c { grid-column: 3 / span 2; }
 }
 
-.disciplinas { margin-top: var(--s-9); row-gap: var(--s-7); align-items: start; }
+.disciplinas { margin-top: var(--bloco); row-gap: var(--space-12); align-items: start; }
 .disciplinas__foto { grid-column: 1 / span 5; }
-.disciplinas__texto { grid-column: 7 / span 5; display: grid; gap: var(--s-5); }
+.disciplinas__texto { grid-column: 7 / span 5; display: grid; gap: var(--space-6); }
 .disciplinas__texto > p { max-width: var(--medida); }
 .disciplinas__lista { border-top: 1px solid var(--linha); }
-.disciplinas__lista li { display: grid; grid-template-columns: var(--s-7) 1fr; padding: var(--s-4) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-h4); line-height: 1.75rem; }
+.disciplinas__lista li { display: grid; grid-template-columns: var(--space-12) 1fr; padding: var(--space-4) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-h4); line-height: 1.75rem; }
 .disciplinas__lista .rotulo { color: var(--texto-suave); line-height: 1.75rem; }
 @media (max-width: 1023px) {
-  .disciplinas__foto { grid-column: 1 / span 4; }
+  .disciplinas__foto { grid-column: 1 / span 5; }
   .disciplinas__texto { grid-column: 1 / -1; }
 }
 
-.viagem { margin-top: var(--s-9); row-gap: var(--s-6); align-items: start; }
-.viagem__rotulo { grid-column: 1 / -1; padding-top: var(--s-4); border-top: 1px solid var(--linha); }
+.viagem { margin-top: var(--bloco); row-gap: var(--space-8); align-items: start; }
+.viagem__rotulo { grid-column: 1 / -1; padding-top: var(--space-4); border-top: 1px solid var(--linha); }
 .viagem__janela { grid-column: span 2; }
-.viagem__janela--1 { margin-top: var(--s-9); }
-.viagem__janela--2 { margin-top: var(--s-6); }
-.viagem__janela--3 { margin-top: var(--s-10); }
+.viagem__janela--1 { margin-top: var(--space-24); }
+.viagem__janela--2 { margin-top: var(--space-8); }
+.viagem__janela--3 { margin-top: var(--space-32); }
 .viagem__foto { grid-column: 8 / span 5; }
 @media (max-width: 1023px) {
   .viagem__janela { grid-column: span 2; }
@@ -140,71 +202,150 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
   .viagem__janela--3 { display: none; }
 }
 
-.fecho { row-gap: var(--s-6); }
+.fecho { row-gap: var(--space-8); }
 .fecho__texto { grid-column: 1 / span 7; max-width: none; }
-.fecho__links, .continuar { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); }
+.fecho__links, .continuar { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-8); }
 .fecho__links { grid-column: 9 / -1; align-self: end; }
 @media (max-width: 1023px) { .fecho__texto, .fecho__links { grid-column: 1 / -1; } }
-.continuar { border-top: 1px solid var(--linha); padding-top: var(--s-6); }
+.continuar { border-top: 1px solid var(--linha); padding-top: var(--space-8); }
 
-/* ── Estante de CDs ────────────────────────────────────────── */
-.colecao { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha); row-gap: var(--s-6); align-items: start; }
+/* ── Estante de CDs ──────────────────────────────────────────
+   Cada caixa é um objeto em CSS 3D, com as proporções de uma jewel case
+   (142 × 125 × 10 mm, aqui quadrada): tampa de plástico transparente com
+   dobradiça frisada, encarte por baixo da tampa, bandeja preta ao fundo,
+   lombada com o nome, e as bordas de plástico com espessura real.
+   Luz: de cima e da esquerda. A lombada e a borda de cima recebem luz;
+   a borda direita e a de baixo ficam na sombra. Reflexos especulares são
+   faixas sólidas translúcidas (sem degradê), e deslizam quando a caixa
+   gira — o único movimento além da escolha. Sombra de contato na prateleira.
+   Sem WebGL: só transform, opacity e camadas compostas pela GPU. */
+.colecao { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha); row-gap: var(--space-8); align-items: start; }
 .estante {
   --cd: clamp(9rem, 4.5rem + 9.6vw, 15rem);  /* 144 → 240 */
-  --sobra: 0.5;                               /* quanto de cada caixa fica escondido */
-  --espessura: 14px;
+  --sobra: 0.52;                              /* quanto de cada caixa fica atrás da seguinte */
+  --espessura: calc(var(--cd) * 0.075);       /* 10 mm em 133 mm */
+  --giro: 34deg;
+  position: relative;
   grid-column: 1 / -1;
   justify-content: safe center;
-  display: flex; align-items: center;
-  perspective: 1600px; perspective-origin: 50% 40%;
-  padding: var(--s-8) 0 var(--s-8) var(--s-4);
+  display: flex; align-items: flex-end;
+  perspective: 1500px; perspective-origin: 50% 30%;
+  padding: var(--space-16) var(--space-6) var(--space-12);
   overflow-x: auto; overflow-y: visible; scrollbar-width: none;
 }
 .estante::-webkit-scrollbar { display: none; }
+/* a prateleira: um plano sólido um tom abaixo do fundo, onde as caixas pousam */
+.estante::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: calc(var(--space-12) - 2px); height: var(--space-6);
+  background: var(--fundo-2); border-top: 1px solid var(--linha);
+  pointer-events: none;
+}
 .cd {
   flex: none; position: relative;
   width: var(--cd); aspect-ratio: 1;
   margin-right: calc(var(--cd) * var(--sobra) * -1);
   transform-style: preserve-3d;
-  transform: rotateY(38deg) translateZ(calc(var(--d) * -6px));
-  transition: transform 0.5s var(--ease), margin 0.5s var(--ease);
-  z-index: calc(100 - var(--d));
+  /* as caixas giram para longe do disco escolhido (--lado: −1 à esquerda, 1 à
+     direita) e cada uma pousa sobre a anterior: a borda que vem para a frente
+     fica por cima, e a lombada com o nome aparece, como numa estante real */
+  transform: rotateY(calc(var(--giro) * var(--lado))) rotateX(-3deg);
+  transition: transform 0.56s var(--ease), margin 0.56s var(--ease);
+  z-index: calc(100 + var(--d));
 }
 .cd:last-child { margin-right: 0; }
 .cd--ativo {
-  transform: rotateY(8deg) translateZ(80px) translateY(-8px);
-  margin-right: calc(var(--cd) * -0.08);
+  transform: rotateY(6deg) rotateX(-2deg) translateZ(96px) translateY(-16px);
+  margin-right: calc(var(--cd) * -0.06);
   z-index: 200;
 }
 .cd__caixa { position: absolute; inset: 0; transform-style: preserve-3d; }
-.cd__frente { position: absolute; inset: 0; overflow: hidden; background: #111; transform: translateZ(calc(var(--espessura) / 2)); box-shadow: 0 16px 32px -20px rgb(12 13 8 / 0.6); }
-.cd__frente img { width: 100%; height: 100%; object-fit: cover; }
-/* dobradiça da caixa (anos 2000): faixa escura com frisos à esquerda */
-.cd__dobradica { position: absolute; inset: 0 auto 0 0; width: 7%; background: rgb(12 13 8 / 0.55); border-right: 1px solid rgb(254 250 238 / 0.35); box-shadow: inset -2px 0 0 rgb(12 13 8 / 0.4); }
-/* reflexo do plástico: uma faixa sólida translúcida, sem degradê */
-.cd__reflexo { position: absolute; inset: 0; background: rgb(255 255 255 / 0.14); clip-path: polygon(18% 0, 46% 0, 14% 100%, 0 100%, 0 62%); mix-blend-mode: screen; pointer-events: none; }
+.cd__face { position: absolute; backface-visibility: hidden; }
+
+/* frente: bandeja escura + encarte + tampa transparente */
+.cd__frente { inset: 0; overflow: hidden; background: #161714; transform: translateZ(calc(var(--espessura) / 2)); }
+.cd__frente img { position: absolute; inset: 2.5% 2.5% 2.5% 8.5%; width: 89%; height: 95%; object-fit: cover; }
+/* a tampa: borda de plástico (clara em cima/esquerda, escura embaixo/direita) */
+.cd__frente::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.55), inset -1px -1px 0 rgb(0 0 0 / 0.45), inset 0 0 0 3px rgb(255 255 255 / 0.06);
+}
+/* dobradiça: faixa de plástico fumê com frisos */
+.cd__dobradica {
+  position: absolute; inset: 0 auto 0 0; width: 8.5%;
+  background: rgb(22 23 20 / 0.72);
+  box-shadow: inset -1px 0 0 rgb(255 255 255 / 0.32), inset -3px 0 0 rgb(0 0 0 / 0.35), inset 1px 0 0 rgb(255 255 255 / 0.18);
+}
+.cd__dobradica::before, .cd__dobradica::after {
+  content: ""; position: absolute; left: 30%; width: 40%; height: 7%;
+  background: rgb(255 255 255 / 0.12); border-radius: 1px;
+  box-shadow: 0 calc(var(--cd) * 0.03) 0 rgb(255 255 255 / 0.08);
+}
+.cd__dobradica::before { top: 5%; }
+.cd__dobradica::after { bottom: 9%; }
+/* reflexos especulares: duas faixas sólidas e translúcidas na diagonal da luz */
+.cd__brilho { position: absolute; inset: -10%; pointer-events: none; mix-blend-mode: screen; transition: transform 0.7s var(--ease), opacity 0.7s var(--ease); }
+.cd__brilho--1 { background: rgb(255 255 255 / 0.16); clip-path: polygon(14% 0, 34% 0, 8% 100%, 0 100%, 0 46%); }
+.cd__brilho--2 { background: rgb(255 255 255 / 0.07); clip-path: polygon(40% 0, 47% 0, 21% 100%, 14% 100%); }
+.cd--ativo .cd__brilho--1 { transform: translateX(38%); opacity: 0.7; }
+.cd--ativo .cd__brilho--2 { transform: translateX(52%); opacity: 0.9; }
+
+/* fundo: a bandeja preta, vista por trás */
+.cd__fundo { inset: 0; background: #10110e; transform: translateZ(calc(var(--espessura) / -2)) rotateY(180deg); }
+
+/* lombada (esquerda): recebe luz */
 .cd__lombada {
-  position: absolute; top: 0; left: 0; height: 100%; width: var(--espessura);
+  top: 0; left: 0; height: 100%; width: var(--espessura);
   transform-origin: left center; transform: translateZ(calc(var(--espessura) / 2)) rotateY(-90deg);
-  background: #1c1d19; color: var(--creme);
+  background: #2a2b26; color: var(--creme);
+  box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.35), inset -1px 0 0 rgb(0 0 0 / 0.4);
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-.cd__lombada span { writing-mode: vertical-rl; transform: rotate(180deg); font: 500 0.5625rem / 1 var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
-/* o CD: prateado sólido com sulcos, sai um pouco da caixa quando escolhido */
-.cd__disco {
-  position: absolute; top: 4%; left: 4%; width: 92%; aspect-ratio: 1; border-radius: 50%;
-  background: #d7d6d0;
-  box-shadow: inset 0 0 0 3px #c4c3bc, inset 0 0 0 16px #dedcd5, inset 0 0 0 17px #c9c8c1, inset 0 0 0 40px #e4e2db, inset 0 0 0 41px #cbcac3;
-  transform: translateZ(0); transition: transform 0.6s var(--ease);
-  display: grid; place-items: center;
+.cd__lombada span { writing-mode: vertical-rl; transform: rotate(180deg); font: 500 max(0.5rem, calc(var(--espessura) * 0.5)) / 1 var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; opacity: 0.86; }
+/* bordas de plástico: direita (sombra), topo (luz), base (sombra) */
+.cd__borda--direita {
+  top: 0; right: 0; height: 100%; width: var(--espessura);
+  transform-origin: right center; transform: translateZ(calc(var(--espessura) / 2)) rotateY(90deg);
+  background: rgb(18 19 16 / 0.92); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
 }
-.cd__furo { width: 14%; aspect-ratio: 1; border-radius: 50%; background: var(--fundo); box-shadow: 0 0 0 6px #bdbcb5; }
-.cd--ativo .cd__disco { transform: translateX(42%) translateZ(2px); }
+.cd__borda--topo {
+  top: 0; left: 0; width: 100%; height: var(--espessura);
+  transform-origin: center top; transform: translateZ(calc(var(--espessura) / 2)) rotateX(-90deg);
+  background: #4a4b45; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4);
+}
+.cd__borda--base {
+  bottom: 0; left: 0; width: 100%; height: var(--espessura);
+  transform-origin: center bottom; transform: translateZ(calc(var(--espessura) / 2)) rotateX(90deg);
+  background: #0b0c09;
+}
+/* o CD: prata com sulcos, anel transparente no centro; sai pela borda aberta quando escolhido */
+.cd__disco {
+  position: absolute; top: 3%; left: 6%; width: 90%; aspect-ratio: 1; border-radius: 50%;
+  background: #d9d8d2;
+  box-shadow:
+    inset 0 0 0 2px #b9b8b1, inset 0 0 0 calc(var(--cd) * 0.05) #e3e1da, inset 0 0 0 calc(var(--cd) * 0.052) #c6c5be,
+    inset 0 0 0 calc(var(--cd) * 0.14) #dedcd5, inset 0 0 0 calc(var(--cd) * 0.142) #cbcac3,
+    inset 0 0 0 calc(var(--cd) * 0.25) #e7e5de, inset 0 0 0 calc(var(--cd) * 0.252) #c2c1ba;
+  transform: translateZ(0); transition: transform 0.64s var(--ease);
+  display: grid; place-items: center; overflow: hidden;
+}
+/* o reflexo do disco: uma cunha sólida translúcida (a luz batendo na prata) */
+.cd__disco::after { content: ""; position: absolute; inset: 0; background: rgb(255 255 255 / 0.32); clip-path: polygon(50% 50%, 22% 0, 40% 0); mix-blend-mode: screen; }
+.cd__furo { position: relative; z-index: 1; width: 30%; aspect-ratio: 1; border-radius: 50%; background: rgb(214 213 206 / 0.5); box-shadow: inset 0 0 0 1px rgb(12 13 8 / 0.18); display: grid; place-items: center; }
+.cd__furo::after { content: ""; width: 42%; aspect-ratio: 1; border-radius: 50%; background: var(--fundo); box-shadow: 0 0 0 1px rgb(12 13 8 / 0.2); }
+.cd--ativo .cd__disco { transform: translateX(46%) translateZ(-1px); }
+/* sombra de contato na prateleira */
+.cd__sombra {
+  position: absolute; left: 6%; right: 2%; bottom: calc(var(--cd) * -0.07); height: calc(var(--cd) * 0.08);
+  background: rgb(12 13 8 / 0.34); border-radius: 50%; filter: blur(calc(var(--cd) * 0.035));
+  transform: translateZ(-40px); transition: opacity 0.56s var(--ease), transform 0.56s var(--ease); pointer-events: none;
+}
+[data-mundo="simbolico"] .cd__sombra { background: rgb(0 0 0 / 0.5); }
+.cd--ativo .cd__sombra { opacity: 0.6; transform: translateZ(-40px) translateY(16px) scaleX(1.05); }
 .cd:focus-visible { outline: none; }
-.cd:focus-visible .cd__frente { outline: 2px solid var(--texto); outline-offset: 6px; }
+.cd:focus-visible .cd__frente { outline: 2px solid var(--foco); outline-offset: 8px; }
 
 /* a ficha do disco, logo abaixo da estante, na mesma grade */
-.ficha-disco { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha); row-gap: var(--s-3); padding-top: var(--s-5); border-top: 4px solid var(--regua); align-items: start; }
+.ficha-disco { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha); row-gap: var(--space-3); padding-top: var(--space-6); border-top: 4px solid var(--regua); align-items: start; }
 .ficha-disco > .rotulo { grid-column: 1 / span 1; }
 .ficha-disco__titulo { grid-column: 2 / span 5; }
 .ficha-disco__artista { grid-column: 2 / span 5; }
@@ -213,27 +354,35 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 .ficha-disco__nota { grid-column: 2 / span 5; }
 .ficha-disco__titulo { font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.025em; font-style: italic; }
 @media (max-width: 639px) { .ficha-disco > .rotulo { grid-column: 1 / -1; } .ficha-disco__titulo, .ficha-disco__artista, .ficha-disco > .ui, .ficha-disco__nota { grid-column: 1 / -1; } }
-.ficha-disco__faixas { margin-top: var(--s-3); }
-.ficha-disco__faixas ol { margin-top: var(--s-2); border-top: 1px solid var(--linha); counter-reset: f; }
-.ficha-disco__faixas li { counter-increment: f; display: grid; grid-template-columns: var(--s-6) 1fr; padding: var(--s-2) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-corpo-p); line-height: 1.5rem; }
+.ficha-disco__faixas { margin-top: var(--space-3); }
+.ficha-disco__faixas ol { margin-top: var(--space-2); border-top: 1px solid var(--linha); counter-reset: f; }
+.ficha-disco__faixas li { counter-increment: f; display: grid; grid-template-columns: var(--space-8) 1fr; padding: var(--space-2) 0; border-bottom: 1px solid var(--linha); font-size: var(--t-corpo-p); line-height: 1.5rem; }
 .ficha-disco__faixas li::before { content: counter(f, decimal-leading-zero); font: 500 var(--t-rotulo) / 1.5rem var(--gotham); color: var(--texto-suave); }
-.ficha-disco__nota { font-size: var(--t-corpo-p); line-height: 1.5rem; padding: var(--s-3) var(--s-4); background: var(--fundo-2); border-radius: 4px; }
+.ficha-disco__nota { font-size: var(--t-corpo-p); line-height: 1.5rem; padding: var(--space-3) var(--space-4); background: var(--fundo-2); border-radius: 4px; }
 
 @media (max-width: 1023px) {
   .estante { grid-column: 1 / -1; }
   .ficha-disco__titulo, .ficha-disco__artista, .ficha-disco > .ui, .ficha-disco__nota { grid-column: 2 / -1; }
   .ficha-disco__faixas { grid-column: 1 / -1; grid-row: auto; }
 }
-/* celular: fileira explorável, um disco em destaque por vez */
+/* celular: fileira explorável, um disco em destaque por vez (gira menos, para caber) */
 @media (max-width: 639px) {
   .estante {
-    --cd: 58vw; --sobra: 0.36; padding: var(--s-7) 21vw; margin-inline: calc(var(--margem) * -1); justify-content: flex-start;
-    scroll-snap-type: x mandatory; perspective: 1200px;
+    --cd: 58vw; --sobra: 0.38; --giro: 26deg; padding: var(--space-12) 21vw var(--space-10); margin-inline: calc(var(--margem) * -1); justify-content: flex-start;
+    scroll-snap-type: x mandatory; perspective: 1100px;
   }
-  .cd { scroll-snap-align: center; transform: rotateY(28deg) translateZ(calc(var(--d) * -10px)); }
-  .cd--ativo { transform: rotateY(0deg) translateZ(40px); margin-right: calc(var(--cd) * -0.1); }
-  .cd--ativo .cd__disco { transform: translateX(22%) translateZ(2px); }
+  .estante::before { bottom: calc(var(--space-10) - 2px); }
+  .cd { scroll-snap-align: center; }
+  .cd--ativo { transform: rotateY(0deg) rotateX(-2deg) translateZ(48px) translateY(-8px); margin-right: calc(var(--cd) * -0.1); }
+  .cd--ativo .cd__disco { transform: translateX(24%) translateZ(-1px); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cd, .cd__disco { transition: none; }
+  .cd, .cd__disco, .cd__brilho, .cd__sombra { transition: none; }
+}
+
+/* o numeral grande à direita da cabeça de seção ("destinations/ 25" na referência) */
+.vitrine__total { justify-self: end; font: 300 var(--t-h1) / 1 var(--gotham); letter-spacing: -0.01em; color: var(--tx-titulo); }
+@media (max-width: 1023px) {
+  .secao-cabeca:has(.vitrine__total) .secao-cabeca__nome { grid-column: 2 / -2; }
+  .vitrine__total { grid-column: -2 / -1; grid-row: 2; margin-top: 0; }
 }

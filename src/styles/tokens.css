@@ -4,6 +4,7 @@
    Medidas em múltiplos de 4 px (1rem = 16 px). Valores fluidos têm
    os dois extremos em múltiplos de 4 (390 px → 1440 px de tela).
    Nenhum gradiente: só campos de cor sólidos.
+   Documentação: DIRECAO-DE-ARTE.md (grade, espaço, cor) e MOTION.md.
    ───────────────────────────────────────────────────────────── */
 
 :root {
@@ -14,19 +15,57 @@
   --verde-2: #0a5838;    /* verde um tom acima, superfícies sobre o verde */
   --rosa: #f897f0;       /* destaque principal */
   --amarelo: #f0ce5b;    /* destaque secundário */
-  --preto: #0c0d08;      /* texto */
+  --preto: #0c0d08;      /* nanquim */
   --lilas: #b8b7fb;      /* apoio raro (etiquetas, cartões) */
   --menta: #5ceda0;      /* reservado */
 
-  /* Papéis — o lado VISÍVEL (padrão) */
+  /* ── Cores tipográficas: FUNDO CLARO (creme) ─────────────────
+     Contraste medido sobre #fefaee (e sobre #f4eddb, entre parênteses).
+     A hierarquia vem de família + peso + tamanho + cor: o tom desce
+     do nanquim ao cinza-oliva conforme a importância cai.            */
+  --claro-titulo: #0c0d08;      /* 18.7:1  títulos principais (Georgia) */
+  --claro-titulo-2: #1d1f18;    /* 16.0:1  títulos secundários, chapéus */
+  --claro-corpo: #2a2c24;       /* 13.6:1  texto corrido: carvão, não preto puro */
+  --claro-secundario: #4a4c43;  /*  8.4:1  leads de apoio, notas, descrições */
+  --claro-legenda: #5a5c52;     /*  6.5:1 (5.8)  legendas e créditos */
+  --claro-meta: #66685e;        /*  5.4:1 (4.9)  metadados, contadores, rótulos discretos */
+  --claro-link: #084e32;        /*  9.4:1  links: verde-garrafa sublinhado */
+  --claro-destaque: #084e32;    /*  9.4:1  palavras em destaque (instituições, chamadas) */
+  --claro-desabilitado: #8f9087;/*  3.1:1  só para estados desabilitados, nunca para leitura */
+
+  /* ── Cores tipográficas: FUNDO ESCURO (verde) ────────────────
+     Contraste medido sobre #084e32; sobre o preto do rodapé simbólico
+     todos ficam acima de 8:1. Nenhuma hierarquia usa o mesmo branco. */
+  --escuro-titulo: #fefaee;     /*  9.4:1 */
+  --escuro-titulo-2: #f3edda;   /*  8.4:1 */
+  --escuro-corpo: #e6e2cf;      /*  7.5:1 */
+  --escuro-secundario: #cfd6c6; /*  6.6:1 */
+  --escuro-legenda: #bccab9;    /*  5.7:1 */
+  --escuro-meta: #a9bba8;       /*  4.8:1 */
+  --escuro-link: #f0ce5b;       /*  6.4:1  amarelo */
+  --escuro-destaque: #f0ce5b;   /*  6.4:1 */
+  --escuro-interativo: #f897f0; /*  5.0:1  rosa: elementos interativos em foco/ativos */
+  --escuro-desabilitado: #7f9b86;
+
+  /* Papéis — o lado VISÍVEL (padrão, fundo claro) */
   --fundo: var(--creme);
   --fundo-2: var(--creme-2);
-  --texto: var(--preto);
-  --texto-suave: rgb(12 13 8 / 0.66);
+  --tx-titulo: var(--claro-titulo);
+  --tx-titulo-2: var(--claro-titulo-2);
+  --tx-corpo: var(--claro-corpo);
+  --tx-secundario: var(--claro-secundario);
+  --tx-legenda: var(--claro-legenda);
+  --tx-meta: var(--claro-meta);
+  --tx-link: var(--claro-link);
+  --tx-destaque: var(--claro-destaque);
+  --tx-desabilitado: var(--claro-desabilitado);
+  --texto: var(--tx-titulo);          /* traço de interface: réguas, contornos, botões */
+  --texto-suave: var(--tx-secundario);
   --linha: rgb(12 13 8 / 0.18);
   --regua: var(--preto);
-  --destaque: var(--rosa);
+  --destaque: var(--rosa);            /* campo de cor do hover (menu, botões, linhas) */
   --sobre-destaque: var(--preto);
+  --foco: var(--preto);               /* anel de foco */
   --campo: var(--verde);
   --sobre-campo: var(--creme);
 
@@ -56,48 +95,105 @@
   --medida: 36rem;        /* largura máxima de texto corrido (~65 caracteres) */
   --medida-lead: 32rem;
 
-  /* ── Espaçamento (múltiplos de 4) ───────────────────────── */
-  --s-1: 0.25rem;  /*   4 */
-  --s-2: 0.5rem;   /*   8 */
-  --s-3: 0.75rem;  /*  12 */
-  --s-4: 1rem;     /*  16 */
-  --s-5: 1.5rem;   /*  24 */
-  --s-6: 2rem;     /*  32 */
-  --s-7: 3rem;     /*  48 */
-  --s-8: 4rem;     /*  64 */
-  --s-9: 6rem;     /*  96 */
-  --s-10: 8rem;    /* 128 */
+  /* ── Espaçamento: escala em múltiplos de 4 ───────────────── */
+  --space-1: 0.25rem;  /*   4 */
+  --space-2: 0.5rem;   /*   8 */
+  --space-3: 0.75rem;  /*  12 */
+  --space-4: 1rem;     /*  16 */
+  --space-5: 1.25rem;  /*  20 */
+  --space-6: 1.5rem;   /*  24 */
+  --space-8: 2rem;     /*  32 */
+  --space-10: 2.5rem;  /*  40 */
+  --space-12: 3rem;    /*  48 */
+  --space-16: 4rem;    /*  64 */
+  --space-20: 5rem;    /*  80 */
+  --space-24: 6rem;    /*  96 */
+  --space-32: 8rem;    /* 128 */
+  --space-40: 10rem;   /* 160 */
 
-  /* ── Grade ───────────────────────────────────────────────── */
+  /* Ritmo entre blocos (papéis, não valores soltos)
+     --secao:     entre grandes seções       96 (celular) → 128 (tablet) → 160 (desktop)
+     --secao-cab: régua/título → conteúdo    48 → 80
+     --bloco:     entre blocos de uma seção  64 → 96                                     */
+  --secao: clamp(6rem, 4.514rem + 6.1vw, 10rem);
+  --secao-cab: clamp(3rem, 2.257rem + 3.05vw, 5rem);
+  --bloco: clamp(4rem, 3.257rem + 3.05vw, 6rem);
+
+  /* ── Grade ───────────────────────────────────────────────────
+     Desktop ≥1024: 12 colunas · margem 40 · calha 24 · conteúdo até 1440
+     Tablet 640–1023: 8 colunas · margem 32 · calha 20
+     Celular <640: 4 colunas · margem 24 · calha 16 (≤374: margem 20, calha 12) */
   --cols: 12;
-  --margem: clamp(1.25rem, 0.786rem + 1.9vw, 2.5rem); /* 20→40: margem lateral global (40px no desktop) */
-  --calha: clamp(1rem, 0.814rem + 0.76vw, 1.5rem); /* 16→24 */
-  --largura-max: 1920px;
-  --secao: clamp(4rem, 2.143rem + 7.62vw, 9rem); /* 64→144 entre seções */
+  --margem: 2.5rem;                                  /* 40 */
+  --calha: 1.5rem;                                   /* 24 */
+  --largura-conteudo: 1440px;
+  --largura-max: calc(var(--largura-conteudo) + 2 * var(--margem)); /* 1520: a caixa com as margens */
   --cabecalho: 4.5rem;                               /* 72 */
   --botao: 3rem;                                     /* 48: altura mínima de botões e alvos de toque */
+  --dobra: 0px;                                      /* largura da dobradiça (telas dobráveis); 0 no resto */
 
-  /* ── Movimento: poucas curvas, sempre com motivo ─────────── */
-  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  /* ── Movimento (ver MOTION.md) ────────────────────────────── */
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);             /* microinterações e revelações ao rolar: chega e assenta */
+  --ease-passagem: cubic-bezier(0.7, 0, 0.16, 1);     /* a superfície em arco: parte firme, atravessa rápido, pousa */
+  --ease-saida: cubic-bezier(0.4, 0, 1, 1);           /* o que sai de cena: acelera e some */
+  --dur-micro: 180ms;    /* hover, foco, cor */
+  --dur-curta: 280ms;    /* pequenos deslocamentos */
+  --dur-passagem: 460ms; /* a superfície cobrindo a tela */
+  --dur-revelar: 520ms;  /* a superfície saindo e revelando */
 }
 
-/* O lado SIMBÓLICO: o mesmo site, visto do outro lado da passagem. */
+/* O lado SIMBÓLICO e qualquer superfície escura (rodapé): mesma
+   hierarquia, escala escura. */
+[data-mundo="simbolico"], .tema-escuro {
+  --tx-titulo: var(--escuro-titulo);
+  --tx-titulo-2: var(--escuro-titulo-2);
+  --tx-corpo: var(--escuro-corpo);
+  --tx-secundario: var(--escuro-secundario);
+  --tx-legenda: var(--escuro-legenda);
+  --tx-meta: var(--escuro-meta);
+  --tx-link: var(--escuro-link);
+  --tx-destaque: var(--escuro-destaque);
+  --tx-desabilitado: var(--escuro-desabilitado);
+  --texto: var(--tx-titulo);
+  --texto-suave: var(--tx-secundario);
+  --linha: rgb(254 250 238 / 0.24);
+  --regua: var(--creme);
+  --foco: var(--escuro-interativo);
+}
 [data-mundo="simbolico"] {
   --fundo: var(--verde);
   --fundo-2: var(--verde-2);
-  --texto: var(--creme);
-  --texto-suave: rgb(254 250 238 / 0.72);
-  --linha: rgb(254 250 238 / 0.24);
-  --regua: var(--creme);
   --destaque: var(--amarelo);
   --sobre-destaque: var(--verde);
   --campo: var(--rosa);
   --sobre-campo: var(--preto);
 }
 
+/* Tablet: 8 colunas */
 @media (max-width: 1023px) {
-  :root { --cols: 6; --cabecalho: 4rem; }
+  :root { --cols: 8; --margem: 2rem; --calha: 1.25rem; --cabecalho: 4rem; }
 }
+/* Celular: 4 colunas */
 @media (max-width: 639px) {
-  :root { --cols: 4; }
+  :root { --cols: 4; --margem: 1.5rem; --calha: 1rem; }
+}
+@media (max-width: 374px) {
+  :root { --margem: 1.25rem; --calha: 0.75rem; }
+}
+
+/* Telas dobráveis abertas (dois segmentos lado a lado).
+   Aprimoramento progressivo: a media feature só existe em navegadores com a
+   Viewport Segments API; sem ela, vale o layout responsivo comum.
+   A dobradiça vira uma "calha" larga: --dobra guarda a largura real
+   informada pelo aparelho (ou 0 se a tela for contínua). */
+@media (horizontal-viewport-segments: 2) {
+  :root {
+    --cols: 8;
+    --margem: 1.75rem;
+    --dobra: max(0px, calc(env(viewport-segment-left 1 0, 0px) - env(viewport-segment-right 0 0, 0px)));
+    /* a calha central coincide com a dobradiça: as 4 primeiras colunas ficam
+       num segmento, as 4 últimas no outro. Com dobradiça física, todas as
+       calhas crescem até a largura dela (mínimo 20 px). */
+    --calha: max(1.25rem, var(--dobra));
+  }
 }

@@ -8,7 +8,7 @@
 .titulo__linha { display: block; }
 
 /* ── Abertura de página ────────────────────────────────────── */
-.abertura { padding-top: calc(var(--cabecalho) + clamp(2.5rem, 6vw, 5.5rem)); row-gap: var(--s-6); align-items: start; }
+.abertura { padding-top: calc(var(--cabecalho) + clamp(2.5rem, 6vw, 5.5rem)); row-gap: var(--space-8); align-items: start; }
 .abertura__kicker { grid-column: 1 / -1; padding-top: 1rem; border-top: 4px solid var(--regua); }
 .abertura__titulo { grid-column: 1 / span 8; font-size: var(--t-display); line-height: 0.95; letter-spacing: -0.035em; }
 .abertura__titulo--largo { grid-column: 1 / span 11; }
@@ -20,7 +20,7 @@
 @media (max-width: 1023px) {
   .abertura__titulo, .abertura__titulo--largo, .abertura__lead,
   .abertura:has(.abertura__lado) .abertura__lead { grid-column: 1 / -1; }
-  .abertura__lado { grid-column: 1 / span 3; grid-row: auto; }
+  .abertura__lado { grid-column: 1 / span 4; grid-row: auto; }
 }
 
 .secao--curta { padding-top: clamp(3rem, 6vw, 5rem); }
@@ -31,7 +31,7 @@
 .dupla__figura { grid-column: 1 / span 4; }
 .dupla__texto { grid-column: 7 / span 5; display: grid; gap: 1.5rem; }
 @media (max-width: 1023px) {
-  .dupla__figura { grid-column: 1 / span 3; }
+  .dupla__figura { grid-column: 1 / span 4; }
   .dupla__texto { grid-column: 1 / -1; }
 }
 
@@ -95,15 +95,25 @@
 }
 
 /* ── Campo: banda de cor sólida (verde no visível, rosa no simbólico) ── */
+/* cores tipográficas: no visível o campo é verde → escala escura; no simbólico
+   é rosa → escala clara (o meta sobe para o secundário: 4.5:1 sobre rosa) */
 .campo {
+  --tx-titulo: var(--escuro-titulo); --tx-titulo-2: var(--escuro-titulo-2); --tx-corpo: var(--escuro-corpo);
+  --tx-secundario: var(--escuro-secundario); --tx-legenda: var(--escuro-legenda); --tx-meta: var(--escuro-meta);
+  --tx-link: var(--escuro-link); --tx-destaque: var(--escuro-destaque); --foco: var(--creme);
   --texto: var(--sobre-campo); --regua: var(--sobre-campo);
   --linha: color-mix(in srgb, var(--sobre-campo) 24%, transparent);
-  --texto-suave: color-mix(in srgb, var(--sobre-campo) 68%, transparent);
+  --texto-suave: var(--tx-secundario);
   --destaque: var(--rosa); --sobre-destaque: var(--preto);
   margin-top: var(--secao); padding-bottom: var(--secao);
   background: var(--campo); color: var(--sobre-campo);
 }
-[data-mundo="simbolico"] .campo { --destaque: var(--creme); }
+[data-mundo="simbolico"] .campo {
+  --destaque: var(--creme);
+  --tx-titulo: var(--claro-titulo); --tx-titulo-2: var(--claro-titulo-2); --tx-corpo: var(--claro-titulo-2);
+  --tx-secundario: var(--claro-corpo); --tx-legenda: var(--claro-corpo); --tx-meta: var(--claro-corpo); /* 7.2:1 sobre rosa */
+  --tx-link: var(--preto); --tx-destaque: var(--preto); --foco: var(--preto);
+}
 .campo :focus-visible { outline-color: currentColor; }
 
 .notas { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem var(--calha); margin-top: 1rem; }
@@ -140,7 +150,7 @@
 .pesquisa__dados div { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--linha); font-size: 1rem; line-height: 1.45; }
 .pesquisa__dados dt { color: var(--texto-suave); padding-top: 0.25rem; }
 @media (max-width: 1023px) {
-  .pesquisa__imagens, .pesquisa--inversa .pesquisa__imagens { grid-column: 1 / span 4; grid-row: auto; }
+  .pesquisa__imagens, .pesquisa--inversa .pesquisa__imagens { grid-column: 1 / span 5; grid-row: auto; }
   .pesquisa__texto, .pesquisa--inversa .pesquisa__texto { grid-column: 1 / -1; grid-row: auto; }
 }
 @media (max-width: 639px) {
@@ -150,11 +160,11 @@
 
 /* ── Contato: coluna 1–6 (texto) e 8–12 (postal), redes em réguas ── */
 body:has(.contato) .rodape__topo { display: none; }
-.contato__abertura { row-gap: var(--s-7); }
-.contato__coluna { grid-column: 1 / span 6; display: grid; gap: var(--s-6); justify-items: start; }
+.contato__abertura { row-gap: var(--space-12); }
+.contato__coluna { grid-column: 1 / span 6; display: grid; gap: var(--space-8); justify-items: start; }
 .contato__titulo { font-size: var(--t-display); line-height: 0.95; letter-spacing: -0.035em; }
 .contato__dados { width: 100%; max-width: var(--medida); border-top: 1px solid var(--linha); }
-.contato__dados div { display: grid; grid-template-columns: 8rem 1fr; gap: var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--linha); align-items: baseline; }
+.contato__dados div { display: grid; grid-template-columns: 8rem 1fr; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--linha); align-items: baseline; }
 .contato__dados dt { color: var(--texto-suave); }
 .contato__dados dd { font-size: var(--t-corpo-p); line-height: 1.5rem; }
 .contato__postal { grid-column: 8 / -1; align-self: start; }
@@ -199,12 +209,12 @@ body:has(.contato) .rodape__topo { display: none; }
 .nao-encontrado__arco { grid-column: 2 / span 3; }
 .nao-encontrado__texto { grid-column: 6 / span 6; display: grid; gap: 1.25rem; justify-items: start; }
 @media (max-width: 1023px) {
-  .nao-encontrado__arco { grid-column: 1 / span 2; }
+  .nao-encontrado__arco { grid-column: 1 / span 3; }
   .nao-encontrado__texto { grid-column: 1 / -1; }
 }
 
 /* ── Pesquisa: foto em arco + obra pequena sobreposta ──────── */
-.pesquisa__imagens { position: relative; padding-bottom: var(--s-9); }
+.pesquisa__imagens { position: relative; padding-bottom: var(--space-24); }
 .pesquisa__foto { width: 78%; }
 .pesquisa__obra { position: absolute; right: 0; bottom: 0; width: 44%; }
 .pesquisa__obra img { width: 100%; height: auto; }
@@ -212,14 +222,14 @@ body:has(.contato) .rodape__topo { display: none; }
 .pesquisa__texto > p { max-width: var(--medida); }
 
 /* ── Sobre: trajetória com foto ────────────────────────────── */
-.trajetoria { row-gap: var(--s-7); align-items: start; }
-.trajetoria__foto { grid-column: 1 / span 3; position: sticky; top: calc(var(--cabecalho) + var(--s-5)); }
+.trajetoria { row-gap: var(--space-12); align-items: start; }
+.trajetoria__foto { grid-column: 1 / span 3; position: sticky; top: calc(var(--cabecalho) + var(--space-6)); }
 .trajetoria__linhas { grid-column: 5 / -1; padding-inline: 0; }
 .trajetoria__linhas .linha { grid-template-columns: repeat(8, minmax(0, 1fr)); }
 .trajetoria__linhas .linha__ano { grid-column: 1 / span 2; }
 .trajetoria__linhas .linha__titulo { grid-column: 3 / -1; }
 @media (max-width: 1023px) {
-  .trajetoria__foto { grid-column: 1 / span 3; position: static; }
+  .trajetoria__foto { grid-column: 1 / span 4; position: static; }
   .trajetoria__linhas { grid-column: 1 / -1; }
   .trajetoria__linhas .linha { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); }
   .trajetoria__linhas .linha__ano { grid-column: 1 / span 1; }
@@ -232,7 +242,7 @@ body:has(.contato) .rodape__topo { display: none; }
 /* ── Créditos ──────────────────────────────────────────────── */
 .creditos__linha .creditos__licenca { grid-column: 1 / span 2; }
 .creditos__linha .linha__titulo { font-size: var(--t-h4); line-height: 1.75rem; }
-.creditos__nota { margin-top: var(--s-6); }
+.creditos__nota { margin-top: var(--space-8); }
 .creditos__nota span { grid-column: 1 / span 8; }
 @media (max-width: 1023px) { .creditos__nota span { grid-column: 1 / -1; } }
 

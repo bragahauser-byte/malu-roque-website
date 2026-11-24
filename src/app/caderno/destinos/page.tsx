@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Palavras } from "@/components/Palavras";
-import { JanelaAviao } from "@/components/JanelaAviao";
-import { Bandeira } from "@/components/Bandeira";
+import { VitrineDestinos } from "@/components/VitrineDestinos";
 import { destinos } from "@/content/viagens";
 
 export const metadata: Metadata = {
@@ -11,10 +10,8 @@ export const metadata: Metadata = {
 };
 
 /**
- * DESTINOS — doze janelas de avião, uma por país.
- * Desktop: coleção em 4 colunas com alturas desencontradas (como as janelas
- * de uma cabine vistas em sequência). Celular: fileira horizontal com encaixe.
- * Cada janela tem a própria fotografia; a legenda descreve só a imagem.
+ * DESTINOS — doze países numa vitrine com uma janela de avião por vez
+ * (leitura da referência AC Concierge; ver VitrineDestinos.tsx).
  */
 export default function Destinos() {
   return (
@@ -38,36 +35,21 @@ export default function Destinos() {
         </div>
       </section>
 
-      <section className="secao" aria-label="Destinos">
-        <ol className="destinos grade">
-          {destinos.map((d, i) => (
-            <li key={d.pais} className={`destino destino--${(i % 4) + 1} revelar`} style={{ "--atraso": `${(i % 4) * 0.06}s` } as React.CSSProperties}>
-              <figure>
-                <JanelaAviao imagem={d.imagem} alt={d.legenda} />
-                <figcaption className="destino__legenda">
-                  <span className="destino__linha">
-                    <span className="rotulo destino__n">{String(i + 1).padStart(2, "0")}</span>
-                    <Bandeira pais={d.bandeira} className="destino__bandeira" />
-                  </span>
-                  <span className="destino__pais">{d.pais}</span>
-                  <span className="destino__descricao">{d.legenda}</span>
-                  <span className="credito destino__credito">
-                    {"propria" in d.credito ? (
-                      "Foto: Maria Luiza Roque"
-                    ) : (
-                      <a href={d.credito.url} target="_blank" rel="noopener noreferrer" className="link-linha">
-                        {d.credito.autor}, {d.credito.licenca}
-                      </a>
-                    )}
-                  </span>
-                </figcaption>
-              </figure>
-            </li>
-          ))}
-        </ol>
-        <p className="destinos__dica ui suave grade">
-          <span>Deslize para o lado para ver todas as janelas.</span>
-        </p>
+      <section className="secao" aria-labelledby="h-vitrine">
+        <div className="secao-cabeca grade">
+          <span className="secao-cabeca__num rotulo">Países</span>
+          <span className="secao-cabeca__nome chapeu" id="h-vitrine">
+            Pela janela
+          </span>
+          <p className="secao-cabeca__titulo vitrine__total" aria-label={`${destinos.length} países`}>
+            {destinos.length}
+          </p>
+        </div>
+        <div className="grade">
+          <div className="inteira">
+            <VitrineDestinos destinos={destinos} />
+          </div>
+        </div>
       </section>
 
       <section className="secao" aria-label="Continue">

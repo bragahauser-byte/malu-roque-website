@@ -30,7 +30,9 @@ const RECORTES = {
   "bocklin-ilha-dos-mortos": "aparar", // tira a borda preta da digitalização
   "mandala-jnanadakini": "aparar",
   "redon-pandora": "aparar", // tira a faixa preta das laterais
+  "redon-carro-apolo": [0.003, 0.009, 0.997, 0.99], // tira as faixas pretas da digitalização (topo e base)
   "redon-pegaso": [0.035, 0.025, 0.968, 0.975], // tira a margem da digitalização
+  "redon-olhos-fechados-tela": [0.0346, 0.02, 0.964, 0.98], // tira a moldura dourada da fotografia do quadro
 };
 
 const manifesto = {};

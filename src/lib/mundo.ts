@@ -53,7 +53,8 @@ export function atravessar(origem?: Element | null) {
     .then(() => {
       html.animate(
         { clipPath: [de, ate] },
-        { duration: 820, easing: "cubic-bezier(0.76, 0, 0.18, 1)", pseudoElement: "::view-transition-new(root)" },
+        // a mesma curva da passagem entre páginas; um pouco mais longa, porque o arco parte pequeno
+        { duration: 620, easing: "cubic-bezier(0.7, 0, 0.16, 1)", pseudoElement: "::view-transition-new(root)" },
       );
     })
     .catch(() => {});

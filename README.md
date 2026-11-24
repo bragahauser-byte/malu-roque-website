@@ -140,4 +140,6 @@ Para colocar a fonte no projeto num computador novo, copie os `.woff2` de
 "inspiracao site malu/tipografia gotham" (Light, Book, BookItalic, Medium e
 Bold) para `public/fonts/gotham/`.
 
-As decisões de direção de arte estão em [`DIRECAO-DE-ARTE.md`](DIRECAO-DE-ARTE.md) e as fontes das imagens em [`IMAGENS.md`](IMAGENS.md).
+As decisões de direção de arte (grade 12/8/4, espaçamento, cores tipográficas) estão em [`DIRECAO-DE-ARTE.md`](DIRECAO-DE-ARTE.md), o sistema de movimento em [`MOTION.md`](MOTION.md), a pesquisa de referências em [`REFERENCIAS-MOTION.md`](REFERENCIAS-MOTION.md) e as fontes das imagens em [`IMAGENS.md`](IMAGENS.md).
+
+Favicon: `node scripts/gerar-favicon.mjs <pasta do playwright>` (precisa da Gotham local e de `recursos/favicon/arco.png`).
