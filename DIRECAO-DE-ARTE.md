@@ -163,7 +163,7 @@ Um só sistema (`.grade` em `base.css`, `--cols`/`--margem`/`--calha` em `tokens
 
 | Faixa | Colunas | Margem | Calha | Observação |
 | --- | ---: | ---: | ---: | --- |
-| Desktop ≥ 1024 px | 12 | 40 | 24 | conteúdo até **1440 px** (caixa de 1520 com as margens); em monitores maiores, centraliza |
+| Desktop ≥ 1024 px | 12 | **32** | 24 | conteúdo até **1856 px** (caixa de 1920 com as margens); só acima de 1920 px centraliza |
 | Tablet 640–1023 px | 8 | 32 | 20 | metades = 4 + 4 colunas; imagens em 4–5 colunas |
 | Celular < 640 px | 4 | 24 | 16 | ≤ 374 px: margem 20, calha 12 |
 | Dobrável aberto (2 segmentos) | 8 | 28 | ≥ 20 | ver abaixo |
@@ -172,6 +172,13 @@ Um só sistema (`.grade` em `base.css`, `--cols`/`--margem`/`--calha` em `tokens
 - **Abertura de toda seção:** régua de 4 px, número na coluna 1, nome em Gotham Bold na coluna 2, título em Georgia na coluna 7.
 - **Tablet (novo, 8 colunas):** todas as regras que eram "3 de 6" viraram "4 de 8" (metade), "4 de 6" → "5 de 8"; as janelas de viagem ficam em 2 + 2 + 2.
 - **Exceção controlada (celular):** o portal "Atravessar para o outro lado" sai das margens e ocupa a tela de borda a borda (referência Camicado). É a única quebra da grade; a legenda e o botão voltam para a margem de 24 px.
+
+### Margens do desktop (v6)
+
+- **Antes:** margem 40 e conteúdo limitado a 1440 px. O problema maior não era a margem: numa tela de 1920 px o teto deixava **240 px vazios de cada lado**, e o conteúdo parecia pequeno e distante.
+- **Comparado** (capturas em 1280, 1440 e 1920 px, capa e Sobre): margem 24, 28 e 32, com teto 1440 e 1760/1856.
+- **Escolhido: margem 32 e teto 1856.** 24 encostava demais o cabeçalho e os títulos nas bordas a 1280 px; 28 e 32 ficaram próximos, e 32 é a margem do tablet: **uma só margem para toda tela ≥ 640 px**, sem valor novo no sistema. Em 1920 px a margem passa de 240 para 32.
+- A mudança é global (`--margem` e `--largura-conteudo`): cabeçalho, seções, imagens, Caderno, estante de CDs e rodapé seguem juntos. Celular (24) e tablet (32) não mudaram.
 
 ### Telas dobráveis (avaliação)
 
@@ -196,7 +203,7 @@ Medidas na imagem `paleta de cor/image 4162.jpg`:
 | `--preto` | #0C0D08 |
 | `--lilas` | #B8B7FB |
 
-Sem gradientes de cor: os reflexos dos CDs são faixas sólidas translúcidas.
+Sem gradientes de cor como fundo ou decoração. **Exceção única (v6): a estante de CDs**, onde degradês representam material físico (reflexo no acrílico, frisos da dobradiça, brilho furta-cor do disco, sombra de contato).
 
 ### Cores tipográficas
 
@@ -269,7 +276,7 @@ conteúdo real:
 - No Vaticano e em Malta, o brasão e a cruz aparecem simplificados, porque não
   são legíveis em 14 px.
 
-### Estante de CDs (v5: materialidade)
+### Estante de CDs (v5: materialidade, substituída na v6)
 
 - **Composição horizontal mantida**, sobre uma prateleira (plano sólido um tom abaixo do fundo).
 - **Cada caixa é um objeto CSS 3D** com seis faces e espessura real (10 mm em 133): tampa transparente com borda clara em cima/esquerda e escura embaixo/direita; dobradiça fumê com frisos; encarte por baixo da tampa (capa original, sem alteração); bandeja preta; lombada com artista e título; bordas de plástico.
@@ -279,6 +286,31 @@ conteúdo real:
 - **Ao escolher:** a caixa vem para a frente (6°), o CD sai pela borda aberta, a ficha abaixo mostra os dados. Nada gira sozinho.
 - **Técnica:** só `transform`, `opacity` e camadas; sem WebGL.
 - Ordem: a da lista enviada. Não é um ranking.
+
+### Estante de CDs (v6: refeita do zero)
+
+- **Referências:** pasta `referencias cd!` (três vídeos, examinados quadro a quadro):
+  - `principal.mp4`: fileira de caixas em projeção axonométrica, a escolhida sai da fileira. É a **referência principal**;
+  - `65a675b2e0966c299ec71d72.mp4`: um CD girando, com a face de dados furta-cor e arranhões. Daí o disco;
+  - `2.mp4`: toca-discos sobre estante cromada, discos folheados. Daí a fileira que se abre em volta da escolhida.
+- **Uma só coleção:** os 15 discos numa única estante, na ordem da lista enviada. Saíram as divisões "De 1969 a 2016" e "Black Eyed Peas e Lady Gaga".
+- **Composição horizontal:** a fileira corre na horizontal, sem a diagonal da referência. Mantém a projeção sem ponto de fuga: a cena não tem `perspective`, então o CSS 3D projeta em paralelo.
+- **Medidas reais** (1 u = 1 mm de uma jewel case de 142 × 125 × 10, encarte 120):
+  - bandeja preta vista através da tampa;
+  - dobradiça frisada à esquerda;
+  - encarte quadrado com a capa original, sem alteração;
+  - abas que prendem o encarte;
+  - encaixe da tampa;
+  - aresta de cima acesa, a de baixo na sombra;
+  - lombada com a cor dominante da capa (medida com sharp), artista e título, e as pontas pretas da bandeja;
+  - borda de cima transparente com a linha da bandeja por dentro;
+  - sombra de contato no chão.
+- **Interação:**
+  - **Mouse:** a caixa levanta 10 mm, sem trocar a escolha, para a fileira não fugir do cursor.
+  - **Clique, toque ou teclado (← → Home End):** a caixa vira de frente e sai da fileira, que se abre em volta dela. O disco (face de dados prateada, com brilho furta-cor e anel central transparente) desliza para fora, e o reflexo atravessa a tampa.
+  - **Ficha abaixo:** título, artista, ano e faixas conhecidas (informação pública; nenhuma opinião inventada).
+- **Toque:** no celular a fileira rola de lado com caixas maiores, e a escolhida vem para o centro (só a fileira rola, a página não).
+- **Técnica:** CSS 3D (transform, opacity), sem WebGL. Com 15 objetos de poucas faces, o CSS dá conta e a qualidade vem da construção, da luz e do material.
 
 ### Cartões do Caderno: um só componente
 
@@ -314,8 +346,9 @@ conteúdo real:
 
 ### Favicon
 
-- **v5:** o arquivo enviado (`favcon.png`) contém só o **arco creme**, sem letra. Foi usado como base: o arco creme do arquivo + a letra **M** em Gotham Condensed Bold, verde #084E32 (`scripts/gerar-favicon.mjs`). **Pendente de aprovação**, porque o briefing também pede para não usar o símbolo da passagem.
-- Arquivos: favicon.ico (16, 32, 48), PNG 16/32/192/512 transparentes; apple-touch-icon 180 e ícone *maskable* 512 com campo verde (iOS/Android recortam o ícone e preencheriam a transparência de preto); `site.webmanifest`. URLs com `?v=5` para furar o cache.
+- **v6 (atual):** o favicon é **o próprio arquivo enviado** (`favcon.png`, o arco creme), sem letra nem acréscimo. O M da v5 foi removido. O script só recorta a área transparente, centraliza e gera os tamanhos (`node scripts/gerar-favicon.mjs`).
+- Arquivos: favicon.ico (16, 32, 48), PNG 16/32/192/512 transparentes; apple-touch-icon 180 e ícone *maskable* 512 com campo verde (iOS/Android recortam o ícone e preencheriam a transparência de preto); `site.webmanifest`. URLs com `?v=6` para furar o cache. No iOS/Android (ícones opacos) o arco fica sobre o verde da paleta.
+- Observação: creme sobre a barra clara de abas do navegador tem pouco contraste (no tema escuro aparece bem). Foi mantido assim porque é o arquivo aprovado.
 
 ### Motion
 
@@ -331,6 +364,6 @@ Caderno.
 
 - Confirmar a licença web da Gotham antes de publicá-la.
 - Textos reais do Caderno (os atuais são rascunhos de demonstração).
-- Aprovar o favicon (arco do arquivo + M) ou indicar outro arquivo só com o M.
+- Favicon: o arco creme tem pouco contraste nas abas claras do navegador; se incomodar, pedir uma versão do arquivo com fundo.
 - Confirmar título e acervo do pastel de Redon da capa (o arquivo não trazia a informação).
 

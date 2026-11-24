@@ -6,10 +6,13 @@
  * O lado atual fica em <html data-mundo="visivel|simbolico"> e é
  * lembrado durante a visita (sessionStorage).
  *
- * A passagem: o novo lado aparece através do arco clicado, que
- * cresce até virar a tela inteira (View Transitions API).
+ * A passagem: o arco clicado (o portal da capa ou a pequena amostra do
+ * cabeçalho) cresce a partir da própria forma, com a superfície rosa à
+ * frente e o novo lado logo atrás, até cobrir a tela (lib/passagem.ts).
  * Sem suporte, ou com "reduzir movimento", a troca é imediata.
  */
+
+import { RITMO_MUNDO, passar, passagemEmCurso, pularPassagem, suportaPassagem, movimentoReduzido, trajetoDeOrigem } from "./passagem";
 
 export type Mundo = "visivel" | "simbolico";
 
@@ -34,28 +37,24 @@ export function atravessar(origem?: Element | null) {
     window.dispatchEvent(new CustomEvent<Mundo>("mundo", { detail: proximo }));
   };
 
-  const reduzido = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!("startViewTransition" in document) || reduzido || !origem) {
+  // cliques repetidos: a passagem em curso termina e a troca é imediata
+  if (passagemEmCurso()) {
+    pularPassagem();
+    aplicar();
+    return;
+  }
+  if (!suportaPassagem() || movimentoReduzido() || !origem) {
     aplicar();
     return;
   }
 
-  // O arco de partida: o próprio arco clicado, nas coordenadas da tela.
-  const r = origem.getBoundingClientRect();
-  const W = document.documentElement.clientWidth;
-  const H = innerHeight;
-  const raio = r.width / 2;
-  const de = `inset(${r.top}px ${W - r.right}px ${H - r.bottom}px ${r.left}px round ${raio}px ${raio}px 0px 0px)`;
-  const ate = `inset(0px 0px 0px 0px round 0px 0px 0px 0px)`;
-
-  const t = document.startViewTransition(aplicar);
-  t.ready
-    .then(() => {
-      html.animate(
-        { clipPath: [de, ate] },
-        // a mesma curva da passagem entre páginas; um pouco mais longa, porque o arco parte pequeno
-        { duration: 620, easing: "cubic-bezier(0.7, 0, 0.16, 1)", pseudoElement: "::view-transition-new(root)" },
-      );
-    })
-    .catch(() => {});
+  // o arco de partida: o próprio arco clicado, medido antes da troca
+  const caixa = origem.getBoundingClientRect();
+  passar({
+    atualizar: aplicar,
+    trajeto: (W, H) => trajetoDeOrigem(caixa, W, H),
+    // a cor da passagem entre os mundos: o rosa, que contrasta com o creme e com o verde
+    superficie: "#f897f0",
+    ritmo: RITMO_MUNDO,
+  });
 }

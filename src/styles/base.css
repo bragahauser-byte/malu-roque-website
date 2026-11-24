@@ -72,7 +72,7 @@ strong { font-weight: 700; }
 }
 
 /* ── Grade ───────────────────────────────────────────────────
-   12 colunas no desktop, 6 no tablet, 4 no celular (--cols).
+   12 colunas no desktop, 8 no tablet, 4 no celular (--cols).
    .grade define as colunas; cada filho escolhe onde começa.
    Eixos: coluna 1 (rótulos, títulos, imagens) e coluna 7 (títulos
    de seção e textos que acompanham imagens). Ver DIRECAO-DE-ARTE.md. */

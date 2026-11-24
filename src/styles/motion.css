@@ -17,34 +17,44 @@
    Documentação completa: MOTION.md.
    ───────────────────────────────────────────────────────────── */
 
-/* ── 1. Entre páginas (View Transitions API) ──────────────────
-   A animação em si é feita por Passagens.tsx (Web Animations no
-   pseudo-elemento), porque o arco é calculado em pixels a partir da tela.
-   Aqui só se garante que nada mais se mova durante a passagem. */
-::view-transition-group(root) { animation-duration: var(--dur-passagem); }
+/* ── 1. Entre páginas e entre lados (View Transitions API) ────
+   A coreografia é feita em lib/passagem.ts (Web Animations nos
+   pseudo-elementos, porque o arco é calculado em pixels a partir da tela).
+   Aqui: as camadas e a cor da superfície. O cabeçalho atravessa junto com
+   a página (não fica "preso" por cima da passagem). */
+::view-transition-group(root) { animation: none; }
+::view-transition-image-pair(root) { isolation: auto; background: var(--superficie-passagem, var(--campo)); }
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
-::view-transition-new(root) { z-index: 2; }
-::view-transition-old(root) { z-index: 1; transform-origin: 0 0; }
-/* entre páginas o cabeçalho fixo é a mesma superfície: não atravessa.
-   (Na troca de lado ele atravessa junto, porque muda de cor.) */
-html.navegando .cabecalho { view-transition-name: cabecalho; }
-::view-transition-group(cabecalho) { animation: none; z-index: 3; }
-::view-transition-old(cabecalho) { display: none; }
-::view-transition-new(cabecalho) { animation: none; }
+::view-transition-old(root) { z-index: 1; }
+/* object-fit: none deixa a página nova "subir" dentro do próprio arco
+   (object-position), sem mover o recorte */
+::view-transition-new(root) { z-index: 2; object-fit: none; object-position: 50% 0; }
+/* o que já estava na primeira dobra da página nova aparece direto, sem a
+   revelação de rolagem (que só rodaria depois da passagem) */
+.js .revelar.visto--ja { transition: none !important; }
 
 /* ── 2. Entrada no site (primeira página da visita) ───────────
    html.entrando é marcado por um script no <head>, antes da primeira
    pintura, só na primeira página da sessão e sem "reduzir movimento".
    Nada bloqueia o clique: é só a ordem em que as coisas aparecem.
-   Etapa 1 (0–720 ms): a forma — o arco do portal sobe do pé, vindo de
-   baixo e da direita, e a imagem assenta dentro dele.
-   Etapa 2 (360–1160 ms no desktop; 60–860 ms no celular): a tipografia —
-   rótulo, nome, sobrenome, apresentação, chamadas e, por último, a navegação. */
+   É a passagem em miniatura, parada no lugar:
+   Etapa 1 (0–760 ms): a FORMA — o arco do portal nasce do chão como
+     superfície de cor (o verde), crescendo até o semicírculo.
+   Etapa 2 (300–1160 ms): a IMAGEM sobe dentro dele, num segundo arco que
+     segue o primeiro (a mesma faixa de cor da passagem entre páginas).
+   Etapa 3 (520 ms em diante no desktop; 60 ms no celular): a TIPOGRAFIA —
+     rótulo, nome, sobrenome, apresentação, chamadas, os lados e, por
+     último, a navegação. */
 @keyframes forma-chega {
-  from { clip-path: inset(100% 0 0 0 round 0); transform: translate(6%, 10%); }
-  to { clip-path: inset(0 0 0 0 round 0); transform: none; }
+  from { clip-path: inset(100% 0 0 0 round 9999px 9999px 0 0); }
+  to { clip-path: inset(0 0 0 0 round 9999px 9999px 0 0); }
 }
-@keyframes vista-assenta { from { transform: scale(1.14); } to { transform: none; } }
+@keyframes vista-sobe {
+  /* 99%, não 100%: a imagem precisa ser pintada (um fio) no primeiro quadro,
+     senão o Chrome só a conta para o LCP quando a entrada termina (2,1 s) */
+  from { clip-path: inset(99% 0 0 0 round 9999px 9999px 0 0); transform: scale(1.08) translateY(4%); }
+  to { clip-path: inset(0 0 0 0 round 9999px 9999px 0 0); transform: none; }
+}
 @keyframes texto-sobe { from { opacity: 0.01; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes titulo-sobe {
   from { opacity: 0.01; transform: translateY(0.35em); clip-path: inset(0 -10% 100% -10%); }
@@ -55,24 +65,25 @@ html.navegando .cabecalho { view-transition-name: cabecalho; }
    de ter opacidade 0, e com a entrada isso empurrava o LCP para ~1,7 s. 0.01 é
    invisível e mantém o LCP no primeiro quadro (medido: 1748 ms → 120 ms). */
 
-html.entrando .portal__arco { animation: forma-chega 720ms var(--ease-passagem) both; }
-html.entrando .portal__vista img { animation: vista-assenta 1100ms var(--ease) both; }
-/* --e0: quando a tipografia começa. No desktop, depois que o arco já se
+html.entrando .portal__arco { animation: forma-chega 760ms var(--ease-passagem) both; }
+html.entrando .portal__arco .arco__vista { background: var(--campo); }
+html.entrando .portal__vista { animation: vista-sobe 860ms 300ms var(--ease-passagem) both; }
+/* --e0: quando a tipografia começa. No desktop, depois que a forma já se
    estabeleceu; no celular, o portal fica abaixo da dobra, então o texto não
    espera por uma forma que ainda não se vê. */
-:root { --e0: 360ms; }
+:root { --e0: 520ms; }
 @media (max-width: 1023px) { :root { --e0: 60ms; } }
-html.entrando .portal__legenda { animation: texto-sobe 480ms 760ms var(--ease) both; }
-html.entrando .capa__kicker { animation: texto-sobe 440ms var(--e0) var(--ease) both; }
-html.entrando .capa__titulo { animation: titulo-sobe 600ms calc(var(--e0) + 60ms) var(--ease) both; }
-html.entrando .capa__titulo em { display: block; animation: titulo-sobe 600ms calc(var(--e0) + 140ms) var(--ease) both; }
-html.entrando .capa__lead { animation: texto-sobe 480ms calc(var(--e0) + 220ms) var(--ease) both; }
-html.entrando .capa__botoes { animation: texto-sobe 440ms calc(var(--e0) + 280ms) var(--ease) both; }
-html.entrando .capa__lados { animation: some-aparece 440ms calc(var(--e0) + 340ms) var(--ease) both; }
-html.entrando .cabecalho__barra { animation: some-aparece 400ms calc(var(--e0) + 400ms) var(--ease) both; }
+html.entrando .portal__legenda { animation: texto-sobe 560ms 1000ms var(--ease) both; }
+html.entrando .capa__kicker { animation: texto-sobe 520ms var(--e0) var(--ease) both; }
+html.entrando .capa__titulo { animation: titulo-sobe 760ms calc(var(--e0) + 70ms) var(--ease) both; }
+html.entrando .capa__titulo em { display: block; animation: titulo-sobe 760ms calc(var(--e0) + 170ms) var(--ease) both; }
+html.entrando .capa__lead { animation: texto-sobe 600ms calc(var(--e0) + 280ms) var(--ease) both; }
+html.entrando .capa__botoes { animation: texto-sobe 560ms calc(var(--e0) + 360ms) var(--ease) both; }
+html.entrando .capa__lados { animation: some-aparece 560ms calc(var(--e0) + 440ms) var(--ease) both; }
+html.entrando .cabecalho__barra { animation: some-aparece 520ms calc(var(--e0) + 520ms) var(--ease) both; }
 /* em outras páginas, a primeira visita só faz a abertura assentar */
-html.entrando .abertura__kicker { animation: texto-sobe 480ms 80ms var(--ease) both; }
-html.entrando .abertura__titulo { animation: titulo-sobe 640ms 160ms var(--ease) both; }
+html.entrando .abertura__kicker { animation: texto-sobe 520ms 80ms var(--ease) both; }
+html.entrando .abertura__titulo { animation: titulo-sobe 760ms 160ms var(--ease) both; }
 
 /* ── 4. Ao rolar: três entradas, conforme a hierarquia ────────── */
 /* textos: sobem pouco e aparecem (padrão) */

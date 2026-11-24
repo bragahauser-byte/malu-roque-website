@@ -3,8 +3,8 @@
 // Países: lista informada pela Malu. As legendas descrevem só a
 // fotografia (o lugar retratado), nunca o que ela fez ou quais cidades
 // visitou, que não foi informado.
-// Fotos dos países: Wikimedia Commons, com autor e licença; Inglaterra e
-// Itália são fotos dela (pastas "intercambio inglaterra" e "intercambio italia").
+// Fotos dos países: todas da Malu (pasta "viagens paises", uma foto por
+// país, identificada pelo nome do arquivo). Originais sem retoque.
 // ─────────────────────────────────────────────────────────────
 
 export type Bandeira =
@@ -23,21 +23,19 @@ export type Destino = {
   credito: { autor: string; licenca: string; url: string } | { propria: true };
 };
 
-const COMMONS = "https://commons.wikimedia.org/wiki/File:";
-
 export const destinos: Destino[] = [
-  { pais: "Inglaterra", bandeira: "inglaterra", continente: "Europa", capital: "Londres", imagem: "destino-inglaterra", legenda: "Uma rua de pedra ao entardecer.", credito: { propria: true } },
-  { pais: "Dinamarca", bandeira: "dinamarca", continente: "Europa", capital: "Copenhague", imagem: "destino-dinamarca", legenda: "A torre de dragões entrelaçados da Børsen, a antiga bolsa de Copenhague.", credito: { autor: "Jebulon", licenca: "CC0", url: COMMONS + "B%C3%B8rsen_dragon_spire_roofs_Copenhagen_Denmark.jpg" } },
-  { pais: "Itália", bandeira: "italia", continente: "Europa", capital: "Roma", imagem: "destino-italia", legenda: "Buganvílias sobre uma rua em ladeira.", credito: { propria: true } },
-  { pais: "Bélgica", bandeira: "belgica", continente: "Europa", capital: "Bruxelas", imagem: "destino-belgica", legenda: "Fachadas refletidas num canal de Bruges.", credito: { autor: "Marc Ryckaert (MJJR)", licenca: "CC BY 3.0", url: COMMONS + "Brugge_Langerei_R02.jpg" } },
-  { pais: "Holanda", bandeira: "holanda", continente: "Europa", capital: "Amsterdã", imagem: "destino-holanda", legenda: "Casas sobre a água de Amsterdã, à noite.", credito: { autor: "Massimo Catarinella", licenca: "CC BY-SA 3.0", url: COMMONS + "OudezijdsKolkAmsterdam.jpg" } },
-  { pais: "Mônaco", bandeira: "monaco", continente: "Europa", capital: "Mônaco", imagem: "destino-monaco", legenda: "O porto e a cidade, entre o mar e a encosta.", credito: { autor: "Diego Delso", licenca: "CC BY-SA 4.0", url: COMMONS + "Vista_de_M%C3%B3naco,_2016-06-23,_DD_10.jpg" } },
-  { pais: "Vaticano", bandeira: "vaticano", continente: "Europa", capital: "Cidade do Vaticano", imagem: "destino-vaticano", legenda: "A escada em espiral dos Museus Vaticanos.", credito: { autor: "Alvesgaspar", licenca: "CC BY-SA 4.0", url: COMMONS + "Vatican_Museum_September_2015-1.jpg" } },
-  { pais: "Marrocos", bandeira: "marrocos", continente: "África", capital: "Rabat", imagem: "destino-marrocos", legenda: "Uma escadaria azul em Chefchaouen.", credito: { autor: "Fbrandao.1963", licenca: "CC BY-SA 4.0", url: COMMONS + "2018_01_(Blue)_-_Chaouen.jpg" } },
-  { pais: "França", bandeira: "franca", continente: "Europa", capital: "Paris", imagem: "destino-franca", legenda: "Uma porta azul em arco num prédio de Paris.", credito: { autor: "Jebulon", licenca: "CC0", url: COMMONS + "Porte_35_boulevard_Saint-Michel_Paris.jpg" } },
-  { pais: "Alemanha", bandeira: "alemanha", continente: "Europa", capital: "Berlim", imagem: "destino-alemanha", legenda: "A antiga prefeitura de Bamberg, construída sobre o rio.", credito: { autor: "Berthold Werner", licenca: "Domínio público", url: COMMONS + "Bamberg_Altes_Rathaus_BW_1.JPG" } },
-  { pais: "Malta", bandeira: "malta", continente: "Europa", capital: "Valletta", imagem: "destino-malta", legenda: "O memorial do Sino do Cerco, em Valletta, diante do mar.", credito: { autor: "MrPanyGoff", licenca: "CC BY-SA 3.0", url: COMMONS + "Siege_Bell_War_Memorial_-_Valletta.jpg" } },
-  { pais: "Áustria", bandeira: "austria", continente: "Europa", capital: "Viena", imagem: "destino-austria", legenda: "Uma igreja entre o lago e as montanhas de Hallstatt.", credito: { autor: "Taxiarchos228", licenca: "CC BY 3.0", url: COMMONS + "Hallstatt_-_Evangelische_Kirche3.jpg" } },
+  { pais: "Inglaterra", bandeira: "inglaterra", continente: "Europa", capital: "Londres", imagem: "destino-inglaterra", legenda: "A Tower Bridge vista da margem do Tâmisa, sob um céu de nuvens.", credito: { propria: true } },
+  { pais: "Dinamarca", bandeira: "dinamarca", continente: "Europa", capital: "Copenhague", imagem: "destino-dinamarca", legenda: "Um veleiro e a bandeira dinamarquesa sobre a água, contra o sol.", credito: { propria: true } },
+  { pais: "Itália", bandeira: "italia", continente: "Europa", capital: "Roma", imagem: "destino-italia", legenda: "A catedral de Milão vista através de um vidro.", credito: { propria: true } },
+  { pais: "Bélgica", bandeira: "belgica", continente: "Europa", capital: "Bruxelas", imagem: "destino-belgica", legenda: "Uma figura de chapéu-coco recortada na fachada de um prédio de pedra.", credito: { propria: true } },
+  { pais: "Holanda", bandeira: "holanda", continente: "Europa", capital: "Amsterdã", imagem: "destino-holanda", legenda: "Flores diante de um edifício de tijolos com torres pontiagudas, em Amsterdã.", credito: { propria: true } },
+  { pais: "Mônaco", bandeira: "monaco", continente: "Europa", capital: "Mônaco", imagem: "destino-monaco", legenda: "Uma curva de rua com zebras vermelhas e brancas entre os prédios.", credito: { propria: true } },
+  { pais: "Vaticano", bandeira: "vaticano", continente: "Europa", capital: "Cidade do Vaticano", imagem: "destino-vaticano", legenda: "A Escola de Atenas, de Rafael, sob o teto pintado da sala.", credito: { propria: true } },
+  { pais: "Marrocos", bandeira: "marrocos", continente: "África", capital: "Rabat", imagem: "destino-marrocos", legenda: "Dunas de areia alaranjada no deserto do Saara.", credito: { propria: true } },
+  { pais: "França", bandeira: "franca", continente: "Europa", capital: "Paris", imagem: "destino-franca", legenda: "O mar e as rochas da costa de Nice, sob o céu azul.", credito: { propria: true } },
+  { pais: "Alemanha", bandeira: "alemanha", continente: "Europa", capital: "Berlim", imagem: "destino-alemanha", legenda: "Fachadas antigas e mesas de café numa calçada.", credito: { propria: true } },
+  { pais: "Malta", bandeira: "malta", continente: "Europa", capital: "Valletta", imagem: "destino-malta", legenda: "Água azul-turquesa e um barco junto à costa de pedra.", credito: { propria: true } },
+  { pais: "Áustria", bandeira: "austria", continente: "Europa", capital: "Viena", imagem: "destino-austria", legenda: "Um teto com medalhões em relevo e ornamentos dourados.", credito: { propria: true } },
 ];
 
 /** Os dois intercâmbios. Textos escritos pela Malu (revisão leve). */

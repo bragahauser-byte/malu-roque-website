@@ -1,65 +1,47 @@
-// FAVICON — o M em Gotham Condensed Bold, verde da paleta, sobre o arco creme
-// do arquivo enviado (recursos/favicon/arco.png = "favcon.png").
+// FAVICON — o arquivo enviado pela Malu ("favcon.png", copiado para
+// recursos/favicon/arco.png), sem nenhum acréscimo: o arco creme, sem letra.
+// O script só recorta a área transparente em volta, centraliza num quadrado e
+// gera os tamanhos.
 //
 //   favicon-16/32.png, favicon.ico (16+32+48)  → fundo transparente
 //   icon-192/512.png                           → fundo transparente (navegadores, PWA "any")
-//   icon-maskable-512.png, apple-touch-icon    → campo verde cheio (iOS e Android
-//                                                recortam o ícone; transparência viraria preto)
+//   icon-maskable-512.png, apple-touch-icon    → arco sobre o verde da paleta. iOS e
+//                                                Android exigem ícone opaco (transparência
+//                                                viraria preto); o arco creme não muda.
 //
-// Uso: node scripts/gerar-favicon.mjs <caminho do playwright>
-// (o Playwright não é dependência do projeto: usa-se o do cache do npx)
-import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { pathToFileURL } from "node:url";
-import path from "node:path";
+// Uso: node scripts/gerar-favicon.mjs
+import { writeFile, mkdir } from "node:fs/promises";
 import sharp from "sharp";
 
-const pwMod = await import(pathToFileURL(path.join(process.argv[2], "index.js")).href);
-const pw = pwMod.chromium ? pwMod : pwMod.default;
-const raiz = process.cwd();
-const fonte = pathToFileURL(path.join(raiz, "public/fonts/gotham/GothamCond-Bold.woff2")).href;
+const ORIGEM = "recursos/favicon/arco.png";
+const VERDE = { r: 8, g: 78, b: 50, alpha: 1 };
+const TRANSPARENTE = { r: 0, g: 0, b: 0, alpha: 0 };
 
-// o arco do arquivo, recortado justo (sem a área transparente em volta)
-const arco = await sharp("recursos/favicon/arco.png").trim({ threshold: 1 }).png().toBuffer();
+const arco = await sharp(ORIGEM).trim({ threshold: 1 }).png().toBuffer();
 const { width: aw, height: ah } = await sharp(arco).metadata();
-const arcoUrl = `data:image/png;base64,${arco.toString("base64")}`;
 
-const VERDE = "#084e32";
-
-/** fundo: null (transparente) ou cor; escala: altura do arco em relação ao quadrado */
-const html = (lado, fundo, escala) => {
-  const h = lado * escala;
-  const w = (h * aw) / ah;
-  return `<!doctype html><html><head><style>
-  @font-face { font-family: G; src: url("${fonte}") format("woff2"); font-weight: 700; }
-  html, body { margin: 0; width: ${lado}px; height: ${lado}px; background: ${fundo ?? "transparent"}; }
-  .a { position: absolute; left: ${(lado - w) / 2}px; top: ${(lado - h) / 2}px; width: ${w}px; height: ${h}px; background: url(${arcoUrl}) center / 100% 100% no-repeat; }
-  .m { position: absolute; left: 0; right: 0; top: ${(lado - h) / 2 + h * 0.27}px; height: ${h * 0.66}px; display: grid; place-items: center;
-       font: 700 ${h * 0.68}px / 1 G; color: ${VERDE}; letter-spacing: 0; }
-  </style></head><body><div class="a"></div><div class="m">M</div></body></html>`;
-};
-
-const nav = await pw.chromium.launch();
-const pagina = await nav.newPage({ deviceScaleFactor: 1 });
-const tmp = path.join(raiz, "out-favicon.html");
-async function render(lado, fundo, escala) {
-  await pagina.setViewportSize({ width: lado, height: lado });
-  await writeFile(tmp, html(lado, fundo, escala));
-  await pagina.goto(pathToFileURL(tmp).href);
-  await pagina.evaluate(() => document.fonts.ready);
-  return pagina.screenshot({ omitBackground: !fundo, type: "png" });
+/** o arco centralizado num quadrado de `lado` px, ocupando `escala` da altura */
+async function icone(lado, fundo, escala) {
+  const h = Math.round(lado * escala);
+  const w = Math.max(1, Math.round((h * aw) / ah));
+  const peca = await sharp(arco).resize(w, h, { kernel: "lanczos3" }).png().toBuffer();
+  return sharp({ create: { width: lado, height: lado, channels: 4, background: fundo } })
+    .composite([{ input: peca, left: Math.round((lado - w) / 2), top: Math.round((lado - h) / 2) }])
+    .png()
+    .toBuffer();
 }
 
 await mkdir("public", { recursive: true });
-// tamanhos pequenos: renderiza grande e reduz (traço mais limpo que renderizar em 16 px)
-const grande = await render(512, null, 0.96);
-const reduz = (l) => sharp(grande).resize(l, l, { kernel: "lanczos3" }).png().toBuffer();
-const p16 = await reduz(16), p32 = await reduz(32), p48 = await reduz(48);
+// 16 px: o arco ocupa a altura toda (cada pixel conta); nos maiores, um respiro mínimo
+const p16 = await icone(16, TRANSPARENTE, 1);
+const p32 = await icone(32, TRANSPARENTE, 0.94);
+const p48 = await icone(48, TRANSPARENTE, 0.94);
 await writeFile("public/favicon-16.png", p16);
 await writeFile("public/favicon-32.png", p32);
-await writeFile("public/icon-192.png", await reduz(192));
-await writeFile("public/icon-512.png", grande);
-await writeFile("public/icon-maskable-512.png", await render(512, VERDE, 0.62)); // área segura de 80%
-await writeFile("public/apple-touch-icon.png", await sharp(await render(512, VERDE, 0.7)).resize(180, 180, { kernel: "lanczos3" }).png().toBuffer());
+await writeFile("public/icon-192.png", await icone(192, TRANSPARENTE, 0.92));
+await writeFile("public/icon-512.png", await icone(512, TRANSPARENTE, 0.92));
+await writeFile("public/icon-maskable-512.png", await icone(512, VERDE, 0.58)); // área segura de 80%
+await writeFile("public/apple-touch-icon.png", await icone(180, VERDE, 0.66));
 
 // ICO com PNGs embutidos (16, 32, 48)
 const imgs = [[16, p16], [32, p32], [48, p48]];
@@ -74,6 +56,4 @@ imgs.forEach(([l, b], i) => {
   deslocamento += b.length;
 });
 await writeFile("public/favicon.ico", Buffer.concat([cab, ...imgs.map(([, b]) => b)]));
-await nav.close();
-await (await import("node:fs/promises")).rm(tmp);
-console.log("favicons gerados");
+console.log(`favicons gerados a partir de ${ORIGEM} (${aw}×${ah} após recorte)`);

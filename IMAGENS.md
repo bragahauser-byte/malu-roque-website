@@ -139,26 +139,36 @@ exemplo, a janela com suéter vermelho e a casa rosa) **não foram atribuídas**
 a Londres nem a Milão, porque não dá para saber com segurança a qual
 experiência pertencem.
 
-### Destinos (12 países)
+### Destinos (12 países) — v6: todas as fotos são da Malu
 
-- **Inglaterra:** foto dela (`intercambio inglaterra` / 23.06.42).
-- **Itália:** foto dela (`intercambio italia` / 23.07.06 (1)).
-- **Os outros 10:** Wikimedia Commons (Quality Images), baixados a no máximo
-  2400 px de largura. Autor e licença aparecem em cada janela e em `/creditos/`.
-  Os dados completos ficam em `recursos/destinos/creditos.json`.
+Fonte: pasta `viagens paises` (12 arquivos, um por país; o nome de cada arquivo
+diz o país). Substituem as fotos do Wikimedia Commons e as duas fotos dos
+intercâmbios usadas antes. Originais preservados: só redimensionados (WebP
+640–2400 px, sem ampliar), sem recorte, sem retoque, e **sem metadados** (o
+WebP gerado pelo sharp não leva EXIF nem localização GPS). Todas são verticais
+3:4, a proporção exata da janelinha de avião: nada é cortado.
 
-| País | Arquivo no Commons | Autor | Licença |
+| País | Arquivo | Tamanho | O que a foto mostra (legenda no site) |
 | --- | --- | --- | --- |
-| Dinamarca | Børsen dragon spire roofs Copenhagen Denmark.jpg | Jebulon | CC0 |
-| Bélgica | Brugge Langerei R02.jpg | Marc Ryckaert (MJJR) | CC BY 3.0 |
-| Holanda | OudezijdsKolkAmsterdam.jpg | Massimo Catarinella | CC BY-SA 3.0 |
-| Mônaco | Vista de Mónaco, 2016-06-23, DD 10.jpg | Diego Delso | CC BY-SA 4.0 |
-| Vaticano | Vatican Museum September 2015-1.jpg | Alvesgaspar | CC BY-SA 4.0 |
-| Marrocos | 2018 01 (Blue) - Chaouen.jpg | Fbrandao.1963 | CC BY-SA 4.0 |
-| França | Porte 35 boulevard Saint-Michel Paris.jpg | Jebulon | CC0 |
-| Alemanha | Bamberg Altes Rathaus BW 1.JPG | Berthold Werner | Domínio público |
-| Malta | Siege Bell War Memorial - Valletta.jpg | MrPanyGoff | CC BY-SA 3.0 |
-| Áustria | Hallstatt - Evangelische Kirche3.jpg | Taxiarchos228 | CC BY 3.0 |
+| Inglaterra | londres.jpeg | 960 × 1280 | a Tower Bridge vista da margem do Tâmisa |
+| Dinamarca | Dinamarca.jpeg | 960 × 1280 | um veleiro e a bandeira dinamarquesa contra o sol |
+| Itália | Italia Milao.jpeg | 960 × 1280 | a catedral de Milão vista através de um vidro |
+| Bélgica | Belgica.jpeg | 3024 × 4032 | uma figura de chapéu-coco recortada na fachada de um prédio de pedra |
+| Holanda | Holanda Amsterdam.jpeg | 960 × 1280 | flores diante de um edifício de tijolos com torres, em Amsterdã |
+| Mônaco | Monaco.jpeg | 960 × 1280 | uma curva de rua com zebras vermelhas e brancas |
+| Vaticano | Vaticano.jpeg | 3024 × 4032 | *A Escola de Atenas*, de Rafael, sob o teto pintado |
+| Marrocos | Marrocos (deserto do saara).jpeg | 960 × 1280 | dunas do Saara |
+| França | franca em nice.jpeg | 960 × 1280 | o mar e as rochas da costa de Nice |
+| Alemanha | Alemanha.jpeg | 3024 × 4032 | fachadas antigas e mesas de café |
+| Malta | malta.jpeg | 960 × 1280 | água azul-turquesa e um barco junto à costa |
+| Áustria | Austria.jpeg | 3024 × 4032 | um teto com medalhões em relevo e dourado |
+
+Nenhuma associação foi inventada: o país vem do nome do arquivo; as cidades
+citadas (Londres, Milão, Amsterdã, Nice, Saara) também vêm do nome do arquivo ou
+são identificáveis na própria foto (Tower Bridge, Duomo, *A Escola de Atenas*).
+As fotos antigas do Commons ficaram em `recursos/destinos-commons-antigas/`
+(fora do git). Seis fotos têm 960 px de largura: nítidas na janela (até ~ 440 px
+no desktop), um pouco abaixo do ideal em telas 2× grandes.
 
 As legendas descrevem a foto, nunca o que ela fez ou quais cidades visitou.
 
@@ -208,4 +218,4 @@ Com isso, o portal mostra, no lado visível, esse pastel; no lado simbólico, *O
 ### Favicon
 
 - Arquivo enviado: `favcon.png` (1544 × 1544): **só o arco creme** (#FEFAEE) em fundo transparente, sem letra.
-- Gerado por `scripts/gerar-favicon.mjs` (arco do arquivo + M em Gotham Condensed Bold, verde #084E32), a partir de `recursos/favicon/arco.png` (cópia do arquivo, fora do git).
+- v6: usado **como enviado**, sem a letra M da v5. Gerado por `scripts/gerar-favicon.mjs` (só recorte da transparência e redimensionamento), a partir de `recursos/favicon/arco.png` (cópia do arquivo, fora do git).

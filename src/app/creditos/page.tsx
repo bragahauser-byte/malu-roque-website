@@ -100,8 +100,8 @@ export default function Creditos() {
         </ul>
         <p className="grade creditos__nota ui suave">
           <span>
-            Licenças Creative Commons: CC BY e CC BY-SA exigem crédito ao autor (feito aqui e em cada janela); CC0 e domínio público dispensam. As capas
-            de discos da estante de CDs vêm dos arquivos enviados pela Malu; os direitos pertencem aos artistas e gravadoras.
+            As doze fotografias dos países são de Maria Luiza Roque, usadas sem retoques. As capas de discos da estante de CDs vêm dos arquivos
+            enviados pela Malu; os direitos pertencem aos artistas e gravadoras.
           </span>
         </p>
       </section>

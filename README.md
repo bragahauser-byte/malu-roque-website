@@ -83,8 +83,9 @@ fora do Git.
 ### Favicon
 
 Os arquivos (`public/favicon.ico`, `favicon-16/32.png`, `icon-192/512.png` e
-`apple-touch-icon.png`) são a letra M em Gotham Condensed Bold, verde #084E32,
-renderizada a partir do arquivo local da fonte.
+`apple-touch-icon.png`) são o arquivo enviado pela Malu (`favcon.png`: o arco
+creme), sem letra nem acréscimo. Nos ícones do iOS e Android, que exigem fundo
+opaco, o arco fica sobre o verde #084E32.
 
 ### Auditoria de medidas
 
@@ -142,4 +143,4 @@ Bold) para `public/fonts/gotham/`.
 
 As decisões de direção de arte (grade 12/8/4, espaçamento, cores tipográficas) estão em [`DIRECAO-DE-ARTE.md`](DIRECAO-DE-ARTE.md), o sistema de movimento em [`MOTION.md`](MOTION.md), a pesquisa de referências em [`REFERENCIAS-MOTION.md`](REFERENCIAS-MOTION.md) e as fontes das imagens em [`IMAGENS.md`](IMAGENS.md).
 
-Favicon: `node scripts/gerar-favicon.mjs <pasta do playwright>` (precisa da Gotham local e de `recursos/favicon/arco.png`).
+Favicon: `node scripts/gerar-favicon.mjs` (precisa de `recursos/favicon/arco.png`, cópia de `favcon.png`).

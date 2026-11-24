@@ -36,3 +36,25 @@ Não se copiou nenhuma interface. O que se aproveitou:
 - Duolingo, "Duolingo Acquires Gunner to Accelerate Product & Brand Development" (investors.duolingo.com), out. 2022.
 - Duolingo, "Duolingo Doubles Down on Design and Animation With Acquisition of Hobbes" (investors.duolingo.com), jul. 2024.
 - TechCrunch, 09/07/2024; Cartoon Brew; AWN.
+
+## Rodada 6: o que mudou na aplicação
+
+Nesta rodada não houve nova visita aos sites: a pesquisa acima (feita um dia
+antes) continua valendo, e nada novo foi acrescentado a ela. O que mudou foi a
+**tradução** dos princípios já documentados, agora com mais cuidado de execução:
+
+- **Never Sit Still / Jordan Scott: um gesto só, com poucas regras.** O motor
+  único (`lib/passagem.ts`) serve à navegação e à troca de lado. Uma forma (o
+  arco), uma curva de passagem e três ritmos (página, troca de lado, entrada).
+- **Art of the Title: abertura como cortina.** A entrada da capa agora tem três
+  tempos claros (forma → imagem dentro da forma → tipografia), e a imagem sobe
+  dentro do arco com a mesma faixa de cor da passagem entre páginas.
+- **Hobbes: motion de produto é robusto antes de ser bonito.** Antes de criar
+  efeitos, a passagem foi gravada quadro a quadro e corrigida na causa (ver
+  MOTION.md §1). Interações rápidas não travam nem empilham.
+- **Gretel: níveis de expressão.** Alto só na passagem e na entrada; médio na
+  estante de CDs; baixo ao rolar e no hover.
+- **Hornet / Good Moves: materialidade sem exagero.** A estante de CDs foi
+  refeita com medidas reais de uma jewel case e luz direcional (DIRECAO-DE-ARTE.md).
+- **TikTok: sobreposição contínua.** A página nova chega por cima, e a anterior
+  continua visível até a superfície passar: as duas se relacionam pela faixa de cor.

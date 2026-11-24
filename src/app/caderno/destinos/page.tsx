@@ -30,7 +30,7 @@ export default function Destinos() {
             passei, vistos como pela janela de um avião: um recorte de cada lugar, sem roteiro.
           </p>
           <p className="ui suave revelar">
-            Inglaterra e Itália: fotos minhas. Os demais: fotografias do Wikimedia Commons, com autoria e licença em cada janela.
+            As doze fotografias são minhas, uma de cada país, sem retoques.
           </p>
         </div>
       </section>

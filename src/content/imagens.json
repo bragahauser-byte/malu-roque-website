@@ -492,19 +492,19 @@
  },
  "destino-alemanha": {
   "pasta": "destinos",
-  "w": 2272,
-  "h": 3410,
+  "w": 3024,
+  "h": 4032,
   "larguras": [
    640,
    1024,
    1600,
-   2272
+   2400
   ]
  },
  "destino-austria": {
   "pasta": "destinos",
-  "w": 2848,
-  "h": 4288,
+  "w": 3024,
+  "h": 4032,
   "larguras": [
    640,
    1024,
@@ -514,8 +514,8 @@
  },
  "destino-belgica": {
   "pasta": "destinos",
-  "w": 3743,
-  "h": 2463,
+  "w": 3024,
+  "h": 4032,
   "larguras": [
    640,
    1024,
@@ -525,35 +525,29 @@
  },
  "destino-dinamarca": {
   "pasta": "destinos",
-  "w": 3840,
-  "h": 5704,
+  "w": 960,
+  "h": 1280,
   "larguras": [
    640,
-   1024,
-   1600,
-   2400
+   960
   ]
  },
  "destino-franca": {
   "pasta": "destinos",
-  "w": 2009,
-  "h": 3375,
+  "w": 960,
+  "h": 1280,
   "larguras": [
    640,
-   1024,
-   1600,
-   2009
+   960
   ]
  },
  "destino-holanda": {
   "pasta": "destinos",
-  "w": 2304,
-  "h": 3456,
+  "w": 960,
+  "h": 1280,
   "larguras": [
    640,
-   1024,
-   1600,
-   2304
+   960
   ]
  },
  "destino-inglaterra": {
@@ -576,41 +570,35 @@
  },
  "destino-malta": {
   "pasta": "destinos",
-  "w": 2318,
-  "h": 1700,
+  "w": 960,
+  "h": 1280,
   "larguras": [
    640,
-   1024,
-   1600,
-   2318
+   960
   ]
  },
  "destino-marrocos": {
   "pasta": "destinos",
-  "w": 3840,
-  "h": 2560,
+  "w": 960,
+  "h": 1280,
   "larguras": [
    640,
-   1024,
-   1600,
-   2400
+   960
   ]
  },
  "destino-monaco": {
   "pasta": "destinos",
-  "w": 3840,
-  "h": 2390,
+  "w": 960,
+  "h": 1280,
   "larguras": [
    640,
-   1024,
-   1600,
-   2400
+   960
   ]
  },
  "destino-vaticano": {
   "pasta": "destinos",
-  "w": 3840,
-  "h": 2647,
+  "w": 3024,
+  "h": 4032,
   "larguras": [
    640,
    1024,

@@ -210,139 +210,139 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 .continuar { border-top: 1px solid var(--linha); padding-top: var(--space-8); }
 
 /* ── Estante de CDs ──────────────────────────────────────────
-   Cada caixa é um objeto em CSS 3D, com as proporções de uma jewel case
-   (142 × 125 × 10 mm, aqui quadrada): tampa de plástico transparente com
-   dobradiça frisada, encarte por baixo da tampa, bandeja preta ao fundo,
-   lombada com o nome, e as bordas de plástico com espessura real.
-   Luz: de cima e da esquerda. A lombada e a borda de cima recebem luz;
-   a borda direita e a de baixo ficam na sombra. Reflexos especulares são
-   faixas sólidas translúcidas (sem degradê), e deslizam quando a caixa
-   gira — o único movimento além da escolha. Sombra de contato na prateleira.
-   Sem WebGL: só transform, opacity e camadas compostas pela GPU. */
-.colecao { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha); row-gap: var(--space-8); align-items: start; }
-.estante {
-  --cd: clamp(9rem, 4.5rem + 9.6vw, 15rem);  /* 144 → 240 */
-  --sobra: 0.52;                              /* quanto de cada caixa fica atrás da seguinte */
-  --espessura: calc(var(--cd) * 0.075);       /* 10 mm em 133 mm */
-  --giro: 34deg;
-  position: relative;
-  grid-column: 1 / -1;
-  justify-content: safe center;
-  display: flex; align-items: flex-end;
-  perspective: 1500px; perspective-origin: 50% 30%;
-  padding: var(--space-16) var(--space-6) var(--space-12);
-  overflow-x: auto; overflow-y: visible; scrollbar-width: none;
+   Uma só coleção, numa fileira horizontal (ver ColecaoCDs.tsx).
+   Projeção AXONOMÉTRICA, como na referência principal: a cena não tem
+   "perspective", então o CSS 3D projeta sem ponto de fuga (as caixas não
+   encolhem ao fundo; a profundidade vem da sobreposição e da luz).
+   --u = 1 mm da caixa real (jewel case 142 × 125 × 10 mm, encarte 120 mm).
+   Luz de cima e da esquerda: a frente (virada para a esquerda) recebe luz,
+   a lombada (virada para a direita) fica um tom abaixo, a borda de cima
+   brilha. Exceção documentada à regra "sem degradê" (DIRECAO-DE-ARTE.md):
+   aqui os degradês são MATERIAL (reflexo no acrílico, frisos da
+   dobradiça, brilho furta-cor do disco e sombra de contato), nunca
+   fundo ou decoração. Sem WebGL: transform e opacity, compostos pela GPU. */
+.colecao { container-type: inline-size; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha); row-gap: var(--space-8); align-items: start; }
+.estante { grid-column: 1 / -1; --u: min(2.1px, calc(100cqw / 800)); overflow: hidden; padding-top: var(--space-4); }
+.estante__cena {
+  position: relative; width: calc(800 * var(--u)); height: calc(196 * var(--u)); margin-inline: auto;
+  transform-style: preserve-3d; transform: rotateX(-11deg);
 }
-.estante::-webkit-scrollbar { display: none; }
-/* a prateleira: um plano sólido um tom abaixo do fundo, onde as caixas pousam */
-.estante::before {
-  content: ""; position: absolute; left: 0; right: 0; bottom: calc(var(--space-12) - 2px); height: var(--space-6);
-  background: var(--fundo-2); border-top: 1px solid var(--linha);
-  pointer-events: none;
-}
+
+/* a caixa: um objeto 3D. A posição na fileira (--x) vem do componente. */
 .cd {
-  flex: none; position: relative;
-  width: var(--cd); aspect-ratio: 1;
-  margin-right: calc(var(--cd) * var(--sobra) * -1);
+  position: absolute; left: calc(96 * var(--u)); bottom: calc(34 * var(--u));
+  width: calc(142 * var(--u)); height: calc(125 * var(--u));
+  padding: 0; border: 0; background: none; cursor: pointer;
   transform-style: preserve-3d;
-  /* as caixas giram para longe do disco escolhido (--lado: −1 à esquerda, 1 à
-     direita) e cada uma pousa sobre a anterior: a borda que vem para a frente
-     fica por cima, e a lombada com o nome aparece, como numa estante real */
-  transform: rotateY(calc(var(--giro) * var(--lado))) rotateX(-3deg);
-  transition: transform 0.56s var(--ease), margin 0.56s var(--ease);
-  z-index: calc(100 + var(--d));
+  transform: translateX(calc(var(--x) * var(--u))) rotateY(-58deg);
+  transition: transform 760ms var(--ease);
+  -webkit-tap-highlight-color: transparent;
 }
-.cd:last-child { margin-right: 0; }
-.cd--ativo {
-  transform: rotateY(6deg) rotateX(-2deg) translateZ(96px) translateY(-16px);
-  margin-right: calc(var(--cd) * -0.06);
-  z-index: 200;
+@media (hover: hover) {
+  .cd:not(.cd--ativo):hover { transform: translateX(calc(var(--x) * var(--u))) translateY(calc(-10 * var(--u))) rotateY(-58deg); transition-duration: 420ms; }
 }
-.cd__caixa { position: absolute; inset: 0; transform-style: preserve-3d; }
-.cd__face { position: absolute; backface-visibility: hidden; }
+/* a escolhida: sai da fileira, sobe e vira de frente */
+.cd--ativo { transform: translateX(calc(var(--x) * var(--u))) translateY(calc(-16 * var(--u))) translateZ(calc(120 * var(--u))) rotateY(-16deg); }
 
-/* frente: bandeja escura + encarte + tampa transparente */
-.cd__frente { inset: 0; overflow: hidden; background: #161714; transform: translateZ(calc(var(--espessura) / 2)); }
-.cd__frente img { position: absolute; inset: 2.5% 2.5% 2.5% 8.5%; width: 89%; height: 95%; object-fit: cover; }
-/* a tampa: borda de plástico (clara em cima/esquerda, escura embaixo/direita) */
-.cd__frente::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.55), inset -1px -1px 0 rgb(0 0 0 / 0.45), inset 0 0 0 3px rgb(255 255 255 / 0.06);
+.cd__face { position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
+/* FRENTE: bandeja preta vista através da tampa, dobradiça à esquerda, encarte quadrado */
+.cd__frente {
+  inset: 0; transform: translateZ(calc(5 * var(--u)));
+  background: #101110; border-radius: calc(1.2 * var(--u)); overflow: hidden;
 }
-/* dobradiça: faixa de plástico fumê com frisos */
 .cd__dobradica {
-  position: absolute; inset: 0 auto 0 0; width: 8.5%;
-  background: rgb(22 23 20 / 0.72);
-  box-shadow: inset -1px 0 0 rgb(255 255 255 / 0.32), inset -3px 0 0 rgb(0 0 0 / 0.35), inset 1px 0 0 rgb(255 255 255 / 0.18);
+  position: absolute; left: 0; top: 0; bottom: 0; width: calc(13 * var(--u));
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.13) 0 calc(0.7 * var(--u)), rgb(255 255 255 / 0) calc(0.7 * var(--u)) calc(1.8 * var(--u))),
+    #1b1c1a;
+  box-shadow: inset calc(-0.6 * var(--u)) 0 0 rgb(255 255 255 / 0.18);
 }
-.cd__dobradica::before, .cd__dobradica::after {
-  content: ""; position: absolute; left: 30%; width: 40%; height: 7%;
-  background: rgb(255 255 255 / 0.12); border-radius: 1px;
-  box-shadow: 0 calc(var(--cd) * 0.03) 0 rgb(255 255 255 / 0.08);
+.cd__capa {
+  position: absolute; left: calc(15.5 * var(--u)); top: calc(2.5 * var(--u));
+  width: calc(120 * var(--u)); height: calc(120 * var(--u)); object-fit: cover;
+  -webkit-user-drag: none; user-select: none;
 }
-.cd__dobradica::before { top: 5%; }
-.cd__dobradica::after { bottom: 9%; }
-/* reflexos especulares: duas faixas sólidas e translúcidas na diagonal da luz */
-.cd__brilho { position: absolute; inset: -10%; pointer-events: none; mix-blend-mode: screen; transition: transform 0.7s var(--ease), opacity 0.7s var(--ease); }
-.cd__brilho--1 { background: rgb(255 255 255 / 0.16); clip-path: polygon(14% 0, 34% 0, 8% 100%, 0 100%, 0 46%); }
-.cd__brilho--2 { background: rgb(255 255 255 / 0.07); clip-path: polygon(40% 0, 47% 0, 21% 100%, 14% 100%); }
-.cd--ativo .cd__brilho--1 { transform: translateX(38%); opacity: 0.7; }
-.cd--ativo .cd__brilho--2 { transform: translateX(52%); opacity: 0.9; }
-
-/* fundo: a bandeja preta, vista por trás */
-.cd__fundo { inset: 0; background: #10110e; transform: translateZ(calc(var(--espessura) / -2)) rotateY(180deg); }
-
-/* lombada (esquerda): recebe luz */
-.cd__lombada {
-  top: 0; left: 0; height: 100%; width: var(--espessura);
-  transform-origin: left center; transform: translateZ(calc(var(--espessura) / 2)) rotateY(-90deg);
-  background: #2a2b26; color: var(--creme);
-  box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.35), inset -1px 0 0 rgb(0 0 0 / 0.4);
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
-}
-.cd__lombada span { writing-mode: vertical-rl; transform: rotate(180deg); font: 500 max(0.5rem, calc(var(--espessura) * 0.5)) / 1 var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; opacity: 0.86; }
-/* bordas de plástico: direita (sombra), topo (luz), base (sombra) */
-.cd__borda--direita {
-  top: 0; right: 0; height: 100%; width: var(--espessura);
-  transform-origin: right center; transform: translateZ(calc(var(--espessura) / 2)) rotateY(90deg);
-  background: rgb(18 19 16 / 0.92); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
-}
-.cd__borda--topo {
-  top: 0; left: 0; width: 100%; height: var(--espessura);
-  transform-origin: center top; transform: translateZ(calc(var(--espessura) / 2)) rotateX(-90deg);
-  background: #4a4b45; box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4);
-}
-.cd__borda--base {
-  bottom: 0; left: 0; width: 100%; height: var(--espessura);
-  transform-origin: center bottom; transform: translateZ(calc(var(--espessura) / 2)) rotateX(90deg);
-  background: #0b0c09;
-}
-/* o CD: prata com sulcos, anel transparente no centro; sai pela borda aberta quando escolhido */
-.cd__disco {
-  position: absolute; top: 3%; left: 6%; width: 90%; aspect-ratio: 1; border-radius: 50%;
-  background: #d9d8d2;
+/* TAMPA de acrílico: borda do encaixe, abas do encarte, reflexo que desliza quando a caixa vira */
+.cd__tampa {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background:
+    linear-gradient(rgb(255 255 255 / 0.3), rgb(255 255 255 / 0.3)) right calc(2.6 * var(--u)) top calc(7 * var(--u)) / calc(3 * var(--u)) calc(8 * var(--u)) no-repeat,
+    linear-gradient(rgb(255 255 255 / 0.3), rgb(255 255 255 / 0.3)) right calc(2.6 * var(--u)) bottom calc(7 * var(--u)) / calc(3 * var(--u)) calc(8 * var(--u)) no-repeat,
+    linear-gradient(112deg, rgb(255 255 255 / 0) 34%, rgb(255 255 255 / 0.2) 41%, rgb(255 255 255 / 0.07) 47%, rgb(255 255 255 / 0) 52%, rgb(255 255 255 / 0) 56%, rgb(255 255 255 / 0.14) 57.5%, rgb(255 255 255 / 0) 59%) 100% 0 / 260% 100% no-repeat,
+    rgb(255 255 255 / 0.035);
   box-shadow:
-    inset 0 0 0 2px #b9b8b1, inset 0 0 0 calc(var(--cd) * 0.05) #e3e1da, inset 0 0 0 calc(var(--cd) * 0.052) #c6c5be,
-    inset 0 0 0 calc(var(--cd) * 0.14) #dedcd5, inset 0 0 0 calc(var(--cd) * 0.142) #cbcac3,
-    inset 0 0 0 calc(var(--cd) * 0.25) #e7e5de, inset 0 0 0 calc(var(--cd) * 0.252) #c2c1ba;
-  transform: translateZ(0); transition: transform 0.64s var(--ease);
+    inset 0 calc(0.5 * var(--u)) 0 rgb(255 255 255 / 0.55),
+    inset calc(13.6 * var(--u)) 0 0 calc(-12.8 * var(--u)) rgb(255 255 255 / 0.22),
+    inset 0 calc(-0.5 * var(--u)) 0 rgb(0 0 0 / 0.5);
+  outline: calc(0.5 * var(--u)) solid rgb(255 255 255 / 0.16); outline-offset: calc(-2 * var(--u));
+  transition: background-position 1100ms var(--ease);
+}
+/* (abas do encarte: as duas primeiras camadas; reflexo: a terceira, que desliza) */
+.cd--ativo .cd__tampa { background-position: right calc(2.6 * var(--u)) top calc(7 * var(--u)), right calc(2.6 * var(--u)) bottom calc(7 * var(--u)), 8% 0, 0 0; }
+
+/* LOMBADA (lado direito): a cor da capa, o nome, as pontas pretas da bandeja e o plástico por cima */
+.cd__lombada {
+  left: calc(66 * var(--u)); top: 0; width: calc(10 * var(--u)); height: 100%;
+  transform: rotateY(90deg) translateZ(calc(71 * var(--u)));
+  background:
+    linear-gradient(90deg, rgb(255 255 255 / 0.32) 0 calc(0.5 * var(--u)), rgb(255 255 255 / 0) calc(0.5 * var(--u)) calc(9.4 * var(--u)), rgb(0 0 0 / 0.35) calc(9.4 * var(--u))),
+    linear-gradient(#0d0e0c, #0d0e0c) top / 100% calc(3.2 * var(--u)) no-repeat,
+    linear-gradient(#0d0e0c, #0d0e0c) bottom / 100% calc(3.2 * var(--u)) no-repeat,
+    linear-gradient(rgb(0 0 0 / 0.16), rgb(0 0 0 / 0.16)),
+    var(--lombada);
   display: grid; place-items: center; overflow: hidden;
 }
-/* o reflexo do disco: uma cunha sólida translúcida (a luz batendo na prata) */
-.cd__disco::after { content: ""; position: absolute; inset: 0; background: rgb(255 255 255 / 0.32); clip-path: polygon(50% 50%, 22% 0, 40% 0); mix-blend-mode: screen; }
-.cd__furo { position: relative; z-index: 1; width: 30%; aspect-ratio: 1; border-radius: 50%; background: rgb(214 213 206 / 0.5); box-shadow: inset 0 0 0 1px rgb(12 13 8 / 0.18); display: grid; place-items: center; }
-.cd__furo::after { content: ""; width: 42%; aspect-ratio: 1; border-radius: 50%; background: var(--fundo); box-shadow: 0 0 0 1px rgb(12 13 8 / 0.2); }
-.cd--ativo .cd__disco { transform: translateX(46%) translateZ(-1px); }
-/* sombra de contato na prateleira */
-.cd__sombra {
-  position: absolute; left: 6%; right: 2%; bottom: calc(var(--cd) * -0.07); height: calc(var(--cd) * 0.08);
-  background: rgb(12 13 8 / 0.34); border-radius: 50%; filter: blur(calc(var(--cd) * 0.035));
-  transform: translateZ(-40px); transition: opacity 0.56s var(--ease), transform 0.56s var(--ease); pointer-events: none;
+.cd__lombada span {
+  writing-mode: vertical-rl; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-height: calc(110 * var(--u));
+  font: 700 calc(4.6 * var(--u)) / 1 var(--gotham); letter-spacing: 0.04em; text-transform: uppercase;
+  color: #f6f1e2;
 }
-[data-mundo="simbolico"] .cd__sombra { background: rgb(0 0 0 / 0.5); }
-.cd--ativo .cd__sombra { opacity: 0.6; transform: translateZ(-40px) translateY(16px) scaleX(1.05); }
+.cd--tinta-escuro .cd__lombada span { color: #141510; }
+.cd__lombada i { font-style: normal; opacity: 0.55; }
+
+/* BORDA DE CIMA: acrílico transparente com a linha escura da bandeja por dentro */
+.cd__topo {
+  left: 0; top: calc(57.5 * var(--u)); width: 100%; height: calc(10 * var(--u));
+  transform: rotateX(90deg) translateZ(calc(62.5 * var(--u)));
+  background:
+    linear-gradient(rgb(255 255 255 / 0.85) 0 calc(0.5 * var(--u)), rgb(0 0 0 / 0) calc(0.5 * var(--u))),
+    linear-gradient(rgb(0 0 0 / 0) calc(4.6 * var(--u)), #1a1b19 calc(4.6 * var(--u)) calc(9.4 * var(--u)), rgb(0 0 0 / 0) calc(9.4 * var(--u))),
+    rgb(226 228 222 / 0.9);
+}
+
+/* O DISCO: face de dados, prata com o brilho furta-cor, anel central transparente.
+   Fica dentro da caixa e sai pela lateral quando ela é escolhida. */
+.cd__disco {
+  position: absolute; left: calc(17 * var(--u)); top: calc(3.5 * var(--u));
+  width: calc(118 * var(--u)); height: calc(118 * var(--u)); border-radius: 50%;
+  transform: translateZ(calc(-1 * var(--u))); opacity: 0;
+  transition: transform 900ms var(--ease), opacity 200ms linear;
+}
+/* a máscara (furo central e borda) fica num pseudo-elemento: no próprio disco
+   ela tiraria o disco da ordenação 3D e ele passaria por trás das vizinhas */
+.cd__disco::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background:
+    radial-gradient(circle, rgb(0 0 0 / 0) 0 13%, rgb(228 229 232 / 0.92) 13.5% 28%, rgb(176 178 184 / 0.9) 28.5% 30%, rgb(0 0 0 / 0) 30.5%),
+    conic-gradient(from 210deg, #c4c6cb, #eceef1 6%, #9fd8ea 10%, #e7b9ea 13.5%, #f6e19a 17%, #c9cbd0 22%, #e2e4e7 38%, #a6e6c4 45%, #c9b8f2 49.5%, #f3c9a8 53%, #cdcfd4 58%, #f4f5f6 76%, #d0d2d6 90%, #c4c6cb);
+  -webkit-mask: radial-gradient(circle, transparent 0 6.6%, #000 7% 99.2%, transparent 99.6%);
+  mask: radial-gradient(circle, transparent 0 6.6%, #000 7% 99.2%, transparent 99.6%);
+}
+.cd--ativo .cd__disco { opacity: 1; transform: translateX(calc(64 * var(--u))) translateZ(calc(-1 * var(--u))) rotate(-40deg); transition-delay: 220ms, 160ms; }
+
+/* SOMBRA DE CONTATO: no chão, sob a caixa; mais suave quando ela sobe */
+.cd__sombra {
+  position: absolute; left: calc(-12 * var(--u)); top: calc(102 * var(--u)); width: calc(166 * var(--u)); height: calc(46 * var(--u));
+  transform: translateY(calc(23 * var(--u))) rotateX(90deg);
+  background: radial-gradient(closest-side, rgb(12 13 8 / 0.34), rgb(12 13 8 / 0.12) 60%, rgb(12 13 8 / 0));
+  transition: opacity 760ms var(--ease);
+  pointer-events: none;
+}
+.cd--ativo .cd__sombra { opacity: 0.45; }
+
 .cd:focus-visible { outline: none; }
-.cd:focus-visible .cd__frente { outline: 2px solid var(--foco); outline-offset: 8px; }
+.cd:focus-visible .cd__frente { outline: 2px solid var(--foco); outline-offset: calc(3 * var(--u)); }
 
 /* a ficha do disco, logo abaixo da estante, na mesma grade */
 .ficha-disco { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--calha); row-gap: var(--space-3); padding-top: var(--space-6); border-top: 4px solid var(--regua); align-items: start; }
@@ -361,23 +361,20 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 .ficha-disco__nota { font-size: var(--t-corpo-p); line-height: 1.5rem; padding: var(--space-3) var(--space-4); background: var(--fundo-2); border-radius: 4px; }
 
 @media (max-width: 1023px) {
-  .estante { grid-column: 1 / -1; }
   .ficha-disco__titulo, .ficha-disco__artista, .ficha-disco > .ui, .ficha-disco__nota { grid-column: 2 / -1; }
   .ficha-disco__faixas { grid-column: 1 / -1; grid-row: auto; }
 }
-/* celular: fileira explorável, um disco em destaque por vez (gira menos, para caber) */
+/* toque (celular): a fileira rola de lado, com caixas maiores; a escolhida vem para o centro */
 @media (max-width: 639px) {
   .estante {
-    --cd: 58vw; --sobra: 0.38; --giro: 26deg; padding: var(--space-12) 21vw var(--space-10); margin-inline: calc(var(--margem) * -1); justify-content: flex-start;
-    scroll-snap-type: x mandatory; perspective: 1100px;
+    --u: 1.3px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: none;
+    margin-inline: calc(var(--margem) * -1); padding-inline: var(--margem);
   }
-  .estante::before { bottom: calc(var(--space-10) - 2px); }
-  .cd { scroll-snap-align: center; }
-  .cd--ativo { transform: rotateY(0deg) rotateX(-2deg) translateZ(48px) translateY(-8px); margin-right: calc(var(--cd) * -0.1); }
-  .cd--ativo .cd__disco { transform: translateX(24%) translateZ(-1px); }
+  .estante::-webkit-scrollbar { display: none; }
+  .estante__cena { margin-inline: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .cd, .cd__disco, .cd__brilho, .cd__sombra { transition: none; }
+  .cd, .cd__disco, .cd__tampa, .cd__sombra { transition: none; }
 }
 
 /* o numeral grande à direita da cabeça de seção ("destinations/ 25" na referência) */

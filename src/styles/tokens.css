@@ -120,25 +120,28 @@
   --bloco: clamp(4rem, 3.257rem + 3.05vw, 6rem);
 
   /* ── Grade ───────────────────────────────────────────────────
-     Desktop ≥1024: 12 colunas · margem 40 · calha 24 · conteúdo até 1440
+     Desktop ≥1024: 12 colunas · margem 32 · calha 24 · conteúdo até 1856
+       (v6: margem 40 → 32 e teto 1440 → 1856. O teto antigo deixava 240 px
+       vazios de cada lado numa tela de 1920; agora a margem é 32 até 1920 px.
+       32 = a margem do tablet: uma só margem para toda tela ≥ 640 px.)
      Tablet 640–1023: 8 colunas · margem 32 · calha 20
      Celular <640: 4 colunas · margem 24 · calha 16 (≤374: margem 20, calha 12) */
   --cols: 12;
-  --margem: 2.5rem;                                  /* 40 */
+  --margem: 2rem;                                    /* 32 */
   --calha: 1.5rem;                                   /* 24 */
-  --largura-conteudo: 1440px;
-  --largura-max: calc(var(--largura-conteudo) + 2 * var(--margem)); /* 1520: a caixa com as margens */
+  --largura-conteudo: 1856px;                        /* 1920 − 2 × 32 */
+  --largura-max: calc(var(--largura-conteudo) + 2 * var(--margem)); /* 1920: a caixa com as margens */
   --cabecalho: 4.5rem;                               /* 72 */
   --botao: 3rem;                                     /* 48: altura mínima de botões e alvos de toque */
   --dobra: 0px;                                      /* largura da dobradiça (telas dobráveis); 0 no resto */
 
   /* ── Movimento (ver MOTION.md) ────────────────────────────── */
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);             /* microinterações e revelações ao rolar: chega e assenta */
-  --ease-passagem: cubic-bezier(0.7, 0, 0.16, 1);     /* a superfície em arco: parte firme, atravessa rápido, pousa */
+  --ease-passagem: cubic-bezier(0.64, 0.02, 0.18, 1); /* a superfície em arco: parte firme, atravessa rápido, pousa devagar (= CURVA_PASSAGEM em lib/passagem.ts) */
   --ease-saida: cubic-bezier(0.4, 0, 1, 1);           /* o que sai de cena: acelera e some */
   --dur-micro: 180ms;    /* hover, foco, cor */
   --dur-curta: 280ms;    /* pequenos deslocamentos */
-  --dur-passagem: 460ms; /* a superfície cobrindo a tela */
+  --dur-passagem: 870ms; /* a passagem entre páginas inteira (superfície 720 + página 110 de atraso + 760) */
   --dur-revelar: 520ms;  /* a superfície saindo e revelando */
 }
 
