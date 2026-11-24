@@ -4,12 +4,13 @@ import { Palavras } from "@/components/Palavras";
 import { Temas } from "@/components/Temas";
 import { Obra } from "@/components/Obra";
 import { BotaoWhatsapp } from "@/components/BotaoWhatsapp";
-import { Estrela } from "@/components/Estrela";
+import { Janela } from "@/components/Janela";
+import { creditoObra } from "@/content/arte";
 import { publico, recursos } from "@/content/perfil";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "O consultório",
+  title: "Atendimento",
   description:
     "Psicoterapia individual com Maria Luiza Roque, presencial e online, para crianças, adolescentes, adultos e idosos. Abordagem: Psicologia Analítica (junguiana).",
 };
@@ -46,115 +47,116 @@ const PASSOS = [
 export default function Atendimento() {
   return (
     <>
-      <section className="abertura envoltorio grade">
-        <p className="abertura__num rotulo">02 · O consultório</p>
+      <section className="abertura grade">
+        <p className="abertura__kicker rotulo">Atendimento · O consultório</p>
         <Palavras como="h1" className="abertura__titulo abertura__titulo--largo" texto="Psicoterapia,|*um lugar para escutar.*" />
-        <div className="abertura__lead revelar">
-          <p className="lead">
+        <div className="abertura__lead">
+          <p className="lead revelar">
             A terapia é um espaço de escuta, com tempo e sigilo, para olhar com cuidado para aquilo que pesa, confunde ou pede mudança.
+          </p>
+          <p className="ui suave revelar">
+            {site.nome} · {site.profissao} · CRP {site.crp}
           </p>
         </div>
       </section>
 
-      <section className="ficha-atendimento envoltorio" aria-label="Informações do atendimento">
-        <dl className="ficha-atendimento__grade">
-          <div className="revelar">
+      <section className="secao secao--curta" aria-label="Informações do atendimento">
+        <dl className="fatos grade">
+          <div className="fatos__item revelar">
             <dt className="rotulo">Modalidade</dt>
             <dd>Psicoterapia individual</dd>
           </div>
-          <div className="revelar" style={{ "--atraso": "0.06s" } as React.CSSProperties}>
+          <div className="fatos__item revelar" style={{ "--atraso": "0.05s" } as React.CSSProperties}>
             <dt className="rotulo">Formato</dt>
             <dd>Presencial e online, conforme disponibilidade</dd>
           </div>
-          <div className="revelar" style={{ "--atraso": "0.12s" } as React.CSSProperties}>
+          <div className="fatos__item revelar" style={{ "--atraso": "0.1s" } as React.CSSProperties}>
             <dt className="rotulo">Para quem</dt>
-            <dd>
-              {publico.map((p, i) => (i === 0 ? p : p.toLowerCase())).join(", ")}
-            </dd>
+            <dd>{publico.map((p, i) => (i === 0 ? p : p.toLowerCase())).join(", ")}</dd>
           </div>
-          <div className="revelar" style={{ "--atraso": "0.18s" } as React.CSSProperties}>
+          <div className="fatos__item revelar" style={{ "--atraso": "0.15s" } as React.CSSProperties}>
             <dt className="rotulo">Abordagem</dt>
             <dd>Psicologia Analítica, também chamada de abordagem junguiana</dd>
           </div>
         </dl>
       </section>
 
-      <section className="secao-temas envoltorio" aria-labelledby="temas-titulo">
-        <div className="secao-cabeca">
-          <p className="rotulo" id="temas-titulo">
-            Temas de atuação
-          </p>
-          <Palavras como="h2" texto="O que costuma *chegar* ao consultório" />
+      <section className="secao" aria-labelledby="h-temas">
+        <div className="secao-cabeca grade">
+          <span className="secao-cabeca__num rotulo">01</span>
+          <span className="secao-cabeca__nome chapeu">Temas de atuação</span>
+          <Palavras id="h-temas" className="secao-cabeca__titulo" texto="O que costuma *chegar* ao consultório" />
         </div>
         <Temas />
       </section>
 
-      <section className="noite abordagem" data-cursor-escuro aria-labelledby="abordagem-titulo">
-        <i className="noite__luz noite__luz--1" aria-hidden="true" />
-        <i className="noite__luz noite__luz--2" aria-hidden="true" />
-        <div className="envoltorio grade abordagem__grade">
-          <div className="abordagem__cabeca">
-            <p className="rotulo" id="abordagem-titulo">
-              A abordagem, em poucas palavras
+      <section className="secao campo" aria-labelledby="h-abordagem">
+        <div className="secao-cabeca grade">
+          <span className="secao-cabeca__num rotulo">02</span>
+          <span className="secao-cabeca__nome chapeu">A abordagem</span>
+          <Palavras id="h-abordagem" className="secao-cabeca__titulo" texto="Psicologia *Analítica*" />
+        </div>
+        <div className="dupla grade">
+          <figure className="dupla__figura revelar">
+            <Janela simples>
+              <Obra chave="redon-dream-vision" />
+            </Janela>
+            <figcaption className="credito">{creditoObra("redon-dream-vision")}</figcaption>
+          </figure>
+          <div className="dupla__texto">
+            <p className="lead revelar">
+              Desenvolvida por Carl Gustav Jung, a Psicologia Analítica compreende a psique como algo vivo, que se expressa também por imagens. Na
+              prática clínica, isso significa escutar a história de cada pessoa considerando o que é dito e o que aparece de outros modos.
             </p>
-            <Palavras como="h2" texto="Psicologia *Analítica*" />
-            <p className="revelar">
-              Desenvolvida por Carl Gustav Jung, a Psicologia Analítica compreende a psique como algo vivo, que se expressa também por imagens.
-              Na prática clínica, isso significa escutar a história de cada pessoa considerando o que é dito e o que aparece de outros modos.
-            </p>
-            <div className="abordagem__img cortina">
-              <Obra chave="redon-dream-vision" legenda />
+            <ol className="notas">
+              {NOTAS.map((n, i) => (
+                <li key={n.titulo} className="revelar">
+                  <span className="rotulo">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="chapeu">{n.titulo}</h3>
+                  <p>{n.texto}</p>
+                </li>
+              ))}
+            </ol>
+            <div className="recursos revelar">
+              <p className="rotulo">Recursos e referências de trabalho</p>
+              <ul className="etiquetas-linha">
+                {recursos.map((r) => (
+                  <li key={r}>{r}</li>
+                ))}
+              </ul>
             </div>
           </div>
-          <ol className="abordagem__notas">
-            {NOTAS.map((n, i) => (
-              <li key={n.titulo} className="revelar" style={{ "--atraso": `${i * 0.06}s` } as React.CSSProperties}>
-                <span className="abordagem__n rotulo">{String(i + 1).padStart(2, "0")}</span>
-                <h3>{n.titulo}</h3>
-                <p>{n.texto}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div className="envoltorio abordagem__recursos">
-          <p className="rotulo">Recursos e referências de trabalho</p>
-          <ul>
-            {recursos.map((r) => (
-              <li key={r}>
-                <Estrela /> {r}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      <section className="passos envoltorio" aria-labelledby="passos-titulo">
-        <div className="secao-cabeca">
-          <p className="rotulo" id="passos-titulo">
-            Como começar
-          </p>
-          <Palavras como="h2" texto="Três passos, *sem pressa*" />
+      <section className="secao" aria-labelledby="h-passos">
+        <div className="secao-cabeca grade">
+          <span className="secao-cabeca__num rotulo">03</span>
+          <span className="secao-cabeca__nome chapeu">Como começar</span>
+          <Palavras id="h-passos" className="secao-cabeca__titulo" texto="Três passos, *sem pressa*" />
         </div>
-        <ol className="passos__lista">
+        <ol className="passos grade">
           {PASSOS.map((p, i) => (
-            <li key={p.n} className="revelar" style={{ "--atraso": `${i * 0.08}s` } as React.CSSProperties}>
+            <li key={p.n} className="passos__item revelar" style={{ "--atraso": `${i * 0.06}s` } as React.CSSProperties}>
               <span className="passos__n">{p.n}</span>
-              <h3>{p.titulo}</h3>
+              <h3 className="chapeu">{p.titulo}</h3>
               <p>{p.texto}</p>
             </li>
           ))}
         </ol>
-        <div className="passos__cta revelar">
-          <BotaoWhatsapp texto="Solicitar informações" />
-          <Link href="/contato/" className="ui link-linha">
-            Outras formas de contato <span className="seta">→</span>
-          </Link>
+        <div className="passos__fim grade">
+          <div className="passos__cta revelar">
+            <BotaoWhatsapp texto="Solicitar informações" />
+            <Link href="/contato/" className="ui link-linha">
+              Outras formas de contato
+            </Link>
+          </div>
+          <p className="passos__aviso ui suave revelar">
+            A psicoterapia é um processo, e cada percurso é único: não há promessa de cura nem de resultados em prazo determinado. Este site tem
+            caráter informativo e não substitui atendimento de urgência. Em situação de crise, procure o CVV (188, 24 horas) ou o SAMU (192).{" "}
+            {site.nome} · CRP {site.crp}.
+          </p>
         </div>
-        <p className="passos__aviso ui revelar">
-          A psicoterapia é um processo, e cada percurso é único: não há promessa de cura nem de resultados em prazo determinado. Este site tem
-          caráter informativo e não substitui atendimento de urgência. Em situação de crise, procure o CVV (188, 24 horas) ou o SAMU (192).
-          {site.crp ? ` ${site.nomeConselho} · CRP ${site.crp}.` : ""}
-        </p>
       </section>
     </>
   );

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { textos } from "@/content/caderno";
 import { Obra } from "@/components/Obra";
+import { Janela } from "@/components/Janela";
+import { creditoObra } from "@/content/arte";
 import { Palavras } from "@/components/Palavras";
 import { CartaoTexto } from "@/components/CartaoTexto";
 
@@ -26,11 +28,11 @@ export default async function TextoPagina({ params }: { params: Promise<{ slug: 
   const outros = [textos[(i + 1) % textos.length], textos[(i + 2) % textos.length]];
 
   return (
-    <article className="texto-pagina envoltorio">
+    <article className="texto-pagina">
       {t.rascunho && (
-        <p className="texto-pagina__aviso ui" role="note">
+        <div className="grade"><p className="texto-pagina__aviso ui inteira" role="note">
           <strong>Rascunho de demonstração.</strong> Este texto existe só para testar o layout do caderno e ainda não foi escrito pela autora.
-        </p>
+        </p></div>
       )}
       <header className="texto-pagina__cabeca grade">
         <Link href="/caderno/" className="texto-pagina__voltar ui link-linha">
@@ -47,7 +49,10 @@ export default async function TextoPagina({ params }: { params: Promise<{ slug: 
       <div className="grade">
         {t.imagem && (
           <div className="texto-pagina__figura cortina">
-            <Obra chave={t.imagem} legenda prioridade />
+            <Janela simples>
+              <Obra chave={t.imagem} prioridade />
+            </Janela>
+            <p className="credito">{creditoObra(t.imagem)}</p>
           </div>
         )}
         <div className="texto-pagina__corpo">
@@ -73,8 +78,8 @@ export default async function TextoPagina({ params }: { params: Promise<{ slug: 
       </div>
 
       <section className="texto-pagina__mais" aria-label="Continue lendo">
-        <p className="rotulo">Continue folheando</p>
-        <div className="mesa mesa--dois">
+        <p className="rotulo envoltorio">Continue folheando</p>
+        <div className="mesa grade">
           {outros.map((o, k) => (
             <CartaoTexto key={o.slug} texto={o} indice={k} className="g6" />
           ))}

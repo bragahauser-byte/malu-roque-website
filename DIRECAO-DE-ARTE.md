@@ -1,117 +1,188 @@
-# Direção de arte — Malu Roque, edição nº 01
+# Direção de arte — Malu Roque
 
-Registro das decisões tomadas no primeiro protótipo, para continuar o projeto
-em outras sessões sem perder o fio.
+Registro das decisões do projeto, para continuar o trabalho em outras sessões
+sem perder o fio. **Versão 2** (revisão de direção criativa, novembro de 2026).
 
 ## Conceito
 
-**Entre o visível e o simbólico.** O site é construído em duas camadas, que
-aparecem literalmente na capa:
+**Um site que funciona como uma janela para dois universos.**
 
-- **O visível**: papel claro (Soft White), tinta grafite, uma rua num dia de
-  chuva (Caillebotte). A rotina, a superfície, o que se vê.
-- **O simbólico**: a noite azul, luzes difusas, véus iridescentes, as flores-nuvem
-  de Redon e uma constelação de palavras (a sereia, o rei e a rainha, um vulcão,
-  a casa da infância…). O que se sente.
+- **O visível**: quem é Maria Luiza Roque, como atende, a formação, a trajetória,
+  a pesquisa. Fundo creme, texto preto.
+- **O simbólico**: o imaginário. Sonhos, mitos, livros, discos, cinema, viagens,
+  o caderno. Fundo verde, texto creme, destaques em amarelo.
 
-A lente que segue o cursor é a ideia central do projeto: a mesma página, vista
-de outro lugar. Fora da capa, o conceito volta na alternância entre seções
-claras (dia) e seções noturnas (o consultório, a abordagem, o rodapé).
+A passagem entre os dois é **uma janela**. Não há esferas, véus ou fundos que
+mudam sozinhos: o site está parado até a pessoa decidir atravessar.
 
-Formato editorial: o site é uma **revista independente** com número de edição.
-O menu é o **Sumário**, o rodapé é o **Colofão**, a página inicial é a **Capa**,
-a apresentação é uma **Carta da edição** e o contato se chama **Correspondência**.
+### A passagem (como foi escolhida)
+
+Ideias consideradas: virar a página (bonito, mas já virou clichê de "revista
+digital"), abrir cortinas (teatral demais), deslizar painéis (genérico de
+aplicativo), **atravessar uma janela**. A janela venceu porque:
+
+1. é arquitetura (a referência europeia pedida e o arco da Camicado);
+2. é também a janelinha de avião da AC Concierge: olhar para outro lugar, viajar;
+3. tem uma lógica visual clara: **a janela sempre mostra o outro lado**. No
+   visível, o vidro deixa ver o verde do simbólico e as flores-nuvem de Redon;
+   no simbólico, deixa ver o creme do visível e a rua de Caillebotte;
+4. a transição é literal e curta: o arco clicado cresce até virar a tela
+   inteira (0,82 s, uma vez, View Transitions API). Clicar de novo, volta.
+
+Onde está: a janela grande da capa (com a legenda "Atravessar a janela") e o
+botão "O outro lado" no cabeçalho, em todas as páginas. O lado escolhido é
+lembrado durante a visita. Com "reduzir movimento", a troca é imediata.
+
+O que muda de um lado para o outro: as cores do site inteiro e o conteúdo da
+capa (visível: atendimento, quem escuta, pesquisa; simbólico: "Se fosse…",
+caderno, a ponte com a clínica). O texto do lado simbólico vem das respostas
+da Malu no documento "Site Malu" (se fosse um lugar, uma loja, um universo,
+uma experiência).
+
+## A janela como identidade
+
+Arco romano: topo em semicírculo, laterais retas, **caixilho em linha fina**
+(moldura, montante central e travessa exatamente na nascença do arco). É o
+símbolo do site: aparece como marca no cabeçalho, como passagem na capa, como
+moldura das obras e das fotos, e como ícone dos dois lados.
+Componente: `src/components/Janela.tsx` (`<Janela>` e `<JanelaIcone>`).
+Na miniatura, o vidro tem sempre a cor do outro lado.
 
 ## Referências e o que se aproveitou de cada uma
 
-| Referência | O que foi observado | Como entrou no site |
+| Referência | O que foi observado | Como entrou |
 | --- | --- | --- |
-| claracandelot.com | O cursor é um **desenho à mão** aplicado como cursor nativo em imagem (CSS `cursor: image-set(...)`): seta azul com contorno preto e, nos links, uma mãozinha desenhada. Sem atraso, sem JavaScript. Personalidade vem de ilustração, não de efeito. | Cursor nativo desenhado (seta lavanda com contorno de nanquim; nos links vira uma estrela laranja), mais uma camada própria: **a sombra**, um duplo que segue o ponteiro com mola, estica com a velocidade, cresce nos links, mostra palavras ("ler", "virar", "arrastar") e orbita quando o mouse para. |
-| camilarosa.net/work | Navegação mínima em 13–14px; filtros como uma frase corrida separada por vírgulas; contador de projetos; alternância grade/lista; no hover a imagem encolhe dentro de uma moldura colorida; no modo lista, títulos enormes. | Índice do Caderno: filtros corridos, contador ("12 rascunhos"), modos **mesa** e **lista**, cartões cuja imagem encolhe num arco sobre a cor no hover, lista com títulos grandes e a imagem flutuando junto ao ponteiro. |
-| obama.org | Inspeção do código: as fontes são **Gotham Condensed Bold** (títulos, até 140px), **Gotham Medium** (menu) e **Chronicle Text G1** (serifada da Hoefler&Co., com Georgia como fallback declarado). Lista de programas com pequenos símbolos coloridos (círculo, losango, quadrado). | Par serifada + geométrica. A lista de temas do Consultório usa símbolos coloridos (círculo, losango, quadrado, estrela, meia-lua, gota) como homenagem. |
-| Referências visuais (T JAPAN / EiM e as 4 imagens) | Túnel de flores com um portal ciano luminoso; véus translúcidos iridescentes com reflexos; flores no escuro com vazamentos de luz prismáticos; revista com vestido de tule laranja e a palavra "IMAGINE" em letras de cores diferentes. | O **portal** em arco (forma recorrente de molduras); luzes difusas animadas e o véu iridescente da camada simbólica; o laranja-tule e o ciano como acentos; "simbólico" composto letra a letra em cores diferentes, como o "IMAGINE". |
-| Paleta anterior (documento "Site Malu") | Smoky Lavender, Soft White, Deep Slate Blue, Mist, Dusty Mauve, Soft Charcoal. | Mantida como base e expandida (abaixo). |
+| claracandelot.com (cursor) | Inspecionado no código: `cursor: image-set(url(...) 1x, url(...) 2x)` com duas imagens PNG de 100 px desenhadas à mão: uma seta azul gorducha com contorno marrom-escuro e, nos links, uma mãozinha. Nativo, sem atraso, sem JavaScript, sem nada seguindo o mouse. | Mesma lógica: **um único cursor nativo** em SVG (1x e 2x), seta rosa com contorno preto grosso e, sobre links e botões, uma mão amarela apontando. 34 px. Só com mouse. A "sombra" da versão anterior foi removida. |
+| claracandelot.com (cabeçalho) | Três itens centrais, minúsculos e em negrito; no hover, uma pílula de cor cheia surge atrás da palavra e o texto troca de cor. | Menu central em Gotham Condensed Medium caixa-alta; no hover a pílula (rosa no visível, amarela no simbólico) cresce do centro em 0,28 s e o texto vira preto/verde. Página atual: pílula em contorno. |
+| Camicado | O arco como forma central da composição (foto em arco no meio da tela, texto pequeno ao lado); creme quente; serifada + sem serifa; cartões de cor chapada. | O arco virou a janela; fundo creme; composição com a janela como peça central da capa. |
+| AC Concierge | Janelas de avião (retângulos de cantos muito redondos) emoldurando paisagens; réguas finas; índices "01 — 04"; números grandes; muito respiro; pílulas pequenas. | A ideia de viagem como passagem; réguas finas em todas as listas; numeração "01, 02, 03" nas seções; anos grandes em Gotham Light; pílulas de contorno para palavras-chave. |
+| obama.org | Inspecionado no código: **Gotham Condensed Bold** nos títulos (caixa-alta), **Gotham Medium** no menu e **Chronicle Text G1** (Hoefler&Co.) no texto, com Georgia como fallback declarado. Réguas pretas grossas sobre cada seção. Lista de programas com símbolos de cor. | Georgia (voz editorial) + Gotham Condensed (interface). Régua grossa de 3 px sobre cada seção. Os símbolos de cor da lista de temas. |
+| Paleta: imagem 4162 | Verde-garrafa de fundo, cartões creme, etiquetas rosa, amarela e lilás empilhadas em escada, texto preto. | Paleta inteira medida em pixels da imagem (abaixo). As etiquetas empilhadas continuam no Caderno. |
 
 ## Tipografia
 
-- **Serifada (títulos, textos, tudo o que tem voz): Georgia.** Usada do próprio
-  sistema (Windows, macOS e iOS têm). Onde ela não existe, Android e Linux,
-  entra a **Gelasio**, desenhada com as mesmas métricas da Georgia
-  (Google Fonts, OFL). A Gelasio só é baixada se a Georgia faltar.
-- **Sem serifa (menu, rótulos, legendas, botões): Montserrat**, a alternativa
-  livre mais próxima da Gotham (as duas vêm do letreiramento urbano geométrico).
-  Pesos 400, 500 e 600. A Gotham é comercial (Hoefler&Co.) e não foi usada.
-- Regras: títulos grandes com espaçamento negativo (−0,03 a −0,05em) e
-  entrelinha curta (0,88–1); **itálico como gesto expressivo** (palavras-chave,
-  hover, estados ativos); rótulos em caixa-alta 11px com espaçamento +0,14em;
-  texto corrido em Georgia 17–18px, entrelinha 1,55.
-- Escala fluida em `tokens.css` (`--t-mega` até `--t-micro`).
+- **Georgia**: títulos com caráter literário, texto corrido, citações, frases
+  de destaque. Do sistema (Windows, macOS, iOS). Onde falta (Android, Linux),
+  entra a **Gelasio**, que tem as mesmas métricas.
+- **Gotham Condensed** (Hoefler & Co.), da pasta "tipografia gotham": menu,
+  botões, rótulos, legendas, categorias, dados, pequenos títulos.
+  - Pesos usados: Light 300 (anos e números grandes), Book 400 (legendas e
+    interface), Book Italic 400, Medium 500 (menu, botões, rótulos) e Bold 700
+    (pequenos títulos em caixa-alta, `.chapeu`).
+  - Formato: WOFF2, em `public/fonts/gotham/`, declarado em `layout.tsx`.
+  - **A pasta só tem Gotham _Condensed_** (18 estilos). A Gotham de largura
+    normal não está lá. A Condensed é justamente a que a Obama Foundation usa
+    nos títulos, então combina com a referência.
+- **Montserrat foi removida.**
+- Regras:
+  - títulos em Georgia com espaçamento negativo (−0,02 a −0,045em);
+  - itálico como gesto (a segunda metade dos títulos);
+  - rótulos em Gotham 13 px caixa-alta, +0,07em;
+  - menu e botões em Gotham Medium 15 px, +0,06em.
 
-Se no futuro houver orçamento para fontes licenciadas, as trocas naturais são
-Chronicle Text ou Georgia Pro na serifada e Gotham na sem serifa. Basta mudar
-`--serif` e `--sans` em `tokens.css`.
+**Licença da Gotham.** Os arquivos trazem embutida a licença da Hoefler & Co.,
+que proíbe distribuir a fonte ou hospedá-la fora do que a licença web permite.
+Por isso `public/fonts/gotham/` está no `.gitignore`. No computador, a Gotham
+aparece. No site publicado, enquanto os arquivos não forem enviados, o
+cabeçalho usa a reserva (Arial Narrow ou Helvetica). Para publicar com Gotham:
+confirmar que a licença cobre uso web, tirar a linha do `.gitignore`, fazer
+commit e push.
 
 ## Cores
 
+Medidas na imagem `paleta de cor/image 4162.jpg`.
+
 | Token | Hex | Papel |
 | --- | --- | --- |
-| `--papel` | #F7F4F1 | fundo do visível (Soft White) |
-| `--tinta` | #2B2B2B | texto (Soft Charcoal) |
-| `--lavanda` | #A79CB8 | cor-assinatura: seleção, faixa, véu de transição, cursor |
-| `--lavanda-clara` / `--lavanda-funda` | #D6CFE2 / #6F6488 | apoio e itálicos em destaque |
-| `--malva` | #C7B3BE | Dusty Mauve, etiquetas e cartões |
-| `--nevoa` | #D9D5D9 | Mist, superfícies neutras |
-| `--ardosia` | #465468 | Deep Slate Blue, faixa do consultório na capa |
-| `--noite` | #1D2232 | o azul do simbólico, menu e rodapé |
-| `--ambar` | #EAA43F | a luz amarelada da sala; acento quente |
-| `--tule` | #F0844C | laranja expressivo, pontual (cursor de link, ponto final da capa) |
-| `--portal` | #8FD8E2 | ciano luminoso, só no simbólico |
-| `--lima` | #DFE57A | acento raríssimo |
+| `--creme` | #FEFAEE | fundo do visível; texto do simbólico |
+| `--creme-2` | #F4EDDB | blocos, fichas, espaços de foto |
+| `--verde` | #084E32 | fundo do simbólico; banda de destaque e rodapé no visível |
+| `--rosa` | #F897F0 | destaque principal (hover do menu e dos botões, etiquetas) |
+| `--amarelo` | #F0CE5B | destaque no simbólico; avisos de rascunho |
+| `--preto` | #0C0D08 | texto do visível; rodapé do simbólico |
+| `--lilas` | #B8B7FB | apoio raro (etiquetas, fundos de cartão) |
+| `--menta` | #5CEDA0 | reservado; raríssimo |
 
-Regra prática: lavanda, papel e tinta fazem 80% do trabalho; ardósia e noite
-dão profundidade; âmbar, tule, portal e lima aparecem em pequenas doses.
+Papéis por mundo (`tokens.css`): `--fundo`, `--texto`, `--destaque`,
+`--sobre-destaque`, `--campo` (banda de cor), `--regua`, `--linha`.
 
-## Elementos gráficos recorrentes
+Contraste (WCAG):
 
-- **O arco/portal**: molduras com topo em semicírculo (capa, Sumário, temas,
-  pesquisas, placeholders de foto).
-- **Etiquetas empilhadas**: palavras em blocos de cor deslocados em escada
-  (inspiradas nas referências de social media da pasta "paleta de cor").
-- **A estrela de quatro pontas**: separador, marcador, cursor de link, ícone do site.
-- **Grão de papel** sobre tudo, em multiplicação, a 7,5%.
+| Combinação | Contraste | Uso |
+| --- | --- | --- |
+| Preto sobre creme | 18:1 | |
+| Creme sobre verde | 9,3:1 | |
+| Preto sobre rosa | 9,8:1 | |
+| Amarelo sobre verde | 6,4:1 | |
+| Rosa sobre verde | 4,9:1 | só em textos grandes |
+| Rosa ou amarelo sobre creme | | **nunca como texto**, só como campo |
+
+Combinações recomendadas: creme + preto + rosa (visível); verde + creme +
+amarelo (simbólico); verde + creme (bandas); preto + creme + amarelo (rodapé
+do simbólico).
+
+**Sem gradientes.** Só campos de cor sólidos e réguas. O vinil do caderno é
+feito com anéis sólidos, sem degradê.
+
+## Grade
+
+12 colunas no desktop, 6 no tablet (< 1024 px), 4 no celular (< 640 px).
+Margem lateral fluida (`--margem`, 20–56 px), calha de 14–24 px, largura
+máxima de 1680 px. Classe `.grade` em `base.css`.
+
+Dois eixos: **coluna 1** (rótulos, títulos, imagens) e **coluna 7**
+(títulos de seção, textos que acompanham uma imagem). Toda seção abre igual:
+régua grossa, número na coluna 1, nome em Gotham Bold na coluna 2 e título
+em Georgia na coluna 7. A assimetria vem de alternar imagem e texto entre os
+dois eixos (Pesquisa, "Se fosse…"), nunca de posições arbitrárias.
 
 ## Movimento
 
-- Entrada de página: um véu lavanda sobe e descobre a página (`template.tsx`).
-- Títulos sobem palavra por palavra; imagens se abrem como cortina; blocos
-  aparecem ao rolar (`Revelador.tsx`, um único IntersectionObserver).
-- Curvas: `--ease-saida` (expo out) para quase tudo.
-- Coisas vivas mas discretas: luzes que flutuam, letras de "simbólico" em onda,
-  constelação que cintila, estrela do rodapé girando, faixa corrida de interesses.
-- **Acessibilidade**: com `prefers-reduced-motion`, tudo fica estático, a lente
-  não passeia sozinha e o botão "Ver o outro lado" continua abrindo o simbólico.
-  O cursor e a sombra só existem com mouse; no toque, a lente segue o dedo e o
-  gabinete vira uma fileira deslizante. Navegação completa por teclado, com foco
-  visível, "Pular para o conteúdo" e foco preso no Sumário (Esc fecha).
+Regra: **todo movimento responde a um gesto ou acontece uma vez**.
+
+- A passagem entre os mundos (clique) é a única transição grande.
+- Hover: a pílula do menu e dos botões; a janela da capa abre um pouco o arco
+  interno; nos cartões do caderno, a imagem se recolhe numa janela, o vinil
+  sai da capa, o postal vira.
+- Ao rolar: os blocos aparecem uma vez, com 16 px de subida.
+- Removido da versão anterior:
+  - a lente/esfera que passeava pela capa;
+  - as luzes flutuantes e o véu iridescente;
+  - a constelação piscando;
+  - a faixa corrida;
+  - a estrela girando;
+  - o véu de transição entre páginas;
+  - a "sombra" do cursor;
+  - a imagem que seguia o mouse nas listas;
+  - os títulos que subiam palavra por palavra;
+  - o grão sobre a tela.
+- Com `prefers-reduced-motion`, nada se mexe e a passagem é imediata.
+- Verificado no navegador: nenhuma animação infinita, nenhum gradiente nas folhas de estilo.
 
 ## Imagens
 
-Todas as obras são de **domínio público**, do acervo aberto do Art Institute of
-Chicago (licença CC0). Lista e créditos em `src/content/arte.ts`; os créditos
-também aparecem em legenda quando a obra é usada como figura. Destaques:
-Odilon Redon (Nuvens de flores, Sita, Natureza-morta com flores, Sereia, Visão
-de sonho), Gustave Moreau, Arnold Böcklin, Hokusai, Whistler, Munch, Manet,
-Degas, Caillebotte, Volaire (o Vesúvio, para "Do Vulcão ao Guerreiro") e uma
-escultura do período Pala com Lakshmi e Sarasvati (para o TCC sobre deusas hindus).
+Obras em domínio público do Art Institute of Chicago (CC0), listadas com
+créditos em `src/content/arte.ts`. Fotografias da Malu: **pendentes** (os
+espaços em arco com "a inserir").
 
-Fotografias da Malu: **pendentes**. Os espaços reservados estão sinalizados.
+## Ideia separada (não implementada): sazonalidade
 
-## O que falta / próximas ideias
+A "Edição nº 01 — Primavera 2026" foi retirada, porque não havia nenhuma
+publicação sazonal por trás dela. Se um dia fizer sentido, a sazonalidade
+poderia mudar **o que se vê pela janela**, sem mexer na estrutura do site:
 
-- Fotografias pessoais (retrato principal e fotos para o Gabinete).
-- Número do WhatsApp, CRP e link exato do LinkedIn (`site.ts`).
+- primavera: flores de Redon;
+- verão: o mar de Böcklin;
+- outono: folhas e fim de tarde;
+- inverno: as grous na neve de Hokusai.
+
+O destaque mudaria junto (rosa, amarelo, âmbar, lilás). Isso só vale se vier
+acompanhado de conteúdo sazonal de verdade no Caderno.
+
+## Pendências
+
+- Fotografias pessoais (retrato principal e foto da capa do lado visível).
+- Número do WhatsApp e link exato do LinkedIn (`src/content/site.ts`).
+- Confirmar a licença web da Gotham antes de publicá-la.
 - Textos reais do Caderno (os atuais são rascunhos de demonstração).
 - PDF do TCC, se ela quiser disponibilizar.
-- Uma "playlist da sala" de verdade (link para Spotify) no Gabinete.
-- Imagem de compartilhamento (Open Graph) com a capa.
-- Domínio próprio, quando fizer sentido.

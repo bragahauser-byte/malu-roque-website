@@ -1,0 +1,150 @@
+/* ─────────────────────────────────────────────────────────────
+   INÍCIO — a capa com a janela e os dois lados
+   ───────────────────────────────────────────────────────────── */
+
+.capa {
+  min-height: 100svh;
+  padding-top: calc(var(--cabecalho) + clamp(1.5rem, 4vw, 3.5rem));
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+  row-gap: 3rem;
+}
+.capa__texto { grid-column: 1 / span 6; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+.capa__kicker { margin-bottom: clamp(1.25rem, 2.4vw, 2rem); }
+.capa__titulo { font-size: clamp(3.4rem, 7.6vw, 8.6rem); line-height: 0.92; letter-spacing: -0.04em; max-width: 7.5em; }
+.capa__titulo em { display: block; }
+.capa__lead { max-width: 30em; margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+.capa__botoes { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: clamp(1.75rem, 3vw, 2.5rem); }
+
+/* Os dois lados, como legenda: sempre se sabe onde se está */
+.capa__lados { margin-top: clamp(2.5rem, 6vw, 5rem); border-top: 1px solid var(--linha); }
+.capa__lado { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0; border-bottom: 1px solid var(--linha); color: var(--texto-suave); }
+.capa__lado .janela-icone { width: 12px; height: 16px; }
+.capa__lado .suave { font-size: 0.875rem; }
+html:not([data-mundo="simbolico"]) .capa__lado--visivel,
+[data-mundo="simbolico"] .capa__lado--simbolico { color: var(--texto); font-weight: 500; }
+html:not([data-mundo="simbolico"]) .capa__lado--simbolico .janela-icone,
+[data-mundo="simbolico"] .capa__lado--visivel .janela-icone { opacity: 0.5; }
+
+/* A grande janela: a passagem */
+.capa__janela { grid-column: 8 / -1; justify-self: center; }
+.janela-capa { display: flex; flex-direction: column; align-items: center; gap: 1.4rem; text-align: center; }
+.janela-capa__arco {
+  height: min(66svh, 44vw); width: auto; max-width: 100%;
+  --traco: 2px;
+  --fundo-vista: var(--verde);
+}
+[data-mundo="simbolico"] .janela-capa__arco { --fundo-vista: var(--creme); }
+/* dentro da janela, um segundo arco mais fundo: a obra do outro lado */
+.janela-capa__vista {
+  position: absolute; inset: 15% 15% 0;
+  border-top-left-radius: 9999px; border-top-right-radius: 9999px;
+  overflow: hidden;
+  transition: inset 0.6s var(--ease);
+}
+.janela-capa__vista img { width: 100%; height: 100%; object-fit: cover; }
+.janela-capa:hover .janela-capa__vista,
+.janela-capa:focus-visible .janela-capa__vista { inset: 9% 9% 0; }
+.janela-capa:focus-visible { outline: none; }
+.janela-capa:focus-visible .janela-capa__arco { outline: 2px solid var(--texto); outline-offset: 6px; }
+
+.janela-capa__legenda { display: grid; gap: 0.5rem; justify-items: center; max-width: 24rem; }
+.janela-capa__acao { display: inline-flex; align-items: center; gap: 0.5em; padding: 0.55rem 1.1rem 0.5rem; border-radius: 999px; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
+.janela-capa:hover .janela-capa__acao { background: var(--destaque); color: var(--sobre-destaque); }
+.janela-capa__seta { transition: transform 0.3s var(--ease); }
+.janela-capa:hover .janela-capa__seta { transform: translateX(4px); }
+.janela-capa__nota { color: var(--texto-suave); }
+
+@media (max-width: 1023px) {
+  .capa { min-height: auto; }
+  .capa__texto { grid-column: 1 / -1; }
+  .capa__janela { grid-column: 1 / -1; justify-self: stretch; padding-top: 1rem; }
+  .janela-capa { width: 100%; }
+  .janela-capa__arco { height: auto; width: min(68%, 22rem); }
+  .capa__lados { margin-top: 2.5rem; }
+}
+
+/* ── Fatos do atendimento ──────────────────────────────────── */
+.fatos { row-gap: 2rem; }
+.fatos__item { grid-column: span 3; border-top: 1px solid var(--linha); padding-top: 1rem; }
+.fatos__item dt { margin-bottom: 0.75rem; color: var(--texto-suave); }
+.fatos__item dd { font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
+.fatos__link { grid-column: 1 / -1; justify-self: start; margin-top: clamp(2rem, 4vw, 3rem); }
+@media (max-width: 639px) { .fatos__item { grid-column: 1 / -1; } }
+
+/* ── Quem escuta ───────────────────────────────────────────── */
+.quem { row-gap: 2.5rem; align-items: start; }
+.quem__foto { grid-column: 1 / span 4; }
+.quem__texto { grid-column: 7 / span 5; display: grid; gap: 1.25rem; justify-items: start; }
+.quem__linha { width: 100%; margin: 0.75rem 0 1rem; border-top: 1px solid var(--linha); }
+.quem__linha li { display: grid; grid-template-columns: 4.5rem 1fr; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--linha); font-size: 1rem; line-height: 1.45; }
+.quem__ano { font: 700 1.05rem / 1.3 var(--gotham); letter-spacing: 0.02em; }
+@media (max-width: 1023px) {
+  .quem__foto { grid-column: 1 / span 3; }
+  .quem__texto { grid-column: 4 / -1; }
+}
+@media (max-width: 639px) {
+  .quem__foto { grid-column: 1 / span 3; }
+  .quem__texto { grid-column: 1 / -1; }
+}
+
+/* ── Linhas (lista com régua fina) ─────────────────────────── */
+.linhas { max-width: var(--largura-max); margin-inline: auto; }
+.linhas li { border-top: 1px solid var(--linha); }
+.linhas li:last-child { border-bottom: 1px solid var(--linha); }
+.linha { padding-block: clamp(1.4rem, 2.6vw, 2.2rem); align-items: baseline; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
+.linha:hover { background: var(--destaque); color: var(--sobre-destaque); }
+.linha:hover .suave { color: inherit; }
+.linha__ano { grid-column: 1 / span 2; font: 300 clamp(2rem, 3.6vw, 3.4rem) / 1 var(--gotham); letter-spacing: -0.01em; }
+.linha__titulo { grid-column: 3 / span 6; font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
+.linha__info { grid-column: 9 / span 3; }
+.linha__seta { grid-column: 12; justify-self: end; font-size: 1.4rem; transition: transform 0.25s var(--ease); }
+.linha:hover .linha__seta { transform: translateX(4px); }
+@media (max-width: 1023px) {
+  .linha__ano { grid-column: 1 / span 1; }
+  .linha__titulo { grid-column: 2 / -1; }
+  .linha__info { grid-column: 2 / -2; margin-top: 0.75rem; }
+  .linha__seta { grid-column: -2 / -1; }
+}
+@media (max-width: 639px) {
+  .linha__ano { grid-column: 1 / -1; margin-bottom: 0.5rem; }
+  .linha__titulo, .linha__info { grid-column: 1 / -2; }
+}
+
+/* ── O outro lado: "Se fosse…" ─────────────────────────────── */
+.imagens { display: grid; gap: clamp(3.5rem, 8vw, 7rem); }
+.imagem { align-items: center; row-gap: 1.75rem; }
+.imagem__janela { grid-column: 2 / span 4; }
+.imagem__texto { grid-column: 7 / span 5; display: grid; gap: 1rem; justify-items: start; }
+.imagem--inversa .imagem__janela { grid-column: 8 / span 4; grid-row: 1; }
+.imagem--inversa .imagem__texto { grid-column: 2 / span 5; grid-row: 1; }
+.imagem .chapeu { color: var(--destaque); }
+@media (max-width: 1023px) {
+  .imagem__janela, .imagem--inversa .imagem__janela { grid-column: 1 / span 3; grid-row: auto; }
+  .imagem__texto, .imagem--inversa .imagem__texto { grid-column: 4 / -1; grid-row: auto; }
+}
+@media (max-width: 639px) {
+  .imagem__janela, .imagem--inversa .imagem__janela { grid-column: 1 / span 3; }
+  .imagem__texto, .imagem--inversa .imagem__texto { grid-column: 1 / -1; }
+}
+
+/* o disco: um campo amarelo, um vinil preto, um selo rosa. Parado. */
+.disco { position: absolute; inset: 0; display: grid; place-items: center; background: var(--amarelo); }
+.disco__vinil {
+  width: 74%; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
+  background: var(--preto);
+  box-shadow: inset 0 0 0 9px var(--preto), inset 0 0 0 10px #34352f, inset 0 0 0 19px var(--preto), inset 0 0 0 20px #34352f, inset 0 0 0 29px var(--preto), inset 0 0 0 30px #34352f;
+}
+.disco__selo { position: relative; width: 34%; aspect-ratio: 1; border-radius: 50%; background: var(--rosa); }
+.disco__selo::after { content: ""; position: absolute; inset: 44%; border-radius: 50%; background: var(--amarelo); }
+
+/* ── Ponte para a clínica ──────────────────────────────────── */
+.ponte { row-gap: 2rem; align-items: start; }
+.ponte__texto { grid-column: 1 / span 5; }
+.ponte__lista { grid-column: 7 / -1; border-top: 1px solid var(--linha); }
+.ponte__lista li { display: flex; align-items: baseline; gap: 1.25rem; padding: 1rem 0; border-bottom: 1px solid var(--linha); font-size: var(--t-h3); letter-spacing: -0.015em; }
+.ponte__lista .rotulo { color: var(--texto-suave); width: 1.75rem; flex: none; }
+@media (max-width: 1023px) { .ponte__texto, .ponte__lista { grid-column: 1 / -1; } }
+.linhas { padding-inline: var(--margem); }
+.linhas .linha { padding-inline: 0; }
+.linhas .linha:not(.linha--estatica):hover { box-shadow: 0 0 0 0 var(--destaque), -1rem 0 0 0 var(--destaque), 1rem 0 0 0 var(--destaque); }

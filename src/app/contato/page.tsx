@@ -5,39 +5,47 @@ import { BotaoWhatsapp } from "@/components/BotaoWhatsapp";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Correspondência",
-  description: "Contato e agendamento com Maria Luiza Roque (Malu Roque): WhatsApp, Instagram, TikTok e LinkedIn.",
+  title: "Contato",
+  description: `Contato e agendamento com Maria Luiza Roque (Malu Roque), psicóloga, CRP ${site.crp}: WhatsApp, Instagram, TikTok e LinkedIn.`,
 };
 
 export default function Contato() {
   return (
-    <section className="contato envoltorio">
-      <div className="contato__luz" aria-hidden="true" />
-      <p className="abertura__num rotulo">05 · Correspondência</p>
-      <Palavras como="h1" className="contato__titulo" texto="Escreva,|*sem cerimônia.*" />
-
-      <div className="contato__grade">
-        <div className="contato__texto revelar">
-          <p className="lead">
+    <div className="contato">
+      <section className="abertura grade">
+        <p className="abertura__kicker rotulo">Contato · Correspondência</p>
+        <Palavras como="h1" className="abertura__titulo abertura__titulo--largo" texto="Escreva,|*sem cerimônia.*" />
+        <div className="abertura__lead">
+          <p className="lead revelar">
             Para saber sobre horários, modalidades e como funciona o atendimento, a forma mais rápida é uma mensagem pelo WhatsApp.
           </p>
-          <BotaoWhatsapp texto="Conversar pelo WhatsApp" />
-          <ul className="contato__redes">
-            {Object.values(site.redes).map((r, i) => (
-              <li key={r.rotulo} className="revelar" style={{ "--atraso": `${i * 0.07}s` } as React.CSSProperties}>
-                <a href={r.url} target="_blank" rel="noopener noreferrer" data-cursor="visitar">
-                  <span className="rotulo">{r.rotulo}</span>
-                  <span className="contato__usuario">{r.usuario}</span>
-                  <span className="contato__seta" aria-hidden="true">
-                    ↗
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="revelar">
+            <BotaoWhatsapp texto="Conversar pelo WhatsApp" />
+          </div>
+          <p className="ui suave revelar">
+            {site.nome} · {site.profissao} · CRP {site.crp} · {site.cidade}, presencial e online
+          </p>
         </div>
-        <Postal />
-      </div>
-    </section>
+      </section>
+
+      <section className="secao contato__corpo grade" aria-label="Redes e cartão-postal">
+        <ul className="contato__redes">
+          {Object.values(site.redes).map((r) => (
+            <li key={r.rotulo} className="revelar">
+              <a href={r.url} target="_blank" rel="noopener noreferrer" className="contato__rede">
+                <span className="rotulo">{r.rotulo}</span>
+                <span className="contato__usuario">{r.usuario}</span>
+                <span className="contato__seta" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="contato__postal">
+          <Postal />
+        </div>
+      </section>
+    </div>
   );
 }

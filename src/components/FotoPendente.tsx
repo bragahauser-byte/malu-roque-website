@@ -1,14 +1,14 @@
+import { JanelaIcone } from "./Janela";
+
 /**
- * Espaço reservado para fotografias pessoais.
- * Para trocar: substitua este componente por <img src="/img/malu/retrato.webp" ... />
- * (coloque o arquivo em public/img/malu/).
+ * Espaço reservado para fotografias pessoais, no formato da janela.
+ * Para trocar: coloque a foto em public/img/malu/ e substitua este
+ * componente por <Janela simples><img src={asset("/img/malu/retrato.webp")} alt="…" /></Janela>.
  */
-export function FotoPendente({ rotulo = "Sua fotografia aqui", className = "", forma = "arco" }: { rotulo?: string; className?: string; forma?: "arco" | "retangulo" | "circulo" }) {
+export function FotoPendente({ rotulo = "Sua fotografia aqui", className = "", forma = "arco" }: { rotulo?: string; className?: string; forma?: "arco" | "retangulo" }) {
   return (
     <div className={`foto-pendente foto-pendente--${forma} ${className}`} role="img" aria-label={`Espaço reservado: ${rotulo}`}>
-      <svg className="foto-pendente__estrela" viewBox="0 0 34 34" aria-hidden="true">
-        <path d="M17 2.6c.9 8.4 2.7 12.4 13.6 14.4-10.9 1.8-12.7 5.8-13.6 14.4-.9-8.6-2.7-12.6-13.6-14.4C14.3 15 16.1 11 17 2.6z" />
-      </svg>
+      <JanelaIcone className="foto-pendente__icone" />
       <span className="rotulo">{rotulo}</span>
     </div>
   );

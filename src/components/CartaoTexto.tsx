@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Texto } from "@/content/caderno";
 import { Obra } from "./Obra";
-import { Estrela } from "./Estrela";
 
 /**
  * Cartão editorial do Caderno. Cada `formato` tem uma composição própria
@@ -11,7 +10,7 @@ export function CartaoTexto({ texto, className = "", indice = 0 }: { texto: Text
   const t = texto;
   return (
     <article className={`cartao cartao--${t.formato} revelar ${className}`} style={{ "--c": t.cor, "--atraso": `${(indice % 3) * 0.08}s` } as React.CSSProperties}>
-      <Link href={`/caderno/${t.slug}/`} className="cartao__link" data-cursor="ler">
+      <Link href={`/caderno/${t.slug}/`} className="cartao__link">
         <div className="cartao__visual">
           {t.formato === "capa" && t.imagem && (
             <div className="cartao__img">
@@ -27,7 +26,7 @@ export function CartaoTexto({ texto, className = "", indice = 0 }: { texto: Text
 
           {t.formato === "citacao" && (
             <blockquote className="cartao__citacao">
-              <Estrela className="cartao__citacao-estrela" />
+              <span className="cartao__aspas" aria-hidden="true">“</span>
               <p>{t.titulo}</p>
             </blockquote>
           )}

@@ -1,20 +1,23 @@
 import Link from "next/link";
+import { Janela } from "@/components/Janela";
 import { Obra } from "@/components/Obra";
 
 export default function NaoEncontrado() {
   return (
-    <section className="nao-encontrado envoltorio">
-      <div className="nao-encontrado__img">
-        <Obra chave="hokusai-cranes" />
+    <section className="abertura nao-encontrado grade">
+      <div className="nao-encontrado__janela">
+        <Janela>
+          <Obra chave="hokusai-cranes" alt="" />
+        </Janela>
       </div>
-      <div>
+      <div className="nao-encontrado__texto">
         <p className="rotulo">Erro 404</p>
-        <h1>
-          Esta página <em>se perdeu</em> na floresta.
+        <h1 className="abertura__titulo">
+          Esta janela <em>não abre.</em>
         </h1>
-        <p className="lead">Acontece nos melhores contos. O caminho de volta está logo ali.</p>
-        <Link href="/" className="botao">
-          Voltar à capa <span className="seta">→</span>
+        <p className="lead">A página que você procurou não existe (ou mudou de lugar). O caminho de volta está logo ali.</p>
+        <Link href="/" className="botao botao--cheio">
+          Voltar ao início <span className="seta">→</span>
         </Link>
       </div>
     </section>

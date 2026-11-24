@@ -17,7 +17,7 @@ export function Postal() {
         onClick={() => setVirado((v) => !v)}
         aria-pressed={virado}
         aria-label={virado ? "Mostrar a frente do cartão-postal" : "Virar o cartão-postal"}
-        data-cursor="virar"
+       
       >
         <span className="postal__face postal__frente">
           <Obra chave="hokusai-iris" alt="" />
@@ -40,11 +40,11 @@ export function Postal() {
             <span className="postal__carimbo rotulo">
               {site.cidade}
               <br />
-              {site.edicao.ano}
+              SP
             </span>
             <span className="postal__linha">{site.nomeConselho}</span>
             <span className="postal__linha">{site.redes.instagram.usuario}</span>
-            <span className="postal__linha">Psicologia Analítica</span>
+            <span className="postal__linha">CRP {site.crp}</span>
           </span>
         </span>
       </button>

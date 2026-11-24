@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * Observa elementos com .revelar, .palavras e .cortina e adiciona .visto
+ * Observa elementos com .revelar e adiciona .visto
  * quando entram na tela. Montado uma vez no layout; refaz a busca a cada rota.
  */
 export function Revelador() {
@@ -25,7 +25,7 @@ export function Revelador() {
     );
 
     const observar = () =>
-      document.querySelectorAll(".revelar:not(.visto), .palavras:not(.visto), .cortina:not(.visto)").forEach((el) => io.observe(el));
+      document.querySelectorAll(".revelar:not(.visto)").forEach((el) => io.observe(el));
 
     observar();
     const mo = new MutationObserver(observar);

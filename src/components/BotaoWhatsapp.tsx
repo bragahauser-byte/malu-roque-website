@@ -15,7 +15,7 @@ export function BotaoWhatsapp({ claro = false, texto = "Conversar pelo WhatsApp"
     );
   }
   return (
-    <a className={classe} href={url} target="_blank" rel="noopener noreferrer" data-cursor="oi!">
+    <a className={classe} href={url} target="_blank" rel="noopener noreferrer">
       {texto} <span className="seta" aria-hidden="true">→</span>
     </a>
   );

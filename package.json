@@ -5,7 +5,7 @@
   "description": "Maria Luiza Roque — entre o visível e o simbólico. Site editorial de psicologia, cultura e subjetividade.",
   "scripts": {
     "dev": "next dev -p 3333",
-    "build": "next build",
+    "build": "next build && node scripts/rsc-planos.mjs",
     "preview": "node scripts/servir.mjs",
     "imagens": "node scripts/otimizar-imagens.mjs",
     "typecheck": "tsc --noEmit"

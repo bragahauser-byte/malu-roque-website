@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 // CONFIGURAÇÃO GERAL DO SITE
-// Troque aqui contatos, redes, número de WhatsApp e dados da edição.
+// Troque aqui contatos, redes, número de WhatsApp e registro profissional.
 // ─────────────────────────────────────────────────────────────
 
 export const site = {
@@ -8,12 +8,11 @@ export const site = {
   nomeConselho: "Maria Luiza D. Roque",
   apelido: "Malu Roque",
   profissao: "Psicóloga",
-  /** Número do CRP. Deixe "" enquanto não quiser exibir. Ex.: "06/123456" */
-  crp: "",
+  /** Registro no Conselho Regional de Psicologia (6ª Região, SP). */
+  crp: "06/214718",
   conceito: "Entre o visível e o simbólico",
   descricao:
     "Maria Luiza Roque (Malu Roque), psicóloga clínica de orientação junguiana. Um espaço editorial de psicologia, cultura e subjetividade.",
-  edicao: { numero: "01", estacao: "Primavera", ano: "2026" },
   cidade: "São Paulo",
 
   /**
@@ -36,13 +35,13 @@ export const site = {
   },
 } as const;
 
+/** Menu principal. "curto" é o nome no cabeçalho; "titulo" é o nome editorial da página. */
 export const navegacao = [
-  { href: "/", numero: "00", titulo: "Capa", sub: "Entre o visível e o simbólico", imagem: "redon-flower-clouds" },
-  { href: "/sobre/", numero: "01", titulo: "Quem escuta", sub: "Sobre Maria Luiza Roque", imagem: "munch-window" },
-  { href: "/atendimento/", numero: "02", titulo: "O consultório", sub: "Psicoterapia e abordagem junguiana", imagem: "redon-still-life" },
-  { href: "/caderno/", numero: "03", titulo: "Caderno", sub: "Psicologia, cultura e cotidiano", imagem: "manet-reading" },
-  { href: "/pesquisas/", numero: "04", titulo: "Pesquisa", sub: "Produção acadêmica", imagem: "redon-sita" },
-  { href: "/contato/", numero: "05", titulo: "Correspondência", sub: "Contato e agendamento", imagem: "hokusai-iris" },
+  { href: "/sobre/", curto: "Sobre", titulo: "Quem escuta" },
+  { href: "/atendimento/", curto: "Atendimento", titulo: "O consultório" },
+  { href: "/caderno/", curto: "Caderno", titulo: "Caderno" },
+  { href: "/pesquisas/", curto: "Pesquisa", titulo: "Pesquisa" },
+  { href: "/contato/", curto: "Contato", titulo: "Correspondência" },
 ] as const;
 
 export function whatsappUrl() {

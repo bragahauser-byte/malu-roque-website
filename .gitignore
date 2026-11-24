@@ -12,3 +12,6 @@ recursos/
 # gerado automaticamente pelo next dev
 AGENTS.md
 CLAUDE.md
+
+# Gotham (Hoefler & Co.): licença comercial; não versionar até confirmar a licença web
+public/fonts/gotham/

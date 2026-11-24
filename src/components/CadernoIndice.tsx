@@ -1,33 +1,45 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { categorias, textos, type Categoria } from "@/content/caderno";
+import { img } from "@/lib/asset";
 import { CartaoTexto } from "./CartaoTexto";
-import { ListaComImagem } from "./ListaComImagem";
+import { Janela } from "./Janela";
 
 /**
- * Índice do Caderno: filtros por categoria (como um sumário corrido),
- * contador e alternância entre "mesa" (grade de cartões variados) e
- * "lista" (títulos grandes com a imagem flutuando no hover).
+ * Índice do Caderno (estudo de camilarosa.net/work): filtros corridos,
+ * contador e dois modos de ver.
+ *  - mesa: grade de 12 colunas com ritmo fixo de larguras (8+4, 4+4+4, 6+6…)
+ *  - lista: títulos grandes em réguas; a janela fixa à direita mostra a
+ *    imagem do texto sob o mouse (sem nada seguindo o ponteiro).
  */
 
-// Ritmo da grade: cada posição ocupa uma largura diferente (em colunas de 12).
-const RITMO = ["g7", "g5", "g4", "g4", "g4", "g5", "g7", "g6", "g6", "g4", "g4", "g4"];
+const RITMO = ["g8", "g4", "g4", "g4", "g4", "g6", "g6", "g4", "g4", "g4", "g8", "g4"];
 
 export function CadernoIndice() {
   const [filtro, setFiltro] = useState<Categoria | "Tudo">("Tudo");
   const [modo, setModo] = useState<"mesa" | "lista">("mesa");
+  const [ativo, setAtivo] = useState(0);
 
   const presentes = useMemo(() => categorias.filter((c) => textos.some((t) => t.categoria === c)), []);
   const visiveis = filtro === "Tudo" ? textos : textos.filter((t) => t.categoria === filtro);
+  const emFoco = visiveis[Math.min(ativo, visiveis.length - 1)];
 
   return (
-    <div className="caderno-indice">
-      <div className="caderno-indice__barra envoltorio">
+    <section className="caderno-indice" aria-label="Textos do caderno">
+      <div className="caderno-indice__barra grade">
         <div className="caderno-indice__filtros ui" role="group" aria-label="Filtrar por categoria">
           {(["Tudo", ...presentes] as const).map((c, i, arr) => (
             <span key={c}>
-              <button className={`caderno-indice__filtro ${filtro === c ? "ativo" : ""}`} aria-pressed={filtro === c} onClick={() => setFiltro(c)}>
+              <button
+                className={`caderno-indice__filtro ${filtro === c ? "ativo" : ""}`}
+                aria-pressed={filtro === c}
+                onClick={() => {
+                  setFiltro(c);
+                  setAtivo(0);
+                }}
+              >
                 {c}
               </button>
               {i < arr.length - 1 && <span aria-hidden="true">, </span>}
@@ -36,51 +48,52 @@ export function CadernoIndice() {
         </div>
         <div className="caderno-indice__direita ui">
           <span aria-live="polite">
-            {visiveis.length} {visiveis.every((t) => t.rascunho) ? (visiveis.length === 1 ? "rascunho" : "rascunhos") : visiveis.length === 1 ? "texto" : "textos"}
+            {visiveis.length} {visiveis.length === 1 ? "rascunho" : "rascunhos"}
           </span>
           <div className="caderno-indice__modos" role="group" aria-label="Modo de visualização">
-            <button aria-pressed={modo === "mesa"} onClick={() => setModo("mesa")} title="Mesa (grade)" data-cursor="mesa">
-              <svg viewBox="0 0 16 16" aria-hidden="true">
-                <rect x="1" y="1" width="6" height="6" />
-                <rect x="9" y="1" width="6" height="6" />
-                <rect x="1" y="9" width="6" height="6" />
-                <rect x="9" y="9" width="6" height="6" />
-              </svg>
-              <span className="sr-only">Mesa</span>
+            <button aria-pressed={modo === "mesa"} onClick={() => setModo("mesa")}>
+              Mesa
             </button>
-            <button aria-pressed={modo === "lista"} onClick={() => setModo("lista")} title="Lista" data-cursor="lista">
-              <svg viewBox="0 0 16 16" aria-hidden="true">
-                <rect x="1" y="2" width="14" height="2" />
-                <rect x="1" y="7" width="14" height="2" />
-                <rect x="1" y="12" width="14" height="2" />
-              </svg>
-              <span className="sr-only">Lista</span>
+            <button aria-pressed={modo === "lista"} onClick={() => setModo("lista")}>
+              Lista
             </button>
           </div>
         </div>
       </div>
 
       {modo === "mesa" ? (
-        <div className="mesa envoltorio" key={filtro}>
+        <div className="mesa grade" key={filtro}>
           {visiveis.map((t, i) => (
             <CartaoTexto key={t.slug} texto={t} indice={i} className={RITMO[i % RITMO.length]} />
           ))}
         </div>
       ) : (
-        <div className="envoltorio caderno-indice__lista" key={"l" + filtro}>
-          <ListaComImagem
-            cursor="ler"
-            itens={visiveis.map((t, i) => ({
-              href: `/caderno/${t.slug}/`,
-              numero: String(i + 1).padStart(2, "0"),
-              titulo: t.titulo,
-              sub: `${t.categoria} · rascunho`,
-              imagem: t.imagem,
-              cor: t.cor,
-            }))}
-          />
+        <div className="caderno-lista grade" key={"l" + filtro}>
+          <ol className="caderno-lista__itens">
+            {visiveis.map((t, i) => (
+              <li key={t.slug}>
+                <Link
+                  href={`/caderno/${t.slug}/`}
+                  className={`caderno-lista__item ${i === ativo ? "ativo" : ""}`}
+                  onPointerEnter={() => setAtivo(i)}
+                  onFocus={() => setAtivo(i)}
+                >
+                  <span className="rotulo">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="caderno-lista__titulo">{t.titulo}</span>
+                  <span className="caderno-lista__sub ui">
+                    {t.categoria} · rascunho
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+          <div className="caderno-lista__janela" aria-hidden="true">
+            <Janela style={{ "--fundo-vista": emFoco?.cor } as React.CSSProperties}>
+              {visiveis.map((t, i) => (t.imagem ? <img key={t.slug} src={img(t.imagem, true)} alt="" loading="lazy" className={i === ativo ? "ativa" : ""} /> : null))}
+            </Janela>
+          </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }

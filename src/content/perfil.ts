@@ -179,42 +179,42 @@ export const temas = [
     texto:
       "Quando o corpo acelera, o sono foge ou tudo parece pesado demais. A terapia oferece um lugar para nomear o que aperta e compreender de onde vem.",
     forma: "circulo",
-    cor: "var(--lavanda)",
+    cor: "var(--lilas)",
     imagem: "munch-window",
   },
   {
     titulo: "Identidade e autoconhecimento",
     texto: "Quem sou eu para além dos papéis que ocupo? Uma investigação sem pressa sobre desejos, histórias e escolhas.",
     forma: "losango",
-    cor: "var(--ambar)",
+    cor: "var(--amarelo)",
     imagem: "redon-sita",
   },
   {
     titulo: "Relacionamentos e vínculos afetivos",
     texto: "Família, amizades, amores. Os encontros que nos formam e os padrões que se repetem sem que a gente perceba.",
     forma: "quadrado",
-    cor: "var(--ardosia)",
+    cor: "var(--creme-2)",
     imagem: "bocklin-sea",
   },
   {
     titulo: "Amadurecimento e vida adulta",
     texto: "O processo de tornar-se adulto: sair de casa, escolher caminhos, sustentar decisões e lidar com o que se perde e se ganha.",
     forma: "estrela",
-    cor: "var(--tule)",
+    cor: "var(--rosa)",
     imagem: "degas-star",
   },
   {
     titulo: "Conflitos internos e autonomia",
     texto: "Vozes que puxam para lados diferentes. A terapia ajuda a escutar cada uma delas e a encontrar uma posição própria.",
     forma: "meia-lua",
-    cor: "var(--malva)",
+    cor: "var(--rosa)",
     imagem: "moreau-inspiration",
   },
   {
     titulo: "Sonhos, símbolos e o inconsciente",
     texto: "Sonhos, imagens recorrentes e coincidências que chamam atenção são levados a sério, como mensagens a serem compreendidas.",
     forma: "gota",
-    cor: "var(--portal)",
+    cor: "var(--lilas)",
     imagem: "redon-flower-clouds",
   },
 ] as const;
@@ -246,5 +246,36 @@ export const pesquisas = [
     imagem: "volaire-vesuvius",
     imagem2: "redon-siren",
     palavras: ["psicologia hospitalar", "transplante renal", "símbolo", "estudo de caso"],
+  },
+] as const;
+
+/**
+ * O lado simbólico da capa, a partir das respostas do documento
+ * "Site Malu" (perguntas "Se fosse um lugar / uma loja / um universo /
+ * uma experiência artística"). Paráfrases fiéis, sem acréscimos.
+ */
+export const outroLado = [
+  {
+    pergunta: "Se fosse um lugar",
+    resposta:
+      "Uma sala aconchegante, com luz amarelada, cheiro de lavanda e flores espalhadas. Pilhas de livros, objetos trazidos de viagens, fotografias de quem se ama e uma playlist que mistura os anos 80 com artistas de agora.",
+    imagem: "redon-still-life",
+  },
+  {
+    pergunta: "Se fosse uma loja",
+    resposta:
+      "Venderia objetos com história: livros de literatura, psicologia, mitologia e filosofia, revistas independentes, gravuras, cadernos e coisinhas para passar o tempo, como argila, pintura, lego e crochê.",
+    imagem: "manet-reading",
+  },
+  {
+    pergunta: "Se fosse um universo",
+    resposta:
+      "Um mundo em que príncipes, sereias, fadas, reis e rainhas convivem com pessoas comuns, filhos, filhas e famílias. O fantástico e o cotidiano lado a lado, com a atmosfera de um filme de cinema independente.",
+    imagem: "redon-siren",
+  },
+  {
+    pergunta: "Se fosse uma experiência",
+    resposta: "Entrar numa loja de discos enquanto toca, bem alto, uma música que se ama. Prazer, nostalgia e vontade de ficar.",
+    imagem: null,
   },
 ] as const;
