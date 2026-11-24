@@ -5,7 +5,7 @@ import { Etiquetas } from "@/components/Etiquetas";
 
 export const metadata: Metadata = {
   title: "Caderno",
-  description: "Caderno de Malu Roque: psicologia, sonhos, livros, música, cinema, viagens e cotidiano. Textos de demonstração.",
+  description: "Caderno de Maria Luiza Roque: intercâmbios, destinos e discos, além de rascunhos sobre psicologia, sonhos, livros, cinema e cotidiano.",
 };
 
 export default function Caderno() {
@@ -23,8 +23,7 @@ export default function Caderno() {
             o dia a dia e reflexões sobre o mundo.
           </p>
           <p className="aviso-rascunho ui revelar">
-            <strong>Textos de demonstração.</strong> Os textos abaixo são rascunhos ilustrativos, criados para testar o desenho do caderno. Ainda
-            não são artigos publicados.
+            <strong>Especiais e rascunhos.</strong> Os três especiais (intercâmbios, destinos e discos) têm conteúdo real. Os demais textos são rascunhos ilustrativos, criados para testar o desenho do caderno, e ainda não são artigos publicados.
           </p>
         </div>
       </section>

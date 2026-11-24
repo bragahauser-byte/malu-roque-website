@@ -1,90 +1,36 @@
 import Link from "next/link";
 import type { Texto } from "@/content/caderno";
-import { Obra } from "./Obra";
+import { fonteImagem } from "@/lib/imagens";
 
 /**
- * Cartão editorial do Caderno. Cada `formato` tem uma composição própria
- * e um comportamento de hover diferente (ver caderno.css).
+ * CARTÃO DO CADERNO — um só componente para todos os textos.
+ * Linguagem tirada do cartão "O que os contos de fadas sabem sobre crescer":
+ *  - campo de cor + imagem que ocupa o campo;
+ *  - no hover (ou foco), a imagem se recolhe num arco sobre a cor e o
+ *    título ganha sublinhado; o cartão inteiro é a área clicável;
+ *  - abaixo: categoria · leitura (Gotham), título (Georgia), chamada.
+ * No toque não há hover: a imagem fica inteira, e tudo continua legível e clicável.
  */
-export function CartaoTexto({ texto, className = "", indice = 0 }: { texto: Texto; className?: string; indice?: number }) {
+export function CartaoTexto({ texto, className = "", indice = 0, tamanhos = "(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 31vw" }: { texto: Texto; className?: string; indice?: number; tamanhos?: string }) {
   const t = texto;
+  const f = fonteImagem(t.imagem);
   return (
-    <article className={`cartao cartao--${t.formato} revelar ${className}`} style={{ "--c": t.cor, "--atraso": `${(indice % 3) * 0.08}s` } as React.CSSProperties}>
+    <article className={`cartao revelar ${className}`} style={{ "--c": t.cor, "--atraso": `${(indice % 3) * 0.08}s` } as React.CSSProperties}>
       <Link href={`/caderno/${t.slug}/`} className="cartao__link">
         <div className="cartao__visual">
-          {t.formato === "capa" && t.imagem && (
-            <div className="cartao__img">
-              <Obra chave={t.imagem} pequena />
-            </div>
-          )}
-
-          {t.formato === "retrato" && t.imagem && (
-            <div className="cartao__img">
-              <Obra chave={t.imagem} pequena />
-            </div>
-          )}
-
-          {t.formato === "citacao" && (
-            <blockquote className="cartao__citacao">
-              <span className="cartao__aspas" aria-hidden="true">“</span>
-              <p>{t.titulo}</p>
-            </blockquote>
-          )}
-
-          {t.formato === "disco" && (
-            <div className="cartao__disco" aria-hidden="true">
-              <div className="cartao__capa-disco">
-                <span className="rotulo">Lado A</span>
-                <span className="cartao__capa-disco-titulo">{t.titulo}</span>
-              </div>
-              <div className="cartao__vinil">
-                <span className="cartao__vinil-selo" />
-              </div>
-            </div>
-          )}
-
-          {t.formato === "postal" && (
-            <div className="cartao__postal">
-              <div className="cartao__postal-frente">
-                {t.imagem && <Obra chave={t.imagem} pequena />}
-                <span className="cartao__postal-saudacao">Saudações de Milão</span>
-              </div>
-              <div className="cartao__postal-verso" aria-hidden="true">
-                <span className="cartao__selo">
-                  <span>MI</span>
-                </span>
-                <span className="cartao__carimbo">45°28′N · 9°11′E · 2023</span>
-                <span className="cartao__postal-linhas" />
-              </div>
-            </div>
-          )}
-
-          {t.formato === "lista" && (
-            <div className="cartao__lista">
-              {t.imagem && (
-                <div className="cartao__lista-img">
-                  <Obra chave={t.imagem} pequena />
-                </div>
-              )}
-              <ol>
-                {(t.lista ?? []).map((item, i) => (
-                  <li key={i}>
-                    <span className="rotulo">{String(i + 1).padStart(2, "0")}</span> {item}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
+          <div className="cartao__img">
+            <img src={f.src} srcSet={f.srcSet} sizes={tamanhos} width={f.width} height={f.height} alt="" loading="lazy" decoding="async" />
+          </div>
         </div>
-
         <div className="cartao__texto">
           <p className="cartao__meta rotulo">
             <span>{t.categoria}</span>
             <span aria-hidden="true">·</span>
             <span>{t.leitura}</span>
-            {t.rascunho && <span className="cartao__rascunho">rascunho</span>}
+            {t.rascunho && <span className="cartao__selo">rascunho</span>}
+            {t.especial && <span className="cartao__selo cartao__selo--especial">especial</span>}
           </p>
-          {t.formato !== "citacao" && <h3 className="cartao__titulo">{t.titulo}</h3>}
+          <h3 className="cartao__titulo">{t.titulo}</h3>
           <p className="cartao__chamada">{t.chamada}</p>
         </div>
       </Link>

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { textos } from "@/content/caderno";
+import { especiais, textos } from "@/content/caderno";
 import { Obra } from "@/components/Obra";
 import { Arco } from "@/components/Arco";
-import { creditoObra } from "@/content/arte";
+import { arte, creditoObra, type ChaveArte } from "@/content/arte";
 import { Palavras } from "@/components/Palavras";
 import { CartaoTexto } from "@/components/CartaoTexto";
 
@@ -25,7 +25,7 @@ export default async function TextoPagina({ params }: { params: Promise<{ slug: 
   const i = textos.findIndex((x) => x.slug === slug);
   if (i < 0) notFound();
   const t = textos[i];
-  const outros = [textos[(i + 1) % textos.length], textos[(i + 2) % textos.length]];
+  const outros = [textos[(i + 1) % textos.length], especiais[i % especiais.length]];
 
   return (
     <article className="texto-pagina">
@@ -47,12 +47,12 @@ export default async function TextoPagina({ params }: { params: Promise<{ slug: 
       </header>
 
       <div className="grade">
-        {t.imagem && (
-          <div className="texto-pagina__figura cortina">
+        {t.imagem in arte && (
+          <div className="texto-pagina__figura revelar">
             <Arco>
-              <Obra chave={t.imagem} prioridade />
+              <Obra chave={t.imagem as ChaveArte} prioridade tamanhos="(max-width: 1023px) 90vw, 40vw" />
             </Arco>
-            <p className="credito">{creditoObra(t.imagem)}</p>
+            <p className="credito">{creditoObra(t.imagem as ChaveArte)}</p>
           </div>
         )}
         <div className="texto-pagina__corpo">

@@ -70,9 +70,9 @@
 
   /* ── Grade ───────────────────────────────────────────────── */
   --cols: 12;
-  --margem: clamp(1.25rem, 0.414rem + 3.43vw, 3.5rem); /* 20→56 */
+  --margem: clamp(1.25rem, 0.786rem + 1.9vw, 2.5rem); /* 20→40: margem lateral global (40px no desktop) */
   --calha: clamp(1rem, 0.814rem + 0.76vw, 1.5rem); /* 16→24 */
-  --largura-max: 1680px;
+  --largura-max: 1920px;
   --secao: clamp(4rem, 2.143rem + 7.62vw, 9rem); /* 64→144 entre seções */
   --cabecalho: 4.5rem;                               /* 72 */
   --botao: 3rem;                                     /* 48: altura mínima de botões e alvos de toque */

@@ -272,6 +272,24 @@
    960
   ]
  },
+ "londres-malu": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "londres-ponte": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
  "malu-entardecer": {
   "pasta": "fotos",
   "w": 960,
@@ -309,6 +327,87 @@
   ]
  },
  "malu-sorriso": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-bandeiras": {
+  "pasta": "fotos",
+  "w": 828,
+  "h": 1472,
+  "larguras": [
+   640,
+   828
+  ]
+ },
+ "milao-canal": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-catedral": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-costa": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-entardecer": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-malu-ponte": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-museu-malu": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-palacio": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "milao-pintura": {
   "pasta": "fotos",
   "w": 960,
   "h": 1280,
@@ -370,6 +469,255 @@
   "larguras": [
    640,
    960
+  ]
+ },
+ "destino-alemanha": {
+  "pasta": "destinos",
+  "w": 2272,
+  "h": 3410,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2272
+  ]
+ },
+ "destino-austria": {
+  "pasta": "destinos",
+  "w": 2848,
+  "h": 4288,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "destino-belgica": {
+  "pasta": "destinos",
+  "w": 3743,
+  "h": 2463,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "destino-dinamarca": {
+  "pasta": "destinos",
+  "w": 3840,
+  "h": 5704,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "destino-franca": {
+  "pasta": "destinos",
+  "w": 2009,
+  "h": 3375,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2009
+  ]
+ },
+ "destino-holanda": {
+  "pasta": "destinos",
+  "w": 2304,
+  "h": 3456,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2304
+  ]
+ },
+ "destino-inglaterra": {
+  "pasta": "destinos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "destino-italia": {
+  "pasta": "destinos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "destino-malta": {
+  "pasta": "destinos",
+  "w": 2318,
+  "h": 1700,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2318
+  ]
+ },
+ "destino-marrocos": {
+  "pasta": "destinos",
+  "w": 3840,
+  "h": 2560,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "destino-monaco": {
+  "pasta": "destinos",
+  "w": 3840,
+  "h": 2390,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "destino-vaticano": {
+  "pasta": "destinos",
+  "w": 3840,
+  "h": 2647,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "abbey-road": {
+  "pasta": "albuns",
+  "w": 447,
+  "h": 447,
+  "larguras": [
+   447
+  ]
+ },
+ "arrival": {
+  "pasta": "albuns",
+  "w": 450,
+  "h": 450,
+  "larguras": [
+   450
+  ]
+ },
+ "back-to-black": {
+  "pasta": "albuns",
+  "w": 490,
+  "h": 490,
+  "larguras": [
+   490
+  ]
+ },
+ "blood-sugar-sex-magik": {
+  "pasta": "albuns",
+  "w": 300,
+  "h": 300,
+  "larguras": [
+   300
+  ]
+ },
+ "californication": {
+  "pasta": "albuns",
+  "w": 1000,
+  "h": 989,
+  "larguras": [
+   640,
+   1000
+  ]
+ },
+ "dark-side-of-the-moon": {
+  "pasta": "albuns",
+  "w": 300,
+  "h": 300,
+  "larguras": [
+   300
+  ]
+ },
+ "definitely-maybe": {
+  "pasta": "albuns",
+  "w": 461,
+  "h": 456,
+  "larguras": [
+   461
+  ]
+ },
+ "led-zeppelin-iv": {
+  "pasta": "albuns",
+  "w": 384,
+  "h": 384,
+  "larguras": [
+   384
+  ]
+ },
+ "lemonade": {
+  "pasta": "albuns",
+  "w": 250,
+  "h": 250,
+  "larguras": [
+   250
+  ]
+ },
+ "morning-glory": {
+  "pasta": "albuns",
+  "w": 460,
+  "h": 456,
+  "larguras": [
+   460
+  ]
+ },
+ "rumours": {
+  "pasta": "albuns",
+  "w": 294,
+  "h": 294,
+  "larguras": [
+   294
+  ]
+ },
+ "the-end": {
+  "pasta": "albuns",
+  "w": 300,
+  "h": 300,
+  "larguras": [
+   300
+  ]
+ },
+ "the-fame-monster": {
+  "pasta": "albuns",
+  "w": 250,
+  "h": 250,
+  "larguras": [
+   250
+  ]
+ },
+ "the-fame": {
+  "pasta": "albuns",
+  "w": 500,
+  "h": 500,
+  "larguras": [
+   500
+  ]
+ },
+ "thriller": {
+  "pasta": "albuns",
+  "w": 500,
+  "h": 500,
+  "larguras": [
+   500
   ]
  }
 }

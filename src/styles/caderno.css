@@ -31,87 +31,31 @@
   .g4, .g6, .g8 { grid-column: 1 / -1; }
 }
 
-/* ── Cartão ────────────────────────────────────────────────── */
+/* ── Cartão (um só componente) ──────────────────────────────
+   Do cartão de referência: campo de cor + imagem; no hover/foco a imagem
+   se recolhe num arco sobre a cor e o título ganha sublinhado. */
 .cartao__link { display: block; }
 .cartao__visual {
   position: relative; overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--c, var(--fundo-2));
-  color: var(--preto);
 }
 .g8 .cartao__visual { aspect-ratio: 16 / 9; }
-.cartao__img { position: absolute; inset: 0; transition: inset 0.55s var(--ease), border-radius 0.55s var(--ease); overflow: hidden; }
+.cartao__img { position: absolute; inset: 0; overflow: hidden; transition: inset 0.56s var(--ease), border-radius 0.56s var(--ease); }
 .cartao__img img { width: 100%; height: 100%; object-fit: cover; }
-.cartao__texto { padding-top: 1rem; display: grid; gap: 0.5rem; }
-.cartao__meta { display: flex; flex-wrap: wrap; gap: 0.5rem; color: var(--texto-suave); }
-.cartao__rascunho { margin-left: auto; padding: 0.25rem 0.5rem; border: 1px solid currentColor; border-radius: 999px; }
-.cartao__titulo { font-size: var(--t-h3); line-height: 1.12; letter-spacing: -0.015em; }
-.g8 .cartao__titulo { font-size: clamp(1.6rem, 2.6vw, 2.4rem); }
-.cartao__chamada { color: var(--texto-suave); font-size: 1rem; line-height: 1.5; max-width: 34em; }
+.cartao__link:focus-visible .cartao__img { inset: 10% 30% 0; border-radius: 9999px 9999px 0 0; }
+@media (hover: hover) {
+  .cartao__link:hover .cartao__img { inset: 10% 30% 0; border-radius: 9999px 9999px 0 0; }
+  .g8 .cartao__link:hover .cartao__img { inset: 8% 38% 0; }
+}
+.cartao__texto { padding-top: var(--s-4); display: grid; gap: var(--s-2); }
+.cartao__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); color: var(--texto-suave); }
+.cartao__selo { margin-left: auto; padding: var(--s-1) var(--s-2); border: 1px solid currentColor; border-radius: 999px; line-height: 1; }
+.cartao__selo--especial { background: var(--destaque); border-color: var(--destaque); color: var(--sobre-destaque); }
+.cartao__titulo { font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
+.g8 .cartao__titulo { font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem); line-height: 1.1; }
+.cartao__chamada { color: var(--texto-suave); font-size: var(--t-corpo-p); line-height: 1.5rem; max-width: 34em; }
 .cartao__link:hover .cartao__titulo, .cartao__link:focus-visible .cartao__titulo { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
-
-/* capa: no hover, a imagem se recolhe num arco sobre a cor (Camila Rosa + arco) */
-.cartao--capa .cartao__link:hover .cartao__img,
-.cartao--capa .cartao__link:focus-visible .cartao__img { inset: 10% 30% 0; border-radius: 9999px 9999px 0 0; }
-.g8.cartao--capa .cartao__link:hover .cartao__img { inset: 8% 38% 0; }
-
-/* retrato: a obra mora num arco; no hover o arco se abre um pouco */
-.cartao--retrato .cartao__img { inset: 12% 28% 0; border-radius: 9999px 9999px 0 0; }
-.cartao--retrato .cartao__link:hover .cartao__img { inset: 6% 22% 0; }
-
-/* citação */
-.cartao--citacao .cartao__visual { display: flex; align-items: flex-end; padding: clamp(1.25rem, 2.4vw, 2rem); }
-.cartao__citacao { display: grid; gap: 0.25rem; }
-.cartao__aspas { font-size: 4.5rem; line-height: 0.6; }
-.cartao__citacao p { font-size: clamp(1.4rem, 2.3vw, 2.2rem); line-height: 1.08; letter-spacing: -0.02em; font-style: italic; }
-
-/* disco: a capa e o vinil, que desliza para fora no hover */
-.cartao__disco { position: absolute; inset: 12% 8% 12% 8%; }
-.cartao__capa-disco {
-  position: absolute; z-index: 2; inset: 0 auto 0 0; aspect-ratio: 1; max-width: 62%;
-  display: flex; flex-direction: column; justify-content: space-between; padding: 1rem;
-  background: var(--preto); color: var(--creme);
-}
-.cartao__capa-disco .rotulo { color: var(--amarelo); }
-.cartao__capa-disco-titulo { font-size: clamp(1.05rem, 1.6vw, 1.45rem); line-height: 1.05; font-style: italic; letter-spacing: -0.02em; }
-.cartao__vinil {
-  position: absolute; top: 3%; bottom: 3%; left: 4%; aspect-ratio: 1; border-radius: 50%;
-  display: grid; place-items: center; background: var(--preto);
-  box-shadow: inset 0 0 0 8px var(--preto), inset 0 0 0 9px #34352f, inset 0 0 0 17px var(--preto), inset 0 0 0 18px #34352f;
-  transition: transform 0.7s var(--ease);
-}
-.cartao__vinil-selo { width: 32%; aspect-ratio: 1; border-radius: 50%; background: var(--rosa); }
-.cartao--disco .cartao__link:hover .cartao__vinil,
-.cartao--disco .cartao__link:focus-visible .cartao__vinil { transform: translateX(46%); }
-
-/* postal: vira e mostra o verso */
-.cartao--postal .cartao__visual { background: transparent; overflow: visible; perspective: 1200px; }
-.cartao__postal { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 0.8s var(--ease); }
-.cartao__postal-frente, .cartao__postal-verso { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
-.cartao__postal-frente img { width: 100%; height: 100%; object-fit: cover; }
-.cartao__postal-saudacao {
-  position: absolute; left: 1rem; bottom: 1rem;
-  padding: 0.1em 0.4em 0.15em; background: var(--creme); color: var(--preto);
-  font-size: clamp(1.05rem, 1.7vw, 1.5rem); font-style: italic; border-radius: 3px;
-}
-.cartao__postal-verso {
-  transform: rotateY(180deg); background: var(--creme-2); color: var(--preto);
-  display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; padding: 1rem; gap: 0.5rem;
-}
-.cartao__selo { grid-column: 2; width: 3.25rem; height: 4rem; display: grid; place-items: center; background: var(--rosa); outline: 4px dotted var(--creme-2); outline-offset: -4px; font-style: italic; }
-.cartao__carimbo { grid-row: 1; grid-column: 1; align-self: start; justify-self: start; padding: 0.5rem 0.75rem; border: 1.5px solid var(--verde); border-radius: 999px; color: var(--verde); font: 500 0.75rem / 1.2 var(--gotham); letter-spacing: 0.08em; rotate: -6deg; }
-.cartao__postal-linhas { grid-column: 1 / -1; border-top: 1px solid rgb(12 13 8 / 0.2); border-bottom: 1px solid rgb(12 13 8 / 0.2); margin-block: 30% 12%; }
-.cartao--postal .cartao__link:hover .cartao__postal,
-.cartao--postal .cartao__link:focus-visible .cartao__postal { transform: rotateY(180deg); }
-
-/* lista */
-.cartao--lista .cartao__visual { padding: clamp(1rem, 2vw, 1.4rem); }
-.cartao__lista { display: grid; grid-template-columns: 36% 1fr; gap: 1.25rem; height: 100%; align-items: center; }
-.cartao__lista-img { height: 100%; border-radius: 9999px 9999px 0 0; overflow: hidden; }
-.cartao__lista-img img { width: 100%; height: 100%; object-fit: cover; }
-.cartao__lista li { padding: 0.5rem 0; border-bottom: 1px solid rgb(12 13 8 / 0.2); font-size: clamp(0.95rem, 1.3vw, 1.15rem); font-style: italic; transition: transform 0.45s var(--ease); }
-.cartao__lista li .rotulo { font-style: normal; margin-right: 0.5rem; }
-.cartao--lista .cartao__link:hover li { transform: translateX(0.5rem); }
 
 /* ── Lista: títulos grandes e um arco fixo ──────────────── */
 .caderno-lista { align-items: start; }
@@ -160,3 +104,8 @@
   .texto-pagina__figura, .texto-pagina__corpo, .texto-pagina__fim { grid-column: 1 / -1; }
   .texto-pagina__figura { position: static; margin-bottom: 2rem; }
 }
+
+.g12 { grid-column: 1 / -1; }
+.g12 .cartao__visual { aspect-ratio: 21 / 9; }
+.caderno-especiais { padding-top: var(--s-9); }
+.caderno-especiais + .caderno-indice { padding-top: var(--secao); }

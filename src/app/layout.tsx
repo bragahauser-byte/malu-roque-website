@@ -6,14 +6,20 @@ import { site } from "@/content/site";
 import { Cabecalho } from "@/components/Cabecalho";
 import { Rodape } from "@/components/Rodape";
 import { Revelador } from "@/components/Revelador";
+import { Passagens } from "@/components/Passagens";
 import { asset } from "@/lib/asset";
 import { scriptMundo } from "@/lib/mundo";
+
+/** Entrada: só na primeira página da visita e sem "reduzir movimento". */
+const scriptEntrada = `try{if(!sessionStorage.getItem("malu-entrou")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("entrando")}catch(e){}`;
 import "@/styles/tokens.css";
 import "@/styles/base.css";
 import "@/styles/moldura.css";
 import "@/styles/inicio.css";
 import "@/styles/paginas.css";
 import "@/styles/caderno.css";
+import "@/styles/especiais.css";
+import "@/styles/motion.css";
 
 // Georgia vem do sistema. A Gelasio (mesmas métricas) só é baixada se ela faltar.
 const gelasio = Gelasio({ subsets: ["latin"], weight: ["400", "500", "700"], style: ["normal", "italic"], variable: "--font-gelasio", preload: false, display: "swap" });
@@ -41,7 +47,16 @@ export const metadata: Metadata = {
   title: { default: `${site.nome} — Psicóloga · CRP ${site.crp}`, template: `%s · ${site.apelido}` },
   description: site.descricao,
   openGraph: { title: `${site.nome} — ${site.conceito}`, description: site.descricao, locale: "pt_BR", type: "website" },
-  icons: { icon: asset("/icon.svg") },
+  icons: {
+    icon: [
+      { url: asset("/favicon.ico"), sizes: "48x48" },
+      { url: asset("/favicon-32.png"), sizes: "32x32", type: "image/png" },
+      { url: asset("/favicon-16.png"), sizes: "16x16", type: "image/png" },
+      { url: asset("/icon-192.png"), sizes: "192x192", type: "image/png" },
+      { url: asset("/icon-512.png"), sizes: "512x512", type: "image/png" },
+    ],
+    apple: { url: asset("/apple-touch-icon.png"), sizes: "180x180" },
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#fefaee" };
@@ -50,15 +65,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" data-mundo="visivel" className={gelasio.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: scriptMundo }} />
+        <script dangerouslySetInnerHTML={{ __html: scriptMundo + scriptEntrada }} />
         {temGotham && <link rel="preload" href={asset("/fonts/gotham/GothamCond-Medium.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" />}
         {temGotham && <style dangerouslySetInnerHTML={{ __html: fontesGotham }} />}
       </head>
       <body>
+        <div className="entrada" aria-hidden="true">
+          <span className="entrada__nome">
+            Maria Luiza <em>Roque</em>
+          </span>
+          <span className="entrada__sub">Psicóloga · CRP {site.crp}</span>
+        </div>
         <Cabecalho />
         <main id="conteudo">{children}</main>
         <Rodape />
         <Revelador />
+        <Passagens />
       </body>
     </html>
   );

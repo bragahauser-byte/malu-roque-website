@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Palavras } from "@/components/Palavras";
 import { arte, type ChaveArte } from "@/content/arte";
+import { destinos } from "@/content/viagens";
 
 export const metadata: Metadata = {
   title: "Créditos das imagens",
@@ -57,6 +58,41 @@ export default function Creditos() {
           <span>
             Rosarium philosophorum: Wellcome Collection, licença Creative Commons Attribution 4.0 (CC BY 4.0). As demais obras: CC0 ou domínio público,
             conforme indicado por cada acervo.
+          </span>
+        </p>
+      </section>
+      <section className="secao" aria-labelledby="h-destinos">
+        <div className="secao-cabeca grade">
+          <span className="secao-cabeca__num rotulo">{destinos.length}</span>
+          <span className="secao-cabeca__nome chapeu">Destinos</span>
+          <h2 id="h-destinos" className="secao-cabeca__titulo titulo">
+            Fotografias <em>dos países</em>
+          </h2>
+        </div>
+        <ul className="linhas">
+          {destinos.map((d) => (
+            <li key={d.pais}>
+              {"propria" in d.credito ? (
+                <div className="linha linha--estatica creditos__linha grade">
+                  <span className="creditos__licenca rotulo">Própria</span>
+                  <span className="linha__titulo">{d.pais}: {d.legenda}</span>
+                  <span className="linha__info ui suave">Foto de Maria Luiza Roque</span>
+                </div>
+              ) : (
+                <a className="linha creditos__linha grade" href={d.credito.url} target="_blank" rel="noopener noreferrer">
+                  <span className="creditos__licenca rotulo">{d.credito.licenca}</span>
+                  <span className="linha__titulo">{d.pais}: {d.legenda}</span>
+                  <span className="linha__info ui suave">{d.credito.autor}, Wikimedia Commons</span>
+                  <span className="linha__seta" aria-hidden="true">↗</span>
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+        <p className="grade creditos__nota ui suave">
+          <span>
+            Licenças Creative Commons: CC BY e CC BY-SA exigem crédito ao autor (feito aqui e em cada janela); CC0 e domínio público dispensam. As capas
+            de discos da estante de CDs vêm dos arquivos enviados pela Malu; os direitos pertencem aos artistas e gravadoras.
           </span>
         </p>
       </section>

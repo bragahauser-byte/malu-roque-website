@@ -105,3 +105,74 @@ resolução máxima.
   do atlas como referência, sem imagens. As obras escolhidas vêm das mesmas
   tradições que Jung estudou.
 - **Odilon Redon** (1840–1916): domínio público. Está no site com cinco obras.
+
+## Rodada 4 — viagens, intercâmbios e discos
+
+### Fotos dos intercâmbios (da Malu, sem retoque)
+
+As fotos vêm das pastas que ela separou: `intercambio inglaterra` e
+`intercambio italia`. A separação feita por ela foi respeitada. As legendas
+descrevem a imagem, sem nomear cidades além de Londres e Milão, que são os
+lugares dos intercâmbios.
+
+| Chave | Origem | Uso |
+| --- | --- | --- |
+| `londres-ponte` | intercambio inglaterra / 23.06.43 (3) | Londres, janela de avião de abertura |
+| `londres-malu` | intercambio inglaterra / 23.06.43 (4) | Londres, foto editorial; card do especial |
+| `milao-catedral` | intercambio italia / 23.07.07 (1) | Milão, janela de abertura |
+| `milao-bandeiras` | intercambio italia / 23.06.57 (1) | sequência |
+| `milao-museu-malu` | intercambio italia / 23.06.50 (1) | sequência |
+| `milao-pintura` | intercambio italia / 23.07.05 (3) | sequência |
+| `milao-palacio` | intercambio italia / 23.07.02 (1) | disciplinas |
+| `milao-canal` | intercambio italia / 23.07.01 (2) | janelas de viagem |
+| `milao-costa` | intercambio italia / 23.07.06 (2) | janelas de viagem |
+| `milao-entardecer` | intercambio italia / 23.07.01 | janelas de viagem |
+| `milao-malu-ponte` | intercambio italia / 23.06.48 (3) | foto de fechamento |
+
+**Não usadas:**
+- **Páginas de livro de Jung** (23.06.52 a 23.06.54): mostram pinturas do
+  Livro Vermelho impressas, que são protegidas.
+- **Outras fotos da pasta Itália:** são boas e ficaram de reserva.
+
+**Para confirmação:** as fotos da pasta antiga `fotos em viagens` (por
+exemplo, a janela com suéter vermelho e a casa rosa) **não foram atribuídas**
+a Londres nem a Milão, porque não dá para saber com segurança a qual
+experiência pertencem.
+
+### Destinos (12 países)
+
+- **Inglaterra:** foto dela (`intercambio inglaterra` / 23.06.42).
+- **Itália:** foto dela (`intercambio italia` / 23.07.06 (1)).
+- **Os outros 10:** Wikimedia Commons (Quality Images), baixados a no máximo
+  2400 px de largura. Autor e licença aparecem em cada janela e em `/creditos/`.
+  Os dados completos ficam em `recursos/destinos/creditos.json`.
+
+| País | Arquivo no Commons | Autor | Licença |
+| --- | --- | --- | --- |
+| Dinamarca | Børsen dragon spire roofs Copenhagen Denmark.jpg | Jebulon | CC0 |
+| Bélgica | Brugge Langerei R02.jpg | Marc Ryckaert (MJJR) | CC BY 3.0 |
+| Holanda | OudezijdsKolkAmsterdam.jpg | Massimo Catarinella | CC BY-SA 3.0 |
+| Mônaco | Vista de Mónaco, 2016-06-23, DD 10.jpg | Diego Delso | CC BY-SA 4.0 |
+| Vaticano | Vatican Museum September 2015-1.jpg | Alvesgaspar | CC BY-SA 4.0 |
+| Marrocos | 2018 01 (Blue) - Chaouen.jpg | Fbrandao.1963 | CC BY-SA 4.0 |
+| França | Porte 35 boulevard Saint-Michel Paris.jpg | Jebulon | CC0 |
+| Alemanha | Bamberg Altes Rathaus BW 1.JPG | Berthold Werner | Domínio público |
+| Malta | Siege Bell War Memorial - Valletta.jpg | MrPanyGoff | CC BY-SA 3.0 |
+| Áustria | Hallstatt - Evangelische Kirche3.jpg | Taxiarchos228 | CC BY 3.0 |
+
+As legendas descrevem a foto, nunca o que ela fez ou quais cidades visitou.
+
+### Capas dos discos
+
+As 15 capas vêm da pasta `albuns`, sem alteração. São os 12 álbuns pedidos,
+mais The E.N.D. (Black Eyed Peas), The Fame e The Fame Monster (Lady Gaga).
+
+Resolução original, conforme os arquivos:
+- de 250 a 500 px;
+- Californication: 1000 px.
+
+Por isso as caixas de CD têm no máximo 240 px de lado no desktop. **Lemonade**
+e **The Fame Monster** têm só 250 px e ficam um pouco suaves em telas de alta
+densidade. Se ela quiser, dá para trocar por arquivos maiores.
+
+Direitos das capas: pertencem aos artistas e gravadoras.

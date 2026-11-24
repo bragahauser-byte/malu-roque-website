@@ -9,7 +9,7 @@ import { Obra } from "@/components/Obra";
 import { Palavras } from "@/components/Palavras";
 import { arte } from "@/content/arte";
 import { site } from "@/content/site";
-import { textos } from "@/content/caderno";
+import { especiais } from "@/content/caderno";
 import { atlas, linhaDoTempo, outroLado, pesquisas, publico, recursos } from "@/content/perfil";
 
 /**
@@ -18,9 +18,6 @@ import { atlas, linhaDoTempo, outroLado, pesquisas, publico, recursos } from "@/
  * O portal é a passagem.
  */
 export default function Inicio() {
-  const destaques = ["o-que-os-contos-de-fadas-sabem-sobre-crescer", "notas-sobre-uma-loja-de-discos", "o-simbolo-nao-se-explica"]
-    .map((s) => textos.find((t) => t.slug === s)!)
-    .filter(Boolean);
 
   return (
     <>
@@ -219,7 +216,7 @@ export default function Inicio() {
           </div>
           <div className="mosaico grade">
             <figure className="mosaico__a revelar">
-              <Arco moldura>
+              <Arco>
                 <Foto chave="viagem-passagem" tamanhos="(max-width: 639px) 90vw, (max-width: 1023px) 60vw, 38vw" />
               </Arco>
             </figure>
@@ -288,7 +285,7 @@ export default function Inicio() {
             {outroLado.map((o, i) => (
               <li key={o.pergunta} className={`imagem grade ${i % 2 ? "imagem--inversa" : ""}`}>
                 <div className="imagem__arco revelar">
-                  <Arco moldura>
+                  <Arco>
                     {o.imagem ? (
                       <Obra chave={o.imagem} tamanhos="(max-width: 639px) 75vw, (max-width: 1023px) 45vw, 30vw" />
                     ) : (
@@ -314,16 +311,16 @@ export default function Inicio() {
           <div className="secao-cabeca grade">
             <span className="secao-cabeca__num rotulo">03</span>
             <span className="secao-cabeca__nome chapeu">Do caderno</span>
-            <Palavras id="h-caderno" className="secao-cabeca__titulo" texto="Psicologia, cultura *e cotidiano.*" />
+            <Palavras id="h-caderno" className="secao-cabeca__titulo" texto="Viagens, intercâmbios *e discos.*" />
           </div>
           <div className="mesa grade">
-            {destaques.map((t, i) => (
+            {especiais.map((t, i) => (
               <CartaoTexto key={t.slug} texto={t} indice={i} className="g4" />
             ))}
           </div>
           <div className="grade">
             <Link href="/caderno/" className="botao fatos__link">
-              Ver todos os rascunhos <span className="seta">→</span>
+              Abrir o caderno <span className="seta">→</span>
             </Link>
           </div>
         </section>

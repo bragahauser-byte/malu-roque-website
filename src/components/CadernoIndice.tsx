@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { categorias, textos, type Categoria } from "@/content/caderno";
-import { Obra } from "./Obra";
+import { categorias, especiais, textos, type Categoria } from "@/content/caderno";
+import { fonteImagem } from "@/lib/imagens";
 import { CartaoTexto } from "./CartaoTexto";
 import { Arco } from "./Arco";
 
@@ -15,7 +15,7 @@ import { Arco } from "./Arco";
  *    imagem do texto sob o mouse (sem nada seguindo o ponteiro).
  */
 
-const RITMO = ["g8", "g4", "g4", "g4", "g4", "g6", "g6", "g4", "g4", "g4", "g8", "g4"];
+const RITMO = ["g8", "g4", "g4", "g4", "g4", "g6", "g6", "g4", "g4", "g4", "g12"];
 
 export function CadernoIndice() {
   const [filtro, setFiltro] = useState<Categoria | "Tudo">("Tudo");
@@ -27,6 +27,21 @@ export function CadernoIndice() {
   const emFoco = visiveis[Math.min(ativo, visiveis.length - 1)];
 
   return (
+    <>
+    <section className="caderno-especiais" aria-labelledby="h-especiais">
+      <div className="secao-cabeca grade">
+        <span className="secao-cabeca__num rotulo">{String(especiais.length).padStart(2, "0")}</span>
+        <span className="secao-cabeca__nome chapeu" id="h-especiais">Especiais</span>
+        <h2 className="secao-cabeca__titulo titulo">
+          Viagens, intercâmbios <em>e discos</em>
+        </h2>
+      </div>
+      <div className="mesa grade">
+        {especiais.map((t, i) => (
+          <CartaoTexto key={t.slug} texto={t} indice={i} className="g4" />
+        ))}
+      </div>
+    </section>
     <section className="caderno-indice" aria-label="Textos do caderno">
       <div className="caderno-indice__barra grade">
         <div className="caderno-indice__filtros ui" role="group" aria-label="Filtrar por categoria">
@@ -89,11 +104,12 @@ export function CadernoIndice() {
           </ol>
           <div className="caderno-lista__arco" aria-hidden="true">
             <Arco style={{ "--fundo-vista": emFoco?.cor } as React.CSSProperties}>
-              {visiveis.map((t, i) => (t.imagem ? <Obra key={t.slug} chave={t.imagem} alt="" className={i === ativo ? "ativa" : ""} tamanhos="(max-width: 1023px) 0px, 25vw" /> : null))}
+              {visiveis.map((t, i) => { const f = fonteImagem(t.imagem); return <img key={t.slug} src={f.src} srcSet={f.srcSet} sizes="(max-width: 1023px) 0px, 25vw" alt="" loading="lazy" className={i === ativo ? "ativa" : ""} />; })}
             </Arco>
           </div>
         </div>
       )}
     </section>
+    </>
   );
 }

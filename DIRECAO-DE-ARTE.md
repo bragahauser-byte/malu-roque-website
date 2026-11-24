@@ -1,7 +1,7 @@
 # Direção de arte — Maria Luiza Roque
 
 Registro das decisões do projeto, para continuar o trabalho em outras sessões
-sem perder o fio. **Versão 3** (etapa final de refinamento, novembro de 2026).
+sem perder o fio. **Versão 4** (viagens, música, intercâmbios e motion, novembro de 2026).
 
 ## Conceito
 
@@ -154,7 +154,10 @@ web. Online, a interface usa a reserva (Arial Narrow ou Helvetica). Ver README.
 
 - **Colunas:** 12 no desktop, 6 no tablet (< 1024 px) e 4 no celular (< 640 px).
   - Classe `.grade` em `base.css`, com `--cols`.
-  - Largura máxima de 1680 px; margem e calha fluidas.
+  - **Margem lateral global `--margem`: 40 px no desktop**, diminuindo até 20 px
+    no celular (fluida entre 390 e 1440 px).
+  - Largura máxima de 1920 px, para os 40 px valerem também em telas grandes.
+  - Verificado: cabeçalho, títulos, réguas e rodapé começam todos a 40 px da borda.
 - **Dois eixos fixos:**
   - **coluna 1**: rótulos, títulos de página, imagens;
   - **coluna 7**: títulos de seção e textos que acompanham uma imagem.
@@ -201,8 +204,135 @@ Regra: **todo movimento responde a um gesto ou acontece uma vez.**
 Ver **IMAGENS.md** (fontes, licenças, recortes e onde cada foto aparece) e a
 página `/creditos/`. Princípios:
 - fotos da Malu sem retoques, no tamanho nativo, nunca ampliadas, e cada uma em um só lugar;
+- três recortes, cada um com função: retângulo (padrão), arco (retratos e obras) e **janelinha de avião** (só para viagem, como recurso narrativo).
 - obras só de acervos abertos;
 - `srcset` em todas as imagens, para a melhor nitidez possível em cada tela.
+
+
+## Rodada 4
+
+### Especiais do Caderno
+
+Viagens, intercâmbios e música entraram como **especiais do Caderno**, com
+conteúdo real:
+
+| Rota | Conteúdo |
+| --- | --- |
+| `/caderno/destinos/` | 12 países em janelas de avião |
+| `/caderno/intercambios/` | Londres 2019/2020 e Milão 2023, em capítulos separados |
+| `/caderno/discos/` | estante de CDs em 3D |
+
+- No índice do Caderno, os especiais vêm antes dos rascunhos.
+- Na capa (lado simbólico), aparecem em "Do caderno".
+
+### Janelinha de avião (referência AC Concierge)
+
+- **Forma:** retângulo vertical com cantos elípticos (`border-radius: 48% / 34%`),
+  sem moldura.
+- **A persiana:**
+  - fica fechada até a janela entrar na tela e então sobe (o mesmo gesto de
+    abertura do motion);
+  - termina de subir no hover;
+  - no toque, abre por completo.
+- **Destinos:**
+  - no desktop, quatro colunas com alturas desencontradas;
+  - no celular, fileira horizontal com encaixe.
+- **Intercâmbios:** aparece só na foto de abertura de cada capítulo e numa
+  pequena sequência de viagem. As outras fotos seguem o formato editorial.
+
+### Bandeiras
+
+- Feitas em SVG, porque o Windows não mostra emojis de bandeira.
+- Ficam ao lado do título, como marcador.
+- **Inglaterra = Cruz de São Jorge**, a bandeira da Inglaterra, e não a do
+  Reino Unido.
+- No Vaticano e em Malta, o brasão e a cruz aparecem simplificados, porque não
+  são legíveis em 14 px.
+
+### Estante de CDs
+
+- **Composição horizontal:**
+  - as caixas ficam lado a lado, giradas 38° em 3D;
+  - têm lombada (com artista e título), dobradiça e um reflexo **sólido** no
+    plástico, sem degradê;
+  - o disco é prateado sólido, com sulcos.
+- **Ao escolher um disco:**
+  - a caixa vira de frente e o CD sai um pouco;
+  - a ficha abaixo, na grade, mostra título, artista, ano de lançamento,
+    faixas conhecidas e a observação sobre Lemonade.
+- **Interação:** mouse, toque ou teclado (setas, Home, End). Depois de usar o
+  teclado, o mouse parado não "rouba" a seleção. Nada se move sozinho.
+- **Celular:** fileira com encaixe, um disco em destaque por vez.
+- **Referência:** as imagens de CDs em 3D citadas como anexo **não chegaram**.
+  A composição seguiu a descrição: mais horizontal, menos diagonal.
+- **Ordem:** a mesma da lista enviada. Não é um ranking.
+
+### Cartões do Caderno: um só componente
+
+- Todos seguem o cartão de referência ("O que os contos de fadas sabem sobre
+  crescer"):
+  - campo de cor com imagem;
+  - no hover ou no foco, a imagem se recolhe num arco e o título ganha sublinhado;
+  - embaixo, categoria · leitura · selo, título em Georgia e chamada;
+  - o cartão inteiro é clicável.
+- No toque não há hover, e o cartão continua completo.
+- Os formatos antigos (citação, disco, postal, lista) foram retirados.
+
+### Contato
+
+- Mesma grade das outras páginas:
+  - colunas 1–6: título, texto, botão e dados (WhatsApp, atendimento, registro, atuação);
+  - colunas 8–12: o postal.
+- As redes ficam em réguas, como as listas do site.
+
+### Portal "Atravessar para o outro lado"
+
+- Agora é uma imagem editorial em arco, como as outras: sem batente, contorno
+  ou arco interno.
+- A força está na imagem e na passagem.
+
+### Cabeçalho no celular (referência: Camicado mobile)
+
+- Três zonas fixas:
+  - menu à esquerda (ícone);
+  - nome ao centro, com "Psicóloga · CRP";
+  - passagem à direita (amostra de cor).
+- O menu abre a folha em tela cheia.
+
+### Favicon
+
+- Letra **M** em Gotham Condensed Bold, renderizada a partir do arquivo local
+  da fonte, em verde #084E32.
+- Arquivos: favicon.ico (16, 32 e 48), PNG 16/32/192/512 e apple-touch-icon
+  180, este com fundo creme.
+- Não tem nenhum outro desenho.
+
+### Motion: "o arco que atravessa a tela"
+
+Um único elemento recorrente: um arco (topo em semicírculo) que sobe para
+cobrir e continua subindo para revelar.
+
+| Momento | O que acontece | Duração |
+| --- | --- | --- |
+| Entrada (uma vez por visita) | o nome aparece e o arco sobe revelando a página; clique ou tecla pulam | ≈1,3 s |
+| Navegação | o arco sobe cobrindo a tela, com o nome do destino em Gotham; a página troca; o arco continua subindo e revela | 0,42 s + 0,56 s |
+| Voltar (navegador) | o mesmo arco, invertido: desce e revela | 0,56 s |
+| Troca de lado | o arco cresce a partir do portal clicado | 0,82 s |
+
+Ao rolar, as entradas seguem a hierarquia:
+- **textos:** sobem 12 px;
+- **títulos:** sobem 24 px e se descobrem de baixo para cima;
+- **imagens:** o arco se abre, o mesmo gesto em pequena escala.
+
+Regras:
+- âncoras na mesma página não acionam a cortina;
+- o teclado e o Enter funcionam normalmente;
+- nada bloqueia a navegação;
+- com "reduzir movimento", tudo é imediato.
+
+Não há parallax, nem elementos flutuando ou movimento contínuo.
+
+Código: `src/components/Passagens.tsx`, `src/styles/motion.css` e `src/lib/mundo.ts`.
 
 ## Ideia separada (não implementada): sazonalidade
 

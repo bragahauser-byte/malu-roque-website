@@ -64,7 +64,7 @@ export function Cabecalho() {
       <a className="pular" href="#conteudo">
         Pular para o conteúdo
       </a>
-      <header className={`cabecalho ${rolou ? "cabecalho--rolou" : ""}`}>
+      <header className={`cabecalho ${rolou ? "cabecalho--rolou" : ""} ${aberto ? "cabecalho--aberto" : ""}`}>
         <div className="cabecalho__barra grade">
           <Link href="/" className="assinatura" aria-label={`${site.nome}, página inicial`}>
             <span className="assinatura__nome">Maria Luiza Roque</span>
@@ -83,11 +83,16 @@ export function Cabecalho() {
             </ul>
           </nav>
 
+          <button ref={botao} className="cabecalho__abrir" aria-expanded={aberto} aria-controls="folha-menu" onClick={() => setAberto((v) => !v)}>
+            <span className="cabecalho__abrir-icone" aria-hidden="true">
+              <i />
+              <i />
+            </span>
+            <span className="cabecalho__abrir-texto">{aberto ? "Fechar" : "Menu"}</span>
+          </button>
+
           <div className="cabecalho__acoes">
             <BotaoPassagem />
-            <button ref={botao} className="cabecalho__abrir" aria-expanded={aberto} aria-controls="folha-menu" onClick={() => setAberto((v) => !v)}>
-              {aberto ? "Fechar" : "Menu"}
-            </button>
           </div>
         </div>
       </header>

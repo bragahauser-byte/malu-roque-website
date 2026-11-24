@@ -19,7 +19,7 @@ export default function Sobre() {
         <p className="abertura__kicker rotulo">Sobre · Quem escuta</p>
         <Palavras como="h1" className="abertura__titulo" texto="Maria Luiza|*Roque*" />
         <div className="abertura__lado revelar">
-          <Arco moldura>
+          <Arco>
             <Foto chave="malu-sorriso" prioridade tamanhos="(max-width: 639px) 75vw, (max-width: 1023px) 45vw, 30vw" />
           </Arco>
         </div>

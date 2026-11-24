@@ -2,6 +2,8 @@
 //
 //   recursos/arte-originais/*.jpg  →  public/img/arte/<chave>-<largura>.webp
 //   recursos/fotos/*.jpg           →  public/img/fotos/<chave>-<largura>.webp
+//   recursos/destinos/*.jpg        →  public/img/destinos/…   (créditos em recursos/destinos/creditos.json)
+//   recursos/albuns/*.jpg|png      →  public/img/albuns/…     (capas originais, sem alteração)
 //
 // Para cada imagem são geradas várias larguras (até a largura nativa, nunca
 // ampliando) e um manifesto (src/content/imagens.json) com dimensões e
@@ -17,7 +19,8 @@ import { readdir, mkdir, writeFile, rm } from "node:fs/promises";
 import path from "node:path";
 
 const LARGURAS = [640, 1024, 1600, 2400];
-const QUALIDADE = { arte: 86, fotos: 88 };
+const QUALIDADE = { arte: 86, fotos: 88, destinos: 86, albuns: 92 };
+const ORIGEM = { arte: "recursos/arte-originais", fotos: "recursos/fotos", destinos: "recursos/destinos", albuns: "recursos/albuns" };
 
 /** Recortes em frações da imagem original: [esquerda, topo, direita, base]. */
 const RECORTES = {
@@ -32,8 +35,8 @@ const RECORTES = {
 
 const manifesto = {};
 
-for (const tipo of ["arte", "fotos"]) {
-  const origem = tipo === "arte" ? "recursos/arte-originais" : "recursos/fotos";
+for (const tipo of Object.keys(ORIGEM)) {
+  const origem = ORIGEM[tipo];
   const destino = `public/img/${tipo}`;
   await rm(destino, { recursive: true, force: true });
   await mkdir(destino, { recursive: true });

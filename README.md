@@ -32,7 +32,10 @@ npm run preview    # serve a pasta out/ em http://localhost:4173
 | WhatsApp, mensagem, redes, CRP, cidade, menu | `src/content/site.ts`                              |
 | Formação, experiências, temas, pesquisas     | `src/content/perfil.ts`                            |
 | Atlas do inconsciente e "Se fosse…"          | `src/content/perfil.ts` (`atlas`, `outroLado`)     |
-| Textos do Caderno                            | `src/content/caderno.ts`                           |
+| Textos e especiais do Caderno                | `src/content/caderno.ts`                           |
+| Países, intercâmbios (textos e fotos)        | `src/content/viagens.ts`                           |
+| Discos da estante de CDs                     | `src/content/discos.ts`                            |
+| Motion (entrada, navegação, retorno)         | `src/components/Passagens.tsx`, `src/styles/motion.css` |
 | Obras (créditos, acervo, licença)            | `src/content/arte.ts`                              |
 | Fotografias (texto alternativo)              | `src/content/fotos.ts`                             |
 | Texto da capa (os dois lados)                | `src/app/page.tsx`                                 |
@@ -42,7 +45,8 @@ npm run preview    # serve a pasta out/ em http://localhost:4173
 | Cores, escala tipográfica, espaçamentos      | `src/styles/tokens.css`                            |
 | Cursor desenhado (seta e mão)                | `src/styles/base.css` (bloco "Cursor")             |
 
-Páginas: `/` início (dois lados) · `/sobre` · `/atendimento` · `/caderno` ·
+Páginas: `/` início (dois lados) · `/sobre` · `/atendimento` · `/caderno` (com os
+especiais `/caderno/destinos`, `/caderno/intercambios` e `/caderno/discos`) ·
 `/pesquisas` · `/contato` · `/creditos`.
 
 ### Dados profissionais e contato
@@ -61,7 +65,8 @@ Em `src/content/site.ts`:
 ### Imagens (sempre na melhor resolução disponível)
 
 1. Coloque o original **na maior resolução que tiver** em
-   `recursos/arte-originais/` (obras) ou `recursos/fotos/` (fotografias).
+   `recursos/arte-originais/` (obras), `recursos/fotos/` (fotografias),
+   `recursos/destinos/` (países) ou `recursos/albuns/` (capas).
    Use um nome curto, por exemplo `malu-retrato.jpg`.
 2. Rode `npm run imagens`. Ele gera WebP em 640, 1024, 1600 e 2400 px, até a
    largura do original e nunca ampliando, mais o manifesto
@@ -75,6 +80,12 @@ Recortes servem só para tirar margens de papel e são declarados no próprio
 script. Fontes e licenças de tudo: **IMAGENS.md**. A pasta `recursos/` fica
 fora do Git.
 
+### Favicon
+
+Os arquivos (`public/favicon.ico`, `favicon-16/32.png`, `icon-192/512.png` e
+`apple-touch-icon.png`) são a letra M em Gotham Condensed Bold, verde #084E32,
+renderizada a partir do arquivo local da fonte.
+
 ### Auditoria de medidas
 
 `npm run auditar` lista medidas fora da escala de 4 px nas folhas de estilo.
@@ -84,8 +95,8 @@ fora do Git.
 Em `src/content/caderno.ts`, cada texto tem `rascunho: true`. Hoje todos são
 rascunhos de demonstração, escritos só para testar o layout. Para publicar um
 texto de verdade: escreva título, chamada e corpo, mude para `rascunho: false`
-e escolha um `formato` (capa, retrato, citacao, disco, postal ou lista).
-Cada formato tem uma composição e um hover próprios.
+e escolha uma `imagem` (chave de obra ou foto) e uma `cor` de fundo para o cartão.
+Todos os cartões usam o mesmo componente e a mesma interação.
 
 ## Publicação
 

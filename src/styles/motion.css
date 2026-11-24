@@ -1,0 +1,75 @@
+/* ─────────────────────────────────────────────────────────────
+   MOTION — "o arco que atravessa a tela"
+   Um elemento recorrente: um arco (topo em semicírculo) que sobe para
+   cobrir e continua subindo para revelar. Aparece na entrada, entre
+   páginas, no retorno (invertido) e, em escala menor, na revelação das
+   imagens ao rolar. A troca de lado usa o mesmo arco, a partir do portal.
+   Curvas: --ease-passagem (entrada e saída firmes, meio rápido).
+   ───────────────────────────────────────────────────────────── */
+
+:root { --ease-passagem: cubic-bezier(0.76, 0, 0.24, 1); }
+
+/* ── A cortina entre páginas ───────────────────────────────── */
+.passagem {
+  position: fixed; inset: 0; z-index: 150;
+  display: grid; place-items: center;
+  background: var(--fundo-2); color: var(--texto);
+  pointer-events: none;
+  clip-path: inset(100% 0 0 0 round 50vw 50vw 0 0);
+  visibility: hidden;
+}
+.passagem__nome {
+  font: 700 clamp(2rem, 1.2rem + 3.2vw, 4rem) / 1 var(--gotham);
+  letter-spacing: 0.01em; text-transform: uppercase;
+  opacity: 0;
+}
+/* cobrir: o arco sobe do pé da tela até ocupá-la */
+.passagem--cobrindo, .passagem--coberto { visibility: visible; animation: arco-cobre 420ms var(--ease-passagem) forwards; }
+.passagem--cobrindo .passagem__nome, .passagem--coberto .passagem__nome { animation: nome-aparece 360ms 120ms var(--ease) forwards; }
+.passagem--coberto { clip-path: inset(0 round 0); animation: none; }
+.passagem--coberto .passagem__nome { opacity: 1; animation: none; }
+/* revelar: o arco continua subindo e descobre a página nova */
+.passagem--revelando { visibility: visible; animation: arco-revela 560ms var(--ease-passagem) forwards; }
+.passagem--revelando .passagem__nome { opacity: 1; animation: nome-some 240ms ease-in forwards; }
+/* voltar: o mesmo arco, invertido — desce e descobre a página anterior */
+.passagem--voltando { visibility: visible; animation: arco-volta 560ms var(--ease-passagem) forwards; }
+
+@keyframes arco-cobre { from { clip-path: inset(100% 0 0 0 round 50vw 50vw 0 0); } to { clip-path: inset(0 0 0 0 round 0 0 0 0); } }
+@keyframes arco-revela { from { clip-path: inset(0 0 0 0 round 0 0 0 0); } to { clip-path: inset(0 0 100% 0 round 0 0 50vw 50vw); } }
+@keyframes arco-volta { from { clip-path: inset(0 0 0 0 round 0 0 0 0); } to { clip-path: inset(100% 0 0 0 round 50vw 50vw 0 0); } }
+@keyframes nome-aparece { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes nome-some { to { opacity: 0; transform: translateY(-12px); } }
+
+/* ── Entrada no site (uma vez por visita) ──────────────────── */
+.entrada { display: none; }
+html.entrando .entrada {
+  position: fixed; inset: 0; z-index: 160;
+  display: grid; place-content: center; justify-items: center; gap: var(--s-2);
+  background: var(--fundo); color: var(--texto);
+  pointer-events: none;
+  animation: arco-revela 700ms 600ms var(--ease-passagem) forwards;
+}
+.entrada__nome { font-family: var(--serif); font-size: clamp(2rem, 1.2rem + 3.2vw, 4rem); line-height: 1; letter-spacing: -0.03em; opacity: 0; animation: nome-aparece 420ms 60ms var(--ease) forwards; }
+.entrada__nome em { font-style: italic; }
+.entrada__sub { font: 500 var(--t-rotulo) / 1rem var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-suave); opacity: 0; animation: nome-aparece 420ms 180ms var(--ease) forwards; }
+
+/* ── Ao rolar: três entradas, conforme a hierarquia ────────── */
+/* 1. blocos de texto: sobem pouco e aparecem (padrão) */
+.js .revelar { opacity: 0; transform: translateY(12px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); transition-delay: var(--atraso, 0s); }
+.js .revelar.visto { opacity: 1; transform: none; }
+/* 2. títulos: sobem mais, descobertos de baixo para cima */
+.js .titulo.revelar { transform: translateY(24px); clip-path: inset(-20% -10% 40% -10%); transition: opacity 0.8s var(--ease), transform 0.9s var(--ease), clip-path 0.9s var(--ease); }
+.js .titulo.revelar.visto { clip-path: inset(-20% -10% -25% -10%); }
+/* 3. imagens: o arco que se abre (o mesmo gesto da passagem, em pequeno) */
+.js figure.revelar, .js .revelar:has(> .arco), .js .revelar:has(> .aviao) {
+  transform: translateY(24px);
+  clip-path: inset(24% 0 0 0 round 40% 40% 0 0);
+  transition: opacity 0.7s var(--ease), transform 1s var(--ease), clip-path 1s var(--ease-passagem);
+}
+.js figure.revelar.visto, .js .revelar.visto:has(> .arco), .js .revelar.visto:has(> .aviao) { clip-path: inset(0 0 0 0 round 0 0 0 0); }
+
+/* ── Movimento reduzido: nada se move, tudo aparece ────────── */
+@media (prefers-reduced-motion: reduce) {
+  .passagem, html.entrando .entrada { display: none !important; }
+  .js .revelar, .js .titulo.revelar, .js figure.revelar { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}

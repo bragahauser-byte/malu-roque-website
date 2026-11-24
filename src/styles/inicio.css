@@ -25,26 +25,15 @@
 html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 [data-mundo="simbolico"] .capa__lado--simbolico { color: var(--texto); font-weight: 500; }
 
-/* O portal: a passagem */
-.capa__portal { grid-column: 8 / -1; justify-self: center; }
-.portal { display: flex; flex-direction: column; align-items: center; gap: var(--s-5); text-align: center; }
-.portal__arco {
-  height: min(64svh, 40vw); width: auto; max-width: 100%;
-  --fundo-vista: var(--verde);
-  --cor-moldura: var(--texto);
-}
-[data-mundo="simbolico"] .portal__arco { --fundo-vista: var(--creme); }
-/* dentro do arco, um segundo arco mais fundo: a obra do outro lado */
-.portal__vista {
-  position: absolute; inset: 16% 16% 0;
-  border-top-left-radius: 9999px; border-top-right-radius: 9999px;
-  overflow: hidden;
-  transition: inset 0.6s var(--ease);
-}
-.portal__vista img { width: 100%; height: 100%; object-fit: cover; }
-.portal:hover .portal__vista, .portal:focus-visible .portal__vista { inset: 10% 10% 0; }
+/* O portal: uma imagem editorial em arco, como as outras, e a passagem */
+.capa__portal { grid-column: 8 / -1; justify-self: stretch; }
+.portal { display: flex; flex-direction: column; align-items: center; gap: var(--s-5); width: 100%; text-align: center; }
+.portal__arco { width: min(100%, calc(64svh * 5 / 7)); }
+.portal__vista { position: absolute; inset: 0; }
+.portal__vista img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+@media (hover: hover) { .portal:hover .portal__vista img { transform: scale(1.03); } }
 .portal:focus-visible { outline: none; }
-.portal:focus-visible .portal__arco { outline: 2px solid var(--texto); outline-offset: var(--s-5); }
+.portal:focus-visible .portal__arco { outline: 2px solid var(--texto); outline-offset: var(--s-2); }
 
 .portal__legenda { display: grid; gap: var(--s-2); justify-items: center; max-width: 24rem; }
 .portal__acao { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--botao); padding: var(--s-3) var(--s-5); border-radius: 999px; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
@@ -58,7 +47,7 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
   .capa__texto { grid-column: 1 / -1; }
   .capa__portal { grid-column: 1 / -1; justify-self: stretch; padding-top: var(--s-4); }
   .portal { width: 100%; }
-  .portal__arco { height: auto; width: min(64%, 22rem); }
+  .portal__arco { width: min(64%, 22rem); }
   .capa__lados { margin-top: var(--s-7); }
 }
 

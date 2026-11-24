@@ -8,7 +8,7 @@
 .titulo__linha { display: block; }
 
 /* ── Abertura de página ────────────────────────────────────── */
-.abertura { padding-top: calc(var(--cabecalho) + clamp(2.5rem, 6vw, 5.5rem)); row-gap: clamp(1.5rem, 3vw, 2.5rem); align-items: start; }
+.abertura { padding-top: calc(var(--cabecalho) + clamp(2.5rem, 6vw, 5.5rem)); row-gap: var(--s-6); align-items: start; }
 .abertura__kicker { grid-column: 1 / -1; padding-top: 1rem; border-top: 4px solid var(--regua); }
 .abertura__titulo { grid-column: 1 / span 8; font-size: var(--t-display); line-height: 0.95; letter-spacing: -0.035em; }
 .abertura__titulo--largo { grid-column: 1 / span 11; }
@@ -148,22 +148,24 @@
   .pesquisa__dados div { grid-template-columns: 1fr; gap: 0.25rem; }
 }
 
-/* ── Contato ───────────────────────────────────────────────── */
+/* ── Contato: coluna 1–6 (texto) e 8–12 (postal), redes em réguas ── */
 body:has(.contato) .rodape__topo { display: none; }
-.contato__corpo { row-gap: 3rem; align-items: start; }
-.contato__redes { grid-column: 1 / span 6; border-top: 4px solid var(--regua); }
-.contato__rede { display: grid; grid-template-columns: 7rem 1fr auto; align-items: baseline; gap: 1rem; padding: 1.5rem 0.25rem; border-bottom: 1px solid var(--linha); transition: background-color 0.2s var(--ease), color 0.2s var(--ease), padding 0.3s var(--ease); }
-.contato__usuario { font-size: clamp(1.4rem, 2.6vw, 2.3rem); letter-spacing: -0.02em; line-height: 1.1; }
-.contato__seta { font-size: 1.5rem; transition: transform 0.25s var(--ease); }
-.contato__rede:hover { background: var(--destaque); color: var(--sobre-destaque); padding-inline: 1rem; }
-.contato__rede:hover .contato__seta { transform: translate(4px, -4px); }
-.contato__postal { grid-column: 8 / -1; }
+.contato__abertura { row-gap: var(--s-7); }
+.contato__coluna { grid-column: 1 / span 6; display: grid; gap: var(--s-6); justify-items: start; }
+.contato__titulo { font-size: var(--t-display); line-height: 0.95; letter-spacing: -0.035em; }
+.contato__dados { width: 100%; max-width: var(--medida); border-top: 1px solid var(--linha); }
+.contato__dados div { display: grid; grid-template-columns: 8rem 1fr; gap: var(--s-4); padding: var(--s-3) 0; border-bottom: 1px solid var(--linha); align-items: baseline; }
+.contato__dados dt { color: var(--texto-suave); }
+.contato__dados dd { font-size: var(--t-corpo-p); line-height: 1.5rem; }
+.contato__postal { grid-column: 8 / -1; align-self: start; }
+.linha .contato__rede-nome { font: 500 var(--t-rotulo) / 1rem var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; }
+.linha .contato__usuario { grid-column: 3 / span 9; font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.025em; }
 @media (max-width: 1023px) {
-  .contato__redes, .contato__postal { grid-column: 1 / -1; }
+  .contato__coluna, .contato__postal { grid-column: 1 / -1; }
+  .linha .contato__usuario { grid-column: 2 / -2; }
 }
 @media (max-width: 639px) {
-  .contato__rede { grid-template-columns: 1fr auto; }
-  .contato__rede .rotulo { grid-column: 1 / -1; }
+  .linha .contato__usuario { grid-column: 1 / -2; }
 }
 
 /* Cartão-postal que vira */
@@ -233,3 +235,6 @@ body:has(.contato) .rodape__topo { display: none; }
 .creditos__nota { margin-top: var(--s-6); }
 .creditos__nota span { grid-column: 1 / span 8; }
 @media (max-width: 1023px) { .creditos__nota span { grid-column: 1 / -1; } }
+
+/* títulos grandes: espaço para descendentes e itálicos antes do texto */
+.abertura__titulo, .contato__titulo { padding-bottom: 0.08em; }

@@ -1,19 +1,17 @@
 // ─────────────────────────────────────────────────────────────
 // CADERNO — revista / journal
-// ATENÇÃO: todos os textos abaixo são RASCUNHOS DE DEMONSTRAÇÃO,
-// escritos para testar o layout. Não são artigos publicados.
-// Para publicar um texto de verdade: troque `rascunho: true` por
-// `rascunho: false`, revise título, chamada e corpo.
 //
-// formato → muda a composição do cartão no índice:
-//   "capa"     imagem grande, título sobreposto
-//   "retrato"  imagem vertical com legenda ao lado
-//   "citacao"  só tipografia, fundo colorido
-//   "disco"    um disco de vinil gira no hover
-//   "postal"   cartão-postal com carimbo
-//   "lista"    lista numerada
+// ESPECIAIS: páginas reais, com conteúdo da Malu (Destinos, Intercâmbios,
+// Discos). Ficam em src/app/caderno/<slug>/page.tsx.
+//
+// TEXTOS: todos os textos abaixo são RASCUNHOS DE DEMONSTRAÇÃO, escritos
+// para testar o layout. Não são artigos publicados. Para publicar um texto
+// de verdade: troque `rascunho: true` por `rascunho: false` e revise
+// título, chamada e corpo.
+//
+// Todos os cartões usam o mesmo componente (CartaoTexto): campo de cor,
+// imagem que se recolhe num arco no hover, categoria, título e chamada.
 // ─────────────────────────────────────────────────────────────
-import type { ChaveArte } from "./arte";
 
 export const categorias = [
   "Psicologia e subjetividade",
@@ -34,14 +32,58 @@ export type Texto = {
   titulo: string;
   chamada: string;
   categoria: Categoria;
-  formato: "capa" | "retrato" | "citacao" | "disco" | "postal" | "lista";
-  imagem?: ChaveArte;
+  /** chave de uma obra (arte.ts) ou foto (fotos.ts, destinos, álbuns) */
+  imagem: string;
   cor: string;
   leitura: string;
   rascunho: boolean;
+  /** página especial (rota própria), com conteúdo real */
+  especial?: boolean;
   corpo: string[];
   lista?: string[];
+  /** @deprecated o cartão agora é um só; mantido só para não quebrar textos antigos */
+  formato?: string;
 };
+
+/** Os especiais do Caderno: viagens, intercâmbios e discos. */
+export const especiais: Texto[] = [
+  {
+    slug: "intercambios",
+    titulo: "Dois intercâmbios: Londres e Milão",
+    chamada: "Londres, 2019/2020, para estudar inglês. Milão, 2023, um semestre na Università Cattolica del Sacro Cuore.",
+    categoria: "Viagens",
+    imagem: "londres-malu",
+    cor: "var(--rosa)",
+    leitura: "especial",
+    rascunho: false,
+    especial: true,
+    corpo: [],
+  },
+  {
+    slug: "destinos",
+    titulo: "Doze países, doze janelas",
+    chamada: "Da Inglaterra à Áustria: os lugares que ficaram, vistos como pela janela de um avião.",
+    categoria: "Viagens",
+    imagem: "destino-vaticano",
+    cor: "var(--amarelo)",
+    leitura: "especial",
+    rascunho: false,
+    especial: true,
+    corpo: [],
+  },
+  {
+    slug: "discos",
+    titulo: "Uma estante de CDs",
+    chamada: "Red Hot Chili Peppers, Oasis, Amy Winehouse, Pink Floyd, ABBA e outros discos que fazem parte do repertório.",
+    categoria: "Música",
+    imagem: "malu-musica",
+    cor: "var(--lilas)",
+    leitura: "especial",
+    rascunho: false,
+    especial: true,
+    corpo: [],
+  },
+];
 
 export const textos: Texto[] = [
   {
@@ -65,6 +107,7 @@ export const textos: Texto[] = [
     chamada: "Entrar numa loja enquanto toca, alto, uma música que a gente ama. Por que isso mexe tanto?",
     categoria: "Música",
     formato: "disco",
+    imagem: "dark-side-of-the-moon",
     cor: "var(--rosa)",
     leitura: "4 min",
     rascunho: true,
@@ -103,22 +146,11 @@ export const textos: Texto[] = [
     chamada: "Uma frase para guardar no bolso. Rascunho de nota curta.",
     categoria: "Psicologia e subjetividade",
     formato: "citacao",
+    imagem: "mandala-jnanadakini",
     cor: "var(--creme-2)",
     leitura: "1 min",
     rascunho: true,
     corpo: ["Texto de exemplo. Notas curtas, quase aforismos, sobre a linguagem simbólica."],
-  },
-  {
-    slug: "milao-cadernos-de-um-semestre",
-    titulo: "Milão, cadernos de um semestre",
-    chamada: "Um roteiro afetivo de quem morou lá estudando Psicologia, em 2023.",
-    categoria: "Viagens",
-    formato: "postal",
-    imagem: "whistler-nocturne",
-    cor: "var(--amarelo)",
-    leitura: "8 min",
-    rascunho: true,
-    corpo: ["Texto de exemplo para a seção Viagens: roteiros, fotografias e descobertas."],
   },
   {
     slug: "livros-de-cabeceira",
@@ -151,6 +183,7 @@ export const textos: Texto[] = [
     chamada: "Repetição, conforto e aquilo que só aparece na terceira vez.",
     categoria: "Cinema e séries",
     formato: "citacao",
+    imagem: "degas-star",
     cor: "var(--rosa)",
     leitura: "4 min",
     rascunho: true,

@@ -6,7 +6,7 @@ export default function NaoEncontrado() {
   return (
     <section className="abertura nao-encontrado grade">
       <div className="nao-encontrado__arco">
-        <Arco moldura>
+        <Arco>
           <Obra chave="hokusai-cranes" alt="" />
         </Arco>
       </div>
