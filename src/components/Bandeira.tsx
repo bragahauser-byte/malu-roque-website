@@ -1,4 +1,8 @@
+"use client";
+
 import type { Bandeira as Chave } from "@/content/viagens";
+import { destinosEn } from "@/content/en/viagens";
+import { useLingua } from "@/lib/useLingua";
 
 /**
  * Bandeiras em SVG (os emojis de bandeira não aparecem no Windows).
@@ -42,8 +46,10 @@ function Desenho({ pais }: { pais: Chave }) {
 }
 
 export function Bandeira({ pais, className = "", decorativa = false }: { pais: Chave; className?: string; decorativa?: boolean }) {
+  const { l } = useLingua();
+  const rotulo = l === "en" ? `Flag: ${destinosEn[pais].pais}` : `Bandeira: ${NOMES[pais]}`;
   return (
-    <svg className={`bandeira ${className}`} viewBox="0 0 30 20" role={decorativa ? undefined : "img"} aria-label={decorativa ? undefined : `Bandeira: ${NOMES[pais]}`} aria-hidden={decorativa || undefined} focusable="false">
+    <svg className={`bandeira ${className}`} viewBox="0 0 30 20" role={decorativa ? undefined : "img"} aria-label={decorativa ? undefined : rotulo} aria-hidden={decorativa || undefined} focusable="false">
       <Desenho pais={pais} />
       <rect width="30" height="20" fill="none" stroke="rgb(12 13 8 / 0.25)" strokeWidth="0.6" />
     </svg>

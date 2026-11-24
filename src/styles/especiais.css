@@ -54,7 +54,7 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 .vitrine__dados > div:first-child { padding-left: 0; border-left: 0; }
 .vitrine__dados dt { font: 400 var(--t-legenda) / 1.25rem var(--gotham); letter-spacing: 0.02em; }
 .vitrine__dados dd { font: 400 var(--t-h4) / 1.75rem var(--gotham); letter-spacing: 0.01em; color: var(--tx-titulo); }
-.vitrine__nome { display: flex; align-items: center; gap: var(--space-4); font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; }
+.vitrine__nome { display: flex; align-items: center; gap: var(--space-4); font-size: var(--t-h1); }
 .vitrine__bandeira { width: 0.5em; height: 0.34em; border-radius: 3px; flex: none; }
 
 /* a descrição, em tom secundário, do outro lado da janela */
@@ -130,7 +130,7 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 .capitulo__cabeca { row-gap: var(--space-3); align-items: baseline; margin-bottom: var(--space-16); }
 .capitulo__cabeca::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--regua); margin-bottom: var(--space-2); }
 .capitulo__n { grid-column: 1 / span 1; }
-.capitulo__lugar { grid-column: 2 / span 7; font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+.capitulo__lugar { grid-column: 2 / span 7; font-size: var(--t-h1); display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
 .capitulo__bandeira { width: 0.6em; height: 0.4em; border-radius: 3px; }
 .capitulo__data { grid-column: 10 / -1; justify-self: end; }
 @media (max-width: 1023px) {
@@ -352,7 +352,7 @@ html:not(.js) .aviao__persiana { transform: translateY(-100%); }
 .ficha-disco > .ui { grid-column: 2 / span 5; }
 .ficha-disco__faixas { grid-column: 8 / -1; grid-row: 1 / span 3; margin-top: 0 !important; }
 .ficha-disco__nota { grid-column: 2 / span 5; }
-.ficha-disco__titulo { font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.025em; font-style: italic; }
+.ficha-disco__titulo { font-size: var(--t-h2); }
 @media (max-width: 639px) { .ficha-disco > .rotulo { grid-column: 1 / -1; } .ficha-disco__titulo, .ficha-disco__artista, .ficha-disco > .ui, .ficha-disco__nota { grid-column: 1 / -1; } }
 .ficha-disco__faixas { margin-top: var(--space-3); }
 .ficha-disco__faixas ol { margin-top: var(--space-2); border-top: 1px solid var(--linha); counter-reset: f; }

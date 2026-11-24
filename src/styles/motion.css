@@ -75,8 +75,11 @@ html.entrando .portal__vista { animation: vista-sobe 860ms 300ms var(--ease-pass
 @media (max-width: 1023px) { :root { --e0: 60ms; } }
 html.entrando .portal__legenda { animation: texto-sobe 560ms 1000ms var(--ease) both; }
 html.entrando .capa__kicker { animation: texto-sobe 520ms var(--e0) var(--ease) both; }
-html.entrando .capa__titulo { animation: titulo-sobe 760ms calc(var(--e0) + 70ms) var(--ease) both; }
-html.entrando .capa__titulo em { display: block; animation: titulo-sobe 760ms calc(var(--e0) + 170ms) var(--ease) both; }
+/* o nome chega palavra por palavra (Maria, Luiza, Roque), 100 ms entre elas */
+html.entrando .capa__titulo .nome-danca__palavra { animation: titulo-sobe 760ms calc(var(--e0) + 70ms) var(--ease) both; }
+html.entrando .capa__titulo .nome-danca__palavra:nth-of-type(2) { animation-delay: calc(var(--e0) + 170ms); }
+html.entrando .capa__titulo .nome-danca__palavra:nth-of-type(3) { animation-delay: calc(var(--e0) + 270ms); }
+html.entrando .so-simbolico .capa__titulo { animation: titulo-sobe 760ms calc(var(--e0) + 70ms) var(--ease) both; }
 html.entrando .capa__lead { animation: texto-sobe 600ms calc(var(--e0) + 280ms) var(--ease) both; }
 html.entrando .capa__botoes { animation: texto-sobe 560ms calc(var(--e0) + 360ms) var(--ease) both; }
 html.entrando .capa__lados { animation: some-aparece 560ms calc(var(--e0) + 440ms) var(--ease) both; }
@@ -104,6 +107,6 @@ html.entrando .abertura__titulo { animation: titulo-sobe 760ms 160ms var(--ease)
    A passagem entre páginas vira uma troca de opacidade curta
    (Passagens.tsx); entrada e revelações ficam desligadas. */
 @media (prefers-reduced-motion: reduce) {
-  html.entrando *, html.entrando .capa__titulo em { animation: none !important; }
+  html.entrando *, html.entrando .capa__titulo .nome-danca__palavra { animation: none !important; }
   .js .revelar, .js .titulo.revelar, .js figure.revelar { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }

@@ -11,8 +11,6 @@
 }
 .capa__texto { grid-column: 1 / span 6; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
 .capa__kicker { margin-bottom: var(--space-8); }
-.capa__titulo { font-size: var(--t-display); line-height: 0.92; letter-spacing: -0.04em; }
-.capa__titulo em { display: block; }
 .capa__lead { margin-top: var(--space-8); }
 .capa__botoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
 
@@ -136,7 +134,7 @@ html:not([data-mundo="simbolico"]) .capa__lado--visivel,
 /* ── Universo: palavras e imagens, depois um mosaico ───────── */
 .universo { padding-top: var(--secao); }
 .universo__rotulo { grid-column: 1 / -1; padding-top: var(--space-4); border-top: 4px solid var(--regua); margin-bottom: var(--space-8); }
-.universo__frase { grid-column: 1 / span 11; font-family: var(--serif); font-weight: 400; text-transform: none; font-size: var(--t-h1); line-height: 1.12; letter-spacing: -0.025em; }
+.universo__frase { grid-column: 1 / span 11; font-size: var(--t-h1); }
 .universo__frase .frase__img { height: 0.8em; vertical-align: -0.1em; }
 .universo__frase .frase__img--circulo { width: 0.8em; }
 @media (max-width: 1023px) { .universo__frase { grid-column: 1 / -1; } }

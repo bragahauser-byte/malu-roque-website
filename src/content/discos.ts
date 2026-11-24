@@ -50,3 +50,10 @@ export const discos: Disco[] = [
   { capa: "the-fame", lombada: "#080808", tinta: "claro", titulo: "The Fame", artista: "Lady Gaga", ano: "2008", faixas: ["Just Dance", "Poker Face", "Paparazzi"] },
   { capa: "the-fame-monster", lombada: "#080808", tinta: "claro", titulo: "The Fame Monster", artista: "Lady Gaga", ano: "2009", faixas: ["Bad Romance", "Telephone", "Alejandro"] },
 ];
+
+// ── Idioma ──────────────────────────────────────────────────
+import type { Lingua } from "@/lib/lingua";
+import { notasDiscosEn } from "./en/viagens";
+
+/** Só a nota muda de idioma (títulos, artistas e faixas são nomes próprios). */
+export const discosEm = (l: Lingua): Disco[] => (l === "pt" ? discos : discos.map((d) => (d.nota ? { ...d, nota: notasDiscosEn[d.capa] ?? d.nota } : d)));

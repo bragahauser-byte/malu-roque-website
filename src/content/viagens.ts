@@ -76,3 +76,14 @@ export const intercambios = [
 
 export const fechoIntercambios =
   "Olho para essas experiências com muito carinho: ambas ampliaram minha visão de mundo, fortaleceram minha autonomia e enriqueceram minha trajetória pessoal e profissional. Acredito que o contato com diferentes culturas, formas de pensar e modos de viver também amplia nosso olhar sobre o ser humano e sobre a diversidade de suas experiências.";
+
+// ── Idioma ──────────────────────────────────────────────────
+import type { Lingua } from "@/lib/lingua";
+import { destinosEn, fechoIntercambiosEn, intercambiosEn } from "./en/viagens";
+
+export const destinosEm = (l: Lingua): Destino[] => (l === "pt" ? destinos : destinos.map((d) => ({ ...d, ...destinosEn[d.bandeira] })));
+
+export const intercambiosEm = (l: Lingua) =>
+  l === "pt" ? intercambios : intercambios.map((x) => ({ ...x, ...intercambiosEn[x.id as keyof typeof intercambiosEn] } as unknown as (typeof intercambios)[number]));
+
+export const fechoEm = (l: Lingua) => (l === "pt" ? fechoIntercambios : fechoIntercambiosEn);

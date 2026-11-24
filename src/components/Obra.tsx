@@ -1,9 +1,13 @@
-import { arte, creditoObra, type ChaveArte } from "@/content/arte";
+"use client";
+
+import { creditoObra, obra, type ChaveArte } from "@/content/arte";
 import { fonteImagem } from "@/lib/imagens";
+import { useLingua } from "@/lib/useLingua";
 
 /**
- * Obra do acervo, com srcset (a melhor resolução para cada tela) e crédito.
- * `tamanhos` descreve a largura na tela, para o navegador escolher a versão.
+ * Obra do acervo, com srcset (a melhor resolução para cada tela) e crédito
+ * no idioma da página. `tamanhos` descreve a largura na tela, para o
+ * navegador escolher a versão.
  */
 export function Obra({
   chave,
@@ -22,7 +26,8 @@ export function Obra({
   /** @deprecated mantido por compatibilidade; o srcset já resolve. */
   pequena?: boolean;
 }) {
-  const o = arte[chave];
+  const { l } = useLingua();
+  const o = obra(chave, l);
   const f = fonteImagem(chave);
   const imagem = (
     <img
@@ -42,7 +47,7 @@ export function Obra({
   return (
     <figure className={className}>
       {imagem}
-      <figcaption className="credito">{creditoObra(chave)}</figcaption>
+      <figcaption className="credito">{creditoObra(chave, l)}</figcaption>
     </figure>
   );
 }

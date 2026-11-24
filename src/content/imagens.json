@@ -1,15 +1,4 @@
 {
- "bocklin-ilha-dos-mortos": {
-  "pasta": "arte",
-  "w": 3791,
-  "h": 2299,
-  "larguras": [
-   640,
-   1024,
-   1600,
-   2400
-  ]
- },
  "bocklin-sea": {
   "pasta": "arte",
   "w": 1200,
@@ -40,16 +29,6 @@
    1200
   ]
  },
- "goya-sono-da-razao": {
-  "pasta": "arte",
-  "w": 1560,
-  "h": 2309,
-  "larguras": [
-   640,
-   1024,
-   1560
-  ]
- },
  "hokusai-cranes": {
   "pasta": "arte",
   "w": 1200,
@@ -68,6 +47,17 @@
    640,
    1024,
    1200
+  ]
+ },
+ "hokusai-ponte-kameido": {
+  "pasta": "arte",
+  "w": 3838,
+  "h": 2574,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
   ]
  },
  "lakshmi-sarasvati": {
@@ -110,16 +100,6 @@
    1200
   ]
  },
- "munch-window": {
-  "pasta": "arte",
-  "w": 1200,
-  "h": 1774,
-  "larguras": [
-   640,
-   1024,
-   1200
-  ]
- },
  "ragamala-hindol": {
   "pasta": "arte",
   "w": 1200,
@@ -128,6 +108,17 @@
    640,
    1024,
    1200
+  ]
+ },
+ "redon-buque-pastel": {
+  "pasta": "arte",
+  "w": 2949,
+  "h": 3722,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
   ]
  },
  "redon-carro-apolo": {
@@ -139,16 +130,6 @@
    1024,
    1600,
    1941
-  ]
- },
- "redon-dream-vision": {
-  "pasta": "arte",
-  "w": 1200,
-  "h": 1026,
-  "larguras": [
-   640,
-   1024,
-   1200
   ]
  },
  "redon-flower-clouds": {
@@ -170,17 +151,6 @@
    698
   ]
  },
- "redon-olhos-fechados": {
-  "pasta": "arte",
-  "w": 2830,
-  "h": 3457,
-  "larguras": [
-   640,
-   1024,
-   1600,
-   2400
-  ]
- },
  "redon-pandora": {
   "pasta": "arte",
   "w": 1678,
@@ -190,17 +160,6 @@
    1024,
    1600,
    1678
-  ]
- },
- "redon-pegaso": {
-  "pasta": "arte",
-  "w": 2596,
-  "h": 3683,
-  "larguras": [
-   640,
-   1024,
-   1600,
-   2400
   ]
  },
  "redon-perfil-flores": {
@@ -233,6 +192,17 @@
    1200
   ]
  },
+ "redon-vaso-rosa": {
+  "pasta": "arte",
+  "w": 2774,
+  "h": 3722,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
  "rosarium-rei-rainha": {
   "pasta": "arte",
   "w": 2465,
@@ -244,6 +214,28 @@
    2400
   ]
  },
+ "seurat-parade": {
+  "pasta": "arte",
+  "w": 3920,
+  "h": 2621,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "shahnama-festa-sada": {
+  "pasta": "arte",
+  "w": 1961,
+  "h": 2880,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   1961
+  ]
+ },
  "splendor-solis-sol": {
   "pasta": "arte",
   "w": 1015,
@@ -253,20 +245,21 @@
    1015
   ]
  },
+ "vermeer-jarro": {
+  "pasta": "arte",
+  "w": 3437,
+  "h": 3866,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
  "volaire-vesuvius": {
   "pasta": "arte",
   "w": 1200,
   "h": 552,
-  "larguras": [
-   640,
-   1024,
-   1200
-  ]
- },
- "whistler-nocturne": {
-  "pasta": "arte",
-  "w": 1200,
-  "h": 793,
   "larguras": [
    640,
    1024,

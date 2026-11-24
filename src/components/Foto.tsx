@@ -1,7 +1,10 @@
-import { fotos, type ChaveFoto } from "@/content/fotos";
-import { fonteImagem } from "@/lib/imagens";
+"use client";
 
-/** Fotografia da Malu, sem retoques, com srcset e texto alternativo descritivo. */
+import { fotos, fotosEn, type ChaveFoto } from "@/content/fotos";
+import { fonteImagem } from "@/lib/imagens";
+import { useLingua } from "@/lib/useLingua";
+
+/** Fotografia da Malu, sem retoques, com srcset e texto alternativo descritivo (no idioma da página). */
 export function Foto({
   chave,
   className = "",
@@ -15,6 +18,7 @@ export function Foto({
   tamanhos?: string;
   alt?: string;
 }) {
+  const { l } = useLingua();
   const f = fonteImagem(chave);
   return (
     <img
@@ -23,7 +27,7 @@ export function Foto({
       sizes={tamanhos}
       width={f.width}
       height={f.height}
-      alt={alt ?? fotos[chave].alt}
+      alt={alt ?? (l === "en" ? fotosEn[chave] : fotos[chave].alt)}
       loading={prioridade ? "eager" : "lazy"}
       decoding="async"
       fetchPriority={prioridade ? "high" : undefined}

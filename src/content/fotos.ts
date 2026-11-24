@@ -36,4 +36,32 @@ export const fotos = {
   "milao-entardecer": { alt: "Um píer de madeira sobre um lago ao entardecer, com nuvens escuras", origem: "intercambio italia / 23.07.01" },
 } as const;
 
+/** Textos alternativos da versão em inglês. */
+export const fotosEn: Record<keyof typeof fotos, string> = {
+  "malu-retrato": "Maria Luiza Roque, portrait against a light background",
+  "malu-sorriso": "Maria Luiza Roque smiling, in a white blouse, in natural light",
+  "malu-musica": "Maria Luiza Roque wearing a band t-shirt",
+  "malu-festival": "Maria Luiza Roque in sunglasses in front of a wall of colourful posters",
+  "malu-entardecer": "Maria Luiza Roque at dusk, with the sun setting over the hills",
+  "hc-escadaria": "Maria Luiza Roque in a lab coat on the historic staircase of the University of São Paulo Medical School",
+  "hc-instituto": "Maria Luiza Roque in front of the Central Institute of Hospital das Clínicas",
+  "tcc-banner": "Maria Luiza Roque next to the poster of her undergraduate thesis “Hindu Goddesses and the Feminine Archetypes in the Individuation Process”",
+  "viagem-janela": "Maria Luiza Roque looking out of the window of an old building",
+  "viagem-arcos": "Maria Luiza Roque sitting under an arcade, with a lake and mountains behind",
+  "viagem-passagem": "An arched passage opening onto a lake, with Maria Luiza Roque on the steps",
+  "viagem-museu": "Maria Luiza Roque from behind, facing paintings in a museum room",
+  "viagem-entardecer": "Maria Luiza Roque smiling above a city at sunset",
+  "londres-ponte": "Tower Bridge under a sky of light clouds, seen from the riverbank",
+  "londres-malu": "Maria Luiza Roque sitting on the riverside wall, with Tower Bridge behind",
+  "milao-catedral": "The Gothic façade of a cathedral at dusk",
+  "milao-bandeiras": "Italian flags hanging from the windows of a pink building",
+  "milao-museu-malu": "Maria Luiza Roque, in a red sweater, looking at a painting in a museum",
+  "milao-pintura": "A painting of a couple kissing, in a gilded frame, in a dark museum room",
+  "milao-palacio": "A palace hall with a painted ceiling and a large crystal chandelier",
+  "milao-canal": "A wide canal with boats and old palaces along the banks",
+  "milao-malu-ponte": "Maria Luiza Roque smiling, in a green scarf, by a river lined with old buildings",
+  "milao-costa": "A stretch of coast with blue sea and green cliffs",
+  "milao-entardecer": "A wooden pier on a lake at dusk, under dark clouds"
+};
+
 export type ChaveFoto = keyof typeof fotos;

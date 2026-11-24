@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { nomeCategoria } from "@/content/caderno";
+import { rota } from "@/lib/lingua";
+import { useLingua } from "@/lib/useLingua";
 import type { Texto } from "@/content/caderno";
 import { fonteImagem } from "@/lib/imagens";
 
@@ -13,10 +18,11 @@ import { fonteImagem } from "@/lib/imagens";
  */
 export function CartaoTexto({ texto, className = "", indice = 0, tamanhos = "(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 31vw" }: { texto: Texto; className?: string; indice?: number; tamanhos?: string }) {
   const t = texto;
+  const { l, t: tr } = useLingua();
   const f = fonteImagem(t.imagem);
   return (
     <article className={`cartao revelar ${className}`} style={{ "--c": t.cor, "--atraso": `${(indice % 3) * 0.08}s` } as React.CSSProperties}>
-      <Link href={`/caderno/${t.slug}/`} className="cartao__link">
+      <Link href={rota(l, `/caderno/${t.slug}/`)} className="cartao__link">
         <div className="cartao__visual">
           <div className="cartao__img">
             <img src={f.src} srcSet={f.srcSet} sizes={tamanhos} width={f.width} height={f.height} alt="" loading="lazy" decoding="async" />
@@ -24,11 +30,11 @@ export function CartaoTexto({ texto, className = "", indice = 0, tamanhos = "(ma
         </div>
         <div className="cartao__texto">
           <p className="cartao__meta rotulo">
-            <span>{t.categoria}</span>
+            <span>{nomeCategoria(t.categoria, l)}</span>
             <span aria-hidden="true">·</span>
             <span>{t.leitura}</span>
-            {t.rascunho && <span className="cartao__selo">rascunho</span>}
-            {t.especial && <span className="cartao__selo cartao__selo--especial">especial</span>}
+            {t.rascunho && <span className="cartao__selo">{tr("rascunho", "draft")}</span>}
+            {t.especial && <span className="cartao__selo cartao__selo--especial">{tr("especial", "special")}</span>}
           </p>
           <h3 className="cartao__titulo">{t.titulo}</h3>
           <p className="cartao__chamada">{t.chamada}</p>

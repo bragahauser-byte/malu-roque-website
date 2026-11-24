@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Disco } from "@/content/discos";
 import { fonteImagem } from "@/lib/imagens";
+import { useLingua } from "@/lib/useLingua";
 
 /**
  * A ESTANTE — uma só coleção de CDs, como numa loja de discos dos anos 2000.
@@ -28,6 +29,7 @@ const ABRE_ANTES = 44; // quanto as caixas anteriores se afastam da escolhida
 const ABRE_DEPOIS = 78; // e as seguintes (deixam lugar para o disco)
 
 export function ColecaoCDs({ discos, rotulo }: { discos: Disco[]; rotulo: string }) {
+  const { t } = useLingua();
   const [ativo, setAtivo] = useState(0);
   const botoes = useRef<(HTMLButtonElement | null)[]>([]);
   const estante = useRef<HTMLDivElement>(null);
@@ -111,9 +113,9 @@ export function ColecaoCDs({ discos, rotulo }: { discos: Disco[]; rotulo: string
         </p>
         <h3 className="ficha-disco__titulo">{d.titulo}</h3>
         <p className="chapeu ficha-disco__artista">{d.artista}</p>
-        <p className="ui suave">Lançado em {d.ano}</p>
+        <p className="ui suave">{t("Lançado em", "Released in")} {d.ano}</p>
         <div className="ficha-disco__faixas">
-          <p className="rotulo suave">Faixas conhecidas do disco</p>
+          <p className="rotulo suave">{t("Faixas conhecidas do disco", "Well-known tracks")}</p>
           <ol>
             {d.faixas.map((faixa) => (
               <li key={faixa}>{faixa}</li>

@@ -12,6 +12,8 @@ import {
   trajetoPagina,
   type Direcao,
 } from "@/lib/passagem";
+import { pintarBarra } from "@/lib/mundo";
+import { langHtml, linguaDe } from "@/lib/lingua";
 
 /**
  * MOTION ENTRE PÁGINAS — "a superfície em arco que atravessa a tela".
@@ -37,6 +39,9 @@ export function Passagens() {
 
   // A rota nova foi aplicada (o efeito roda depois do commit): libera a passagem.
   useEffect(() => {
+    // idioma e cor da barra do navegador acompanham cada página
+    document.documentElement.lang = langHtml(linguaDe(rota));
+    pintarBarra();
     ultimo.current = location.pathname;
     chegou.current?.();
     chegou.current = null;

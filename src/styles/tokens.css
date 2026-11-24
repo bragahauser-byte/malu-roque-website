@@ -17,7 +17,8 @@
   --amarelo: #f0ce5b;    /* destaque secundário */
   --preto: #0c0d08;      /* nanquim */
   --lilas: #b8b7fb;      /* apoio raro (etiquetas, cartões) */
-  --menta: #5ceda0;      /* reservado */
+  --menta: #5ceda0;      /* reservado (post-its, o nome que dança) */
+  --danca-forte: var(--verde); /* a cor mais escura da dança do nome (creme no lado simbólico) */
 
   /* ── Cores tipográficas: FUNDO CLARO (creme) ─────────────────
      Contraste medido sobre #fefaee (e sobre #f4eddb, entre parênteses).
@@ -70,15 +71,19 @@
   --sobre-campo: var(--creme);
 
   /* ── Tipografia ─────────────────────────────────────────────
-     Georgia: voz editorial (títulos literários, texto, citações).
-     Gelasio entra só se a Georgia faltar (mesmas métricas).
-     Gotham Condensed: interface, rótulos, navegação, dados e a
-     frase-manifesto. */
+     Gotham Condensed: tudo o que tem 56 px ou mais (display, títulos de
+     página e de seção, o nome), a interface, rótulos, navegação e dados.
+     Georgia: o texto (leads, corpo, citações, títulos pequenos) e o itálico
+     de destaque dentro dos títulos grandes. Gelasio entra só se a Georgia
+     faltar (mesmas métricas). Barlow Condensed (licença aberta) substitui a
+     Gotham onde os arquivos dela não estão (o site publicado, até a licença
+     web ser confirmada). Letra manuscrita (post-its): Caveat. */
   --serif: Georgia, var(--font-gelasio), "Times New Roman", serif;
-  --gotham: "Gotham Cond", "Gotham Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --gotham: "Gotham Cond", "Gotham Condensed", var(--font-condensada), "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --mao: var(--font-mao), "Segoe Print", "Bradley Hand", cursive;
 
   /* Escala                          tamanho  /  entrelinha */
-  --t-display: clamp(3.5rem, 1.829rem + 6.86vw, 8rem); /* 56→128 / 0.92 */
+  --t-display: clamp(3.5rem, 1.086rem + 9.905vw, 10rem); /* 56→160 / 0.9  Gotham Bold (v7: era Georgia 128) */
   --t-frase: clamp(3rem, 0.400rem + 10.67vw, 10rem); /* 48→160 / 0.9  Gotham Bold */
   --t-h1: clamp(2.5rem, 1.571rem + 3.81vw, 5rem); /* 40→80  / 1.0 */
   --t-h2: clamp(2rem, 1.443rem + 2.29vw, 3.5rem); /* 32→56  / 1.08 */
@@ -164,6 +169,7 @@
   --foco: var(--escuro-interativo);
 }
 [data-mundo="simbolico"] {
+  --danca-forte: var(--creme);
   --fundo: var(--verde);
   --fundo-2: var(--verde-2);
   --destaque: var(--amarelo);

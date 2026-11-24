@@ -1,14 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { Gelasio } from "next/font/google";
+import { Barlow_Condensed, Caveat, Gelasio } from "next/font/google";
 import { site } from "@/content/site";
 import { Cabecalho } from "@/components/Cabecalho";
 import { Rodape } from "@/components/Rodape";
 import { Revelador } from "@/components/Revelador";
 import { Passagens } from "@/components/Passagens";
+import { Lembretes } from "@/components/Lembretes";
 import { asset } from "@/lib/asset";
 import { scriptMundo } from "@/lib/mundo";
+
+/** Idioma: as páginas em /en/ marcam <html lang="en"> antes da pintura (o layout é um só para os dois idiomas). */
+const scriptIdioma = `try{var b=${JSON.stringify(process.env.NEXT_PUBLIC_BASE_PATH ?? "")};var p=location.pathname.slice(b.length);if(p==="/en"||p.indexOf("/en/")===0)document.documentElement.lang="en"}catch(e){}`;
 
 /** Entrada (forma → tipografia, ver motion.css): só na primeira página da visita e sem "reduzir movimento". */
 const scriptEntrada = `try{if(!sessionStorage.getItem("malu-entrou")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("entrando")}catch(e){}`;
@@ -19,10 +23,22 @@ import "@/styles/inicio.css";
 import "@/styles/paginas.css";
 import "@/styles/caderno.css";
 import "@/styles/especiais.css";
+import "@/styles/interacoes.css";
 import "@/styles/motion.css";
 
 // Georgia vem do sistema. A Gelasio (mesmas métricas) só é baixada se ela faltar.
 const gelasio = Gelasio({ subsets: ["latin"], weight: ["400", "500", "700"], style: ["normal", "italic"], variable: "--font-gelasio", preload: false, display: "swap" });
+
+/**
+ * Substituta da Gotham Condensed enquanto a licença web não é confirmada:
+ * Barlow Condensed (licença aberta, SIL OFL), a condensada livre mais próxima
+ * no desenho e na largura. Só aparece onde a Gotham não está instalada no
+ * build (o site publicado); com os arquivos da Gotham, ela nunca é usada.
+ */
+const barlow = Barlow_Condensed({ subsets: ["latin"], weight: ["300", "400", "500", "700"], style: ["normal", "italic"], variable: "--font-condensada", display: "swap" });
+
+/** Letra manuscrita dos post-its (Caveat, SIL OFL). Só é baixada quando o primeiro post-it aparece. */
+const caveat = Caveat({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-mao", preload: false, display: "swap" });
 
 /**
  * Gotham Condensed (Hoefler & Co.), arquivos em public/fonts/gotham/.
@@ -65,9 +81,9 @@ export const viewport: Viewport = { themeColor: "#fefaee" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" data-mundo="visivel" className={gelasio.variable} suppressHydrationWarning>
+    <html lang="pt-BR" data-mundo="visivel" className={`${gelasio.variable} ${barlow.variable} ${caveat.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: scriptMundo + scriptEntrada }} />
+        <script dangerouslySetInnerHTML={{ __html: scriptMundo + scriptEntrada + scriptIdioma }} />
         {temGotham && <link rel="preload" href={asset("/fonts/gotham/GothamCond-Medium.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" />}
         {temGotham && <style dangerouslySetInnerHTML={{ __html: fontesGotham }} />}
       </head>
@@ -77,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Rodape />
         <Revelador />
         <Passagens />
+        <Lembretes />
       </body>
     </html>
   );

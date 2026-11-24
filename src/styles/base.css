@@ -89,7 +89,8 @@ strong { font-weight: 700; }
 .inteira { grid-column: 1 / -1; }
 
 /* ── Escala tipográfica (classes) ───────────────────────────
-   display / h1 / h2 / h3 / h4 → Georgia
+   display / h1 / h2 → Gotham Condensed (v7; ver "Títulos grandes" abaixo)
+   h3 / h4 → Georgia
    corpo-g / corpo / corpo-p   → Georgia
    legenda / rótulo / nav / botão / chapéu → Gotham Condensed */
 .t-display { font-size: var(--t-display); line-height: 0.92; letter-spacing: -0.035em; }
@@ -134,7 +135,7 @@ strong { font-weight: 700; }
 .secao-cabeca::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--regua); margin-bottom: var(--space-2); }
 .secao-cabeca__num { grid-column: 1 / span 1; }
 .secao-cabeca__nome { grid-column: 2 / span 5; }
-.secao-cabeca__titulo { grid-column: 7 / -1; font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.025em; }
+.secao-cabeca__titulo { grid-column: 7 / -1; font-size: var(--t-h2); line-height: 1.08; }
 @media (max-width: 1023px) {
   .secao-cabeca__nome { grid-column: 2 / -1; }
   .secao-cabeca__titulo { grid-column: 1 / -1; margin-top: var(--space-3); }
@@ -207,3 +208,26 @@ html:not([data-mundo="simbolico"]) .so-simbolico { display: none !important; }
 
 /* Quando o título da seção é só um rótulo (ex.: tipo de trabalho na Pesquisa) */
 .secao-cabeca__titulo.rotulo { font-size: var(--t-rotulo); line-height: 1rem; letter-spacing: 0.08em; }
+
+/* ── Títulos grandes (56 px ou mais): Gotham Condensed (v7) ──
+   Pedido da Malu, à maneira da Obama Foundation: o que é grande é Gotham
+   Condensed em caixa-alta; a Georgia fica com o texto. O destaque dentro
+   desses títulos (o *asterisco* do componente Palavras) muda de peso, não
+   de família: Bold → Light.
+   display/página 56→160 · h1 40→80 · h2 32→56 (tokens.css)           */
+.capa__titulo, .abertura__titulo, .contato__titulo, .texto-pagina__titulo, .rodape__convite,
+.vitrine__nome, .capitulo__lugar, .pesquisa__titulo, .linha .contato__usuario, .ficha-disco__titulo,
+.secao-cabeca__titulo:not(.rotulo):not(.vitrine__total), .universo__frase, .t-display, .t-h1, .t-h2 {
+  font-family: var(--gotham);
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+}
+.capa__titulo, .abertura__titulo, .contato__titulo, .t-display { font-size: var(--t-display); line-height: 0.9; }
+.texto-pagina__titulo, .rodape__convite, .vitrine__nome, .capitulo__lugar, .universo__frase, .t-h1 { line-height: 0.94; }
+.secao-cabeca__titulo:not(.rotulo):not(.vitrine__total), .pesquisa__titulo, .linha .contato__usuario, .ficha-disco__titulo, .t-h2 { line-height: 1; }
+:is(.capa__titulo, .abertura__titulo, .contato__titulo, .texto-pagina__titulo, .rodape__convite, .secao-cabeca__titulo, .pesquisa__titulo, .universo__frase, .t-display, .t-h1, .t-h2) em {
+  font-style: normal;
+  font-weight: 300;
+}

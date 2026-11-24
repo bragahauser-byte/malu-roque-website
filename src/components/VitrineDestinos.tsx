@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import type { Destino } from "@/content/viagens";
 import { fonteImagem } from "@/lib/imagens";
 import { Bandeira } from "./Bandeira";
+import { useLingua } from "@/lib/useLingua";
 
 /**
  * VITRINE DE DESTINOS — leitura da referência AC Concierge.
@@ -23,6 +24,7 @@ import { Bandeira } from "./Bandeira";
  * Sem JavaScript, o primeiro destino aparece e o índice lista os doze.
  */
 export function VitrineDestinos({ destinos }: { destinos: Destino[] }) {
+  const { t } = useLingua();
   const [atual, setAtual] = useState(0);
   const [anterior, setAnterior] = useState<number | null>(null);
   const [sentido, setSentido] = useState<"avancar" | "voltar">("avancar");
@@ -55,7 +57,7 @@ export function VitrineDestinos({ destinos }: { destinos: Destino[] }) {
   const tamanhos = "(max-width: 639px) 64vw, (max-width: 1023px) 40vw, 30vw";
 
   return (
-    <div className="vitrine" role="region" aria-roledescription="carrossel" aria-label="Destinos" onKeyDown={teclas}>
+    <div className="vitrine" role="region" aria-roledescription={t("carrossel", "carousel")} aria-label={t("Destinos", "Destinations")} onKeyDown={teclas}>
       {/* contador e setas (no celular, ficam acima da janela, como na referência) */}
       <div className="vitrine__controles">
         <p className="vitrine__contador rotulo" aria-hidden="true">
@@ -63,10 +65,10 @@ export function VitrineDestinos({ destinos }: { destinos: Destino[] }) {
           <span className="vitrine__contador-total">{String(total).padStart(2, "0")}</span>
         </p>
         <div className="vitrine__setas">
-          <button type="button" className="vitrine__seta" onClick={() => ir(atual - 1, "voltar")} aria-label="Destino anterior">
+          <button type="button" className="vitrine__seta" onClick={() => ir(atual - 1, "voltar")} aria-label={t("Destino anterior", "Previous destination")}>
             ←
           </button>
-          <button type="button" className="vitrine__seta" onClick={() => ir(atual + 1, "avancar")} aria-label="Próximo destino">
+          <button type="button" className="vitrine__seta" onClick={() => ir(atual + 1, "avancar")} aria-label={t("Próximo destino", "Next destination")}>
             →
           </button>
         </div>
@@ -107,7 +109,7 @@ export function VitrineDestinos({ destinos }: { destinos: Destino[] }) {
         </div>
         <figcaption className="credito vitrine__credito">
           {"propria" in d.credito ? (
-            "Foto: Maria Luiza Roque"
+            t("Foto: Maria Luiza Roque", "Photo: Maria Luiza Roque")
           ) : (
             <a href={d.credito.url} target="_blank" rel="noopener noreferrer" className="link-linha">
               Foto: {d.credito.autor}, {d.credito.licenca}
@@ -120,7 +122,7 @@ export function VitrineDestinos({ destinos }: { destinos: Destino[] }) {
       <div className="vitrine__pais" aria-live="polite" key={`p-${atual}`}>
         <dl className="vitrine__dados">
           <div>
-            <dt className="meta">Continente</dt>
+            <dt className="meta">{t("Continente", "Continent")}</dt>
             <dd>{d.continente}</dd>
           </div>
           <div>
@@ -128,9 +130,9 @@ export function VitrineDestinos({ destinos }: { destinos: Destino[] }) {
             <dd>{d.capital}</dd>
           </div>
           <div>
-            <dt className="meta">Janela</dt>
+            <dt className="meta">{t("Janela", "Window")}</dt>
             <dd>
-              {n(atual)} de {total}
+              {n(atual)} {t("de", "of")} {total}
             </dd>
           </div>
         </dl>
@@ -146,11 +148,11 @@ export function VitrineDestinos({ destinos }: { destinos: Destino[] }) {
       </p>
 
       {/* índice: todas as janelas */}
-      <ol className="vitrine__indice" aria-label="Todos os destinos">
+      <ol className="vitrine__indice" aria-label={t("Todos os destinos", "All destinations")}>
         {destinos.map((x, i) => {
           const t = fonteImagem(x.imagem);
           return (
-            <li key={x.pais}>
+            <li key={x.bandeira}>
               <button
                 type="button"
                 ref={(el) => {

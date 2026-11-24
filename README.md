@@ -1,7 +1,7 @@
 # Maria Luiza Roque — entre o visível e o simbólico
 
 Site editorial de **Malu Roque**, psicóloga clínica de orientação junguiana.
-Atendimento psicológico online para todo o Brasil. Um site com dois lados, o
+Atendimento psicológico online, em português e em inglês, para o Brasil e o mundo. O site existe em português (raiz) e em inglês (`/en/`). Um site com dois lados, o
 **visível** (atendimento, formação, trajetória, pesquisa) e o **simbólico**
 (arte, sonhos, símbolos, viagens e o caderno). Entre eles, uma passagem.
 
@@ -53,11 +53,11 @@ especiais `/caderno/destinos`, `/caderno/intercambios` e `/caderno/discos`) ·
 
 Em `src/content/site.ts`:
 
-- `crp`: 06/214718. Aparece no cabeçalho, na capa, no Sobre, no Atendimento, no Contato e no rodapé.
-- `atendimento`: exclusivamente online, para todo o Brasil. Não há endereço de
+- `crp`: 06/214718. Aparece na capa, no Sobre, no Atendimento, no Contato e no rodapé.
+- `atendimento`: exclusivamente online, em português e em inglês, para o Brasil e o mundo. Não há endereço de
   consultório. Atuação em São Paulo – SP.
 - `whatsapp`: 5511999834047.
-- `mensagemWhatsapp`: a mensagem pré-preenchida, neutra. O link gerado é
+- `mensagemWhatsapp`: a mensagem pré-preenchida, neutra (a versão em inglês fica em `siteEn`). O link gerado é
   idêntico ao aprovado (`https://wa.me/5511999834047?text=Ol%C3%A1%21%20…`).
 - `redes`: Instagram e TikTok @maluroque.psi, e LinkedIn
   linkedin.com/in/maria-luiza-dias-roque.

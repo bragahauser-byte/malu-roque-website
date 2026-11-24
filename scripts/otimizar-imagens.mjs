@@ -24,14 +24,13 @@ const ORIGEM = { arte: "recursos/arte-originais", fotos: "recursos/fotos", desti
 
 /** Recortes em frações da imagem original: [esquerda, topo, direita, base]. */
 const RECORTES = {
-  "goya-sono-da-razao": [0.235, 0.115, 0.815, 0.745], // só a gravura, sem a margem do papel
   "rosarium-rei-rainha": [0.1, 0.085, 0.825, 0.665], // só a xilogravura, sem o texto da página
   "splendor-solis-sol": [0.155, 0.085, 0.885, 0.855], // a iluminura com sua borda floral
-  "bocklin-ilha-dos-mortos": "aparar", // tira a borda preta da digitalização
   "mandala-jnanadakini": "aparar",
   "redon-pandora": "aparar", // tira a faixa preta das laterais
   "redon-carro-apolo": [0.003, 0.009, 0.997, 0.99], // tira as faixas pretas da digitalização (topo e base)
-  "redon-pegaso": [0.035, 0.025, 0.968, 0.975], // tira a margem da digitalização
+  "shahnama-festa-sada": [0.085, 0.075, 0.785, 0.795], // a pintura e o texto do fólio, sem a margem do papel
+  "hokusai-ponte-kameido": "aparar",
   "redon-olhos-fechados-tela": [0.0346, 0.02, 0.964, 0.98], // tira a moldura dourada da fotografia do quadro
 };
 

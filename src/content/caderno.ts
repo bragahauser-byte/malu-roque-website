@@ -207,7 +207,7 @@ export const textos: Texto[] = [
     chamada: "Sobre solidão, intimidade e o tempo que a gente passa olhando para fora.",
     categoria: "Reflexões",
     formato: "retrato",
-    imagem: "munch-window",
+    imagem: "vermeer-jarro",
     cor: "var(--creme-2)",
     leitura: "5 min",
     rascunho: true,
@@ -226,3 +226,20 @@ export const textos: Texto[] = [
     corpo: ["Texto de exemplo. Curiosidades musicais e o que elas dizem sobre nós."],
   },
 ];
+
+// ── Idioma ──────────────────────────────────────────────────
+import type { Lingua } from "@/lib/lingua";
+import { categoriasEn, textosEn } from "./en/caderno";
+
+/** O texto no idioma da página (em inglês, só as palavras mudam). */
+export function emLingua(t: Texto, l: Lingua): Texto {
+  if (l === "pt") return t;
+  const e = textosEn[t.slug];
+  return e ? { ...t, titulo: e.titulo, chamada: e.chamada, corpo: e.corpo ?? t.corpo, lista: e.lista ?? t.lista, leitura: t.leitura === "especial" ? "special" : t.leitura } : t;
+}
+
+/** Nome da categoria no idioma da página. */
+export const nomeCategoria = (c: Categoria, l: Lingua) => (l === "en" ? categoriasEn[c] : c);
+
+export const especiaisEm = (l: Lingua) => especiais.map((t) => emLingua(t, l));
+export const textosEm = (l: Lingua) => textos.map((t) => emLingua(t, l));

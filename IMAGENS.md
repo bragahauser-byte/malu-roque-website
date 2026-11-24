@@ -51,14 +51,16 @@ As legendas evitam nomear cidades e lugares que não foram confirmados.
 
 | Obra | Acervo | Licença | Fonte |
 | --- | --- | --- | --- |
-| Odilon Redon, *Olhos fechados* (1890) | The Metropolitan Museum of Art | CC0 | metmuseum.org/art/collection/search/356778 |
-| Francisco de Goya, *O sono da razão produz monstros*, Los Caprichos 43 (1799) | The Metropolitan Museum of Art | CC0 | …/338473 |
-| Arnold Böcklin, *A ilha dos mortos* (1880) | The Metropolitan Museum of Art | CC0 | …/435683 |
+| Odilon Redon, *Vaso de flores (fundo rosa)* (c. 1906): O sonho (v7) | The Metropolitan Museum of Art | CC0 | metmuseum.org/art/collection/search/437382 |
+| Georges Seurat, *Parada de circo* (1887–88): A sombra (v7) | The Metropolitan Museum of Art | CC0 | …/437654 |
+| Katsushika Hokusai, *A ponte em arco do santuário Kameido Tenjin* (c. 1830): A travessia (v7) | The Metropolitan Museum of Art | CC0 | …/53792 |
 | *Rosarium philosophorum*, o rei e a rainha sobre o sol e a lua (1550) | Wellcome Collection, via Wikimedia Commons | **CC BY 4.0**: exige crédito, que aparece na legenda e em /creditos/ | Wellcome L0073562 |
 | *Splendor Solis*, f. 33v, o sol nascente (1582) | British Library, Harley MS 3469 | CC0 | Wikimedia Commons |
 | *Mandala de Jnanadakini*, Tibete (fim do séc. XIV) | The Metropolitan Museum of Art | CC0 | …/37802 |
 | Odilon Redon, *Pandora* (c. 1914) | The Metropolitan Museum of Art | CC0 | …/437383 |
-| Odilon Redon, *Pégaso e Belerofonte* (c. 1888) | The Metropolitan Museum of Art | CC0 | …/459400 |
+| *A festa de Sada*, fólio 22v do Shahnama de Shah Tahmasp, pintura atribuída a Sultan Muhammad (c. 1525): Se fosse um universo (v7) | The Metropolitan Museum of Art | CC0 | …/452111 |
+| Odilon Redon, *Buquê de flores* (c. 1900–1905): Atendimento, Psicologia Analítica (v7) | The Metropolitan Museum of Art | CC0 | …/437379 |
+| Johannes Vermeer, *Jovem com jarro de água* (c. 1662): temas do Atendimento e "A janela e o quarto" (v7) | The Metropolitan Museum of Art | CC0 | …/437881 |
 | Odilon Redon, *O carro de Apolo* (1905–16) | The Metropolitan Museum of Art | CC0 | …/437380 |
 
 Por que estas obras:
@@ -67,7 +69,18 @@ Por que estas obras:
 - O **Splendor Solis** e as **mandalas** pertencem ao repertório que Jung
   estudou e reproduziu (alquimia e simbolismo do centro).
 - **Redon** é uma das quatro referências pedidas e está em domínio público.
-- **Goya** e **Böcklin** completam as ideias de sombra e de travessia.
+- **v7, sem obras tristes demais.** A Malu pediu obras que não transmitam
+  tristeza ou angústia em excesso. Saíram *Visão de sonho* e *Pégaso* (Redon),
+  *O sono da razão* (Goya), *A ilha dos mortos* (Böcklin), *Olhos fechados* em
+  litografia (Redon), *A menina à janela* (Munch) e *Noturno* (Whistler). Os
+  originais estão em `recursos/arte-antigas/`. Entraram obras luminosas do Met
+  (CC0, resolução máxima): as flores de Redon para o sonho e para a Psicologia
+  Analítica, a ponte em arco de Hokusai para a travessia (uma passagem, como o
+  site), o Seurat noturno e festivo para a sombra, uma página do Shahnama para
+  o universo de reis, rainhas e pessoas comuns, e o Vermeer junto à janela.
+  O Shahnama foi recortado só na margem do papel. O título do atlas mudou de
+  "que Jung reconheceria" para "para pensar com Jung", porque nem todas as obras
+  novas vêm do repertório que Jung estudou.
 
 ### Do Art Institute of Chicago (CC0)
 
@@ -75,11 +88,9 @@ Usadas no Sobre, no Atendimento, no Caderno, no postal, no 404 e no portal.
 
 | Artista | Obra |
 | --- | --- |
-| Redon | *Nuvens de flores*, *Natureza-morta com flores*, *Sita*, *Visão de sonho* |
+| Redon | *Nuvens de flores*, *Natureza-morta com flores*, *Sita* |
 | Moreau | *Inspiração* |
 | Böcklin | *No mar* |
-| Whistler | *Noturno: azul e dourado* |
-| Munch | *A menina à janela* |
 | Volaire | *A erupção do Vesúvio* |
 | Hokusai | *Grous no pinheiro nevado*, *Íris e gafanhoto* |
 | Manet | *Mulher lendo* |

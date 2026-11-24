@@ -78,7 +78,7 @@ export const experiencias: Experiencia[] = [
     lugar: "Atendimento clínico próprio",
     periodo: "mar. 2025 — atual",
     modalidade: "Online",
-    descricao: "Psicoterapia de crianças, adolescentes, adultos e idosos. Atualmente, os atendimentos são exclusivamente online, para todo o Brasil.",
+    descricao: "Psicoterapia de crianças, adolescentes, adultos e idosos. Atualmente, os atendimentos são exclusivamente online, em português e em inglês, para pessoas no Brasil e em outros países.",
     destaque: true,
   },
   {
@@ -180,7 +180,7 @@ export const temas = [
       "Quando o corpo acelera, o sono foge ou tudo parece pesado demais. A terapia oferece um lugar para nomear o que aperta e compreender de onde vem.",
     forma: "circulo",
     cor: "var(--lilas)",
-    imagem: "munch-window",
+    imagem: "vermeer-jarro",
   },
   {
     titulo: "Identidade e autoconhecimento",
@@ -283,7 +283,7 @@ export const outroLado = [
     pergunta: "Se fosse um universo",
     resposta:
       "Um mundo em que príncipes, sereias, fadas, reis e rainhas convivem com pessoas comuns, filhos, filhas e famílias. O fantástico e o cotidiano lado a lado, com a atmosfera de um filme de cinema independente.",
-    imagem: "redon-pegaso",
+    imagem: "shahnama-festa-sada",
   },
   {
     pergunta: "Se fosse uma experiência",
@@ -300,18 +300,18 @@ export const outroLado = [
 export const atlas = [
   {
     ideia: "O sonho",
-    obra: "redon-olhos-fechados",
+    obra: "redon-vaso-rosa",
     texto: "Para Jung, o sonho é uma expressão espontânea do inconsciente: menos um disfarce a ser decifrado, mais uma imagem a ser escutada.",
   },
   {
     ideia: "A sombra",
-    obra: "goya-sono-da-razao",
-    texto: "A sombra reúne o que não reconhecemos em nós. O que é negado não desaparece: costuma voltar, às vezes em forma de monstros.",
+    obra: "seurat-parade",
+    texto: "A sombra reúne o que não reconhecemos em nós. O que é negado não desaparece: costuma voltar, às vezes por onde menos se espera, como as figuras na penumbra de um espetáculo.",
   },
   {
     ideia: "A travessia",
-    obra: "bocklin-ilha-dos-mortos",
-    texto: "Toda transformação pede uma passagem por águas escuras: algo termina para que outra coisa possa começar.",
+    obra: "hokusai-ponte-kameido",
+    texto: "Toda transformação pede uma passagem, como uma ponte sobre a água: algo fica para trás para que outra coisa possa começar.",
   },
   {
     ideia: "A união dos opostos",
@@ -329,3 +329,12 @@ export const atlas = [
     texto: "Jung desenhou mandalas durante anos e as reconheceu em culturas muito distantes: círculos que organizam o caos em torno de um centro, imagem do que chamou de si-mesmo.",
   },
 ] as const;
+
+// ── Idioma ──────────────────────────────────────────────────
+import type { Lingua } from "@/lib/lingua";
+import * as en from "./en/perfil";
+
+const pt = { formacao, complementar, cursos, eventos, experiencias, linhaDoTempo, publico, temas, recursos, pesquisas, outroLado, atlas };
+
+/** O perfil no idioma da página (mesmos fatos, mesma ordem). */
+export const perfilEm = (l: Lingua): typeof pt => (l === "en" ? (en as unknown as typeof pt) : pt);

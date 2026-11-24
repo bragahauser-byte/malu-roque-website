@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { temas } from "@/content/perfil";
+import { perfilEm } from "@/content/perfil";
+import { useLingua } from "@/lib/useLingua";
 import { Obra } from "./Obra";
-import { arte } from "@/content/arte";
+import { obra as obraEm } from "@/content/arte";
 import { Arco } from "./Arco";
 
 /**
@@ -12,8 +13,10 @@ import { Arco } from "./Arco";
  * o tema se abre e o arco ao lado troca de obra.
  */
 export function Temas() {
+  const { l } = useLingua();
+  const { temas } = perfilEm(l);
   const [ativo, setAtivo] = useState(0);
-  const obra = arte[temas[ativo].imagem];
+  const obra = obraEm(temas[ativo].imagem, l);
   return (
     <div className="temas grade">
       <ul className="temas__lista">

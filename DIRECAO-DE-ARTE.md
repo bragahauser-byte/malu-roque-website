@@ -17,8 +17,8 @@ fundos que mudam sozinhos.
 
 ## Identidade × metáfora (correção definitiva)
 
-- **A identidade é tipográfica.** A assinatura é o nome em Georgia, com
-  "Psicóloga · CRP 06/214718" em Gotham. **Não existe símbolo de marca**: o
+- **A identidade é tipográfica.** A assinatura é o nome em Gotham Condensed,
+  caixa-alta, sem subtítulo (v7; antes Georgia com "Psicóloga · CRP"). **Não existe símbolo de marca**: o
   ícone de janela que existia foi removido do cabeçalho, do rodapé e das
   legendas.
 - **A passagem é uma metáfora e um recurso de interação, não um logotipo.**
@@ -33,9 +33,10 @@ fundos que mudam sozinhos.
 
 ### A passagem
 
-- **Onde fica:** o portal da capa ("Atravessar para o outro lado") e o botão do
-  cabeçalho, em todas as páginas.
-  - No visível, o botão diz "O outro lado"; no simbólico, "Voltar ao visível".
+- **Onde fica (v7):** o portal da capa ("Atravessar para o outro lado") e um
+  botão no rodapé, em todas as páginas. O botão "O outro lado" saiu do
+  cabeçalho, onde agora fica a troca de idioma PT | EN.
+  - No visível, o botão diz "Atravessar para o outro lado"; no simbólico, "Voltar ao visível".
   - A pequena amostra em arco no botão tem a **cor do lugar aonde se vai**.
 - **O que se vê pelo portal:** sempre o outro lado. No visível, o verde e
   *O carro de Apolo*, de Redon; no simbólico, o creme e a rua de Caillebotte.
@@ -80,20 +81,27 @@ Nada disso é animado: a brincadeira está na composição.
 
 ## Tipografia
 
-**Georgia**: voz editorial (títulos, texto, citações). A Gelasio, que tem as
-mesmas métricas, entra só onde falta Georgia.
+**v7 — regra dos 56 px:** tudo o que tem 56 px ou mais é **Gotham Condensed**
+em caixa-alta (pedido da Malu, à maneira da Obama Foundation): o nome em
+display (160 px no desktop, antes Georgia 128), os títulos de página e de
+seção, o convite do rodapé, os nomes de países e de discos. O destaque dentro
+desses títulos (o *asterisco*) muda de peso, não de família: Bold → Light.
 
-**Gotham Condensed** (arquivos locais da pasta "tipografia gotham"): interface,
-navegação, rótulos, legendas, dados e a frase-manifesto.
+**Georgia**: o texto (leads, corpo, citações) e os títulos pequenos (H3/H4).
+A Gelasio, que tem as mesmas métricas, entra só onde falta Georgia.
+
+**Gotham Condensed** (arquivos locais da pasta "tipografia gotham"): os títulos
+grandes, o nome, a interface, navegação, rótulos, legendas, dados e a
+frase-manifesto.
 - Pesos: Light 300, Book 400, Book Italic 400, Medium 500, Bold 700.
 - A pasta não tem a Gotham de largura normal, só a Condensed.
 
 | Papel | Fonte | Tamanho / entrelinha | Observações |
 | --- | --- | --- | --- |
-| Display | Georgia | 56→128 / 0,92 | espaçamento −0,035 a −0,04em |
+| Display (nome, títulos de página) | Gotham Cond Bold | 56→160 / 0,9 | caixa-alta (v7) |
 | Frase-manifesto | Gotham Cond Bold | 48→160 / 0,92 | caixa-alta |
-| H1 | Georgia | 40→80 / 1,0 | |
-| H2 | Georgia | 32→56 / 1,08 | títulos de seção, coluna 7 |
+| H1 | Gotham Cond Bold | 40→80 / 0,94 | caixa-alta (v7) |
+| H2 | Gotham Cond Bold | 32→56 / 1,0 | títulos de seção, coluna 7, caixa-alta (v7) |
 | H3 | Georgia | 24→32 / 1,2 | itálico nos títulos do atlas |
 | H4 | Georgia | 20 / 28 | dados (fatos, créditos) |
 | Corpo grande | Georgia | 20→24 / 1,4 | máx. 32rem |
@@ -126,7 +134,15 @@ Decisões da auditoria:
 
 **Licença da Gotham**: os arquivos trazem a licença da Hoefler & Co. Eles
 ficam fora do repositório público (`.gitignore`) até a confirmação da licença
-web. Online, a interface usa a reserva (Arial Narrow ou Helvetica). Ver README.
+web. Online, a reserva é a **Barlow Condensed** (licença aberta SIL OFL, servida
+pelo próprio site desde a v7; antes era Arial Narrow ou Helvetica). Ela é um
+pouco mais larga que a Gotham: no desktop o nome da capa quebra em três linhas
+em vez de duas. Observação: este computador tem a Gotham instalada no Windows,
+então aqui o site publicado aparece com a Gotham; quem não tem a fonte vê a
+Barlow. Ver README.
+
+**Letra manuscrita** (só nos post-its): Caveat (SIL OFL), baixada quando o
+primeiro post-it aparece.
 
 ## Espaçamento: múltiplos de 4
 
@@ -336,13 +352,48 @@ conteúdo real:
 - **v5:** no lado visível, o pastel de Redon com o arco azul e as flores (arquivo enviado, ver IMAGENS.md); no lado simbólico, *O carro de Apolo*. A rua de Caillebotte saiu da capa.
 - **Celular:** exceção controlada da grade, arco de borda a borda (proporção 4:5), legenda e botão na margem, alinhados à esquerda.
 
-### Cabeçalho no celular (referência: Camicado mobile)
+### Cabeçalho (v7)
 
-- Três zonas fixas:
-  - menu à esquerda (ícone);
-  - nome ao centro, com "Psicóloga · CRP";
-  - passagem à direita (amostra de cor).
-- O menu abre a folha em tela cheia.
+- **Desktop:** o nome à esquerda (Gotham Condensed), o menu ao centro e a troca
+  de idioma **PT | EN** à direita.
+- **Celular e tablet:** só o nome à esquerda e o botão de menu à direita. A
+  troca de idioma fica dentro da folha do menu.
+- **Troca de idioma:** uma pílula com o contorno dos botões; o idioma atual fica
+  num campo de cor cheio que desliza para o outro lado (420 ms, a curva da
+  passagem). Leva à mesma página no outro idioma, com a passagem em arco.
+  São links comuns (funcionam sem JavaScript e pelo teclado).
+- **Barra do navegador no celular:** acompanha o lado (creme no visível, verde
+  no simbólico). Antes ela ficava creme sobre o site verde.
+
+### Versão em inglês (v7)
+
+- Todas as páginas existem em inglês, em `/en/` (`/en/about/`, `/en/therapy/`,
+  `/en/notebook/`, `/en/research/`, `/en/contact/`, `/en/credits/`). As
+  páginas internas do Caderno mantêm o endereço depois do prefixo.
+- Conteúdo: `src/content/en/` (perfil, caderno, viagens) e os textos das
+  páginas em `src/paginas/`, onde cada frase aparece com as duas versões
+  lado a lado (`t("…", "…")`). Mesmos fatos, sem acréscimos.
+- O atendimento passou a ser descrito como **online, em português e em inglês,
+  para pessoas no Brasil e em qualquer lugar do mundo** (antes: "todo o Brasil").
+
+### O nome que dança (v7)
+
+- No display "Maria Luiza Roque" (capa e Sobre), a letra sob o mouse dá um
+  pequeno salto e troca de cor; as vizinhas acompanham, mais fracas, como uma
+  onda. Cores da paleta: rosa, amarelo, lilás, menta e verde (creme no lado
+  simbólico), que voltam à cor do título em 1,1 s. No toque, a onda passa por
+  todas as letras. Com "reduzir movimento", só a cor muda.
+
+### Post-its da inatividade (v7, referência guglieri.com/feed)
+
+- Depois de 10 s sem nenhum gesto, post-its são colados na tela, um a cada
+  1,6 s (até 6 no desktop, 4 no tablet, 3 no celular): "tarefas do dia" de uma
+  psicóloga, com cabeçalho escrito à mão (Caveat), a mensagem em Georgia e uma
+  data fictícia no canto de baixo. Papel amarelo, rosa, lilás ou menta, com um
+  pedaço de fita.
+- Ao primeiro movimento, todos se soltam e caem para fora da tela.
+- Não recebem clique, não são lidos por leitores de tela, não aparecem com o
+  menu aberto nem durante uma passagem. Textos em `components/Lembretes.tsx`.
 
 ### Favicon
 
@@ -366,4 +417,6 @@ Caderno.
 - Textos reais do Caderno (os atuais são rascunhos de demonstração).
 - Favicon: o arco creme tem pouco contraste nas abas claras do navegador; se incomodar, pedir uma versão do arquivo com fundo.
 - Confirmar título e acervo do pastel de Redon da capa (o arquivo não trazia a informação).
+- v7: *Olhos fechados* (Redon, Orsay) em "Se fosse uma experiência" foi mantido por ser arquivo enviado por ela; é melancólico. Confirmar se fica.
+- v7: revisar a versão em inglês e as mensagens dos post-its.
 

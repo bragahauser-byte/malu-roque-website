@@ -118,3 +118,23 @@ Playwright com o Chromium, sobre o build de produção (`npm run preview`):
   - celular (menu → página, voltar, sem rolagem lateral);
   - CDs por toque e por teclado;
   - nenhum erro de console, nenhuma classe ou animação residual.
+
+## 10. Rodada 7 (novembro de 2026)
+
+- **Troca de idioma:** o PT | EN do cabeçalho é um link para a mesma página no
+  outro idioma, então usa a passagem entre páginas de sempre (870 ms). O campo
+  de cor do interruptor desliza em 420 ms com a curva da passagem, já no
+  clique. Lição: `prefetch={true}` num `<Link>` pede a versão dinâmica da
+  página (`?_rsc=`), que um site estático não tem; a passagem ficava parada.
+  O pré-carregamento automático resolve.
+- **O nome que dança:** Web Animations em cada letra (760 ms, salto de 0,16em,
+  giro de 5° a 9°, onda para as vizinhas com 70 e 140 ms de atraso); a cor
+  troca em 120 ms e volta em 1,1 s. Nada se move sozinho.
+- **Post-its:** colar = 460 ms (chegam maiores, mais altos e com sombra longa,
+  e assentam); cair = 900 a 1400 ms, com giro e deslocamento aleatórios e
+  atrasos de até 180 ms. Só depois de 10 s de inatividade.
+- **Entrada da capa:** o nome chega palavra por palavra (Maria, Luiza, Roque),
+  com 100 ms entre elas. LCP medido: 128 ms.
+- **Testes:** robustez 26/26 (com troca de idioma rápida); interações: 15 de 16
+  passaram (nome, idioma ida e volta com o histórico, post-its, barra do
+  navegador no celular). A 16ª acusou duas meta theme-color depois de recarregar, as duas verdes: o Next acrescenta a segunda no navegador. Sem efeito visível.

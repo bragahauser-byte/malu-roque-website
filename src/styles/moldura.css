@@ -12,10 +12,9 @@
 .cabecalho--rolou { border-bottom-color: var(--linha); }
 .cabecalho__barra { height: var(--cabecalho); align-items: center; }
 
-/* Assinatura: só o nome. A identidade é tipográfica, sem símbolo. */
-.assinatura { grid-column: 1 / span 3; display: grid; gap: var(--space-1); justify-self: start; }
-.assinatura__nome { font-family: var(--serif); font-size: 1.25rem; line-height: 1.25rem; letter-spacing: -0.015em; }
-.assinatura__sub { font: 500 0.75rem / 1rem var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-suave); }
+/* Assinatura: só o nome, em Gotham Condensed (v7: sem o subtítulo "Psicóloga · CRP"). */
+.assinatura { grid-column: 1 / span 3; justify-self: start; display: inline-flex; align-items: center; min-height: var(--botao); }
+.assinatura__nome { font: 700 1.5rem / 1 var(--gotham); letter-spacing: 0.01em; text-transform: uppercase; white-space: nowrap; }
 
 /* Menu: a pílula de cor cheia atrás da palavra (estudo da claracandelot.com) */
 .menu { grid-column: 4 / span 6; justify-self: center; }
@@ -41,7 +40,7 @@
 
 .cabecalho__acoes { grid-column: 10 / -1; justify-self: end; display: flex; align-items: center; gap: var(--space-2); }
 
-/* O controle da passagem: a amostra em arco tem a cor do outro lado */
+/* A troca de lado (agora no rodapé): a amostra em arco tem a cor do outro lado */
 .passagem-botao, .cabecalho__abrir {
   display: inline-flex; align-items: center; gap: var(--space-2);
   min-height: 2.5rem; padding: var(--space-2) var(--space-4);
@@ -54,7 +53,8 @@
   border-radius: 999px 999px 0 0;
   background: var(--verde); box-shadow: 0 0 0 1px currentColor;
 }
-[data-mundo="simbolico"] .passagem-botao__amostra { background: var(--creme); }
+.rodape .passagem-botao__amostra { background: var(--creme); }
+[data-mundo="simbolico"] .rodape .passagem-botao__amostra { background: var(--verde); }
 @media (hover: hover) {
   .passagem-botao:hover, .cabecalho__abrir:hover { background: var(--destaque); border-color: var(--destaque); color: var(--sobre-destaque); }
 }
@@ -64,23 +64,53 @@
 .cabecalho--aberto .cabecalho__abrir-icone i:first-child { transform: translateY(3.5px) rotate(45deg); }
 .cabecalho--aberto .cabecalho__abrir-icone i:last-child { transform: translateY(-3.5px) rotate(-45deg); }
 
-/* Tablet e celular (referência: Camicado mobile) — menu à esquerda,
-   nome ao centro, a passagem à direita. Três zonas, sempre no mesmo lugar. */
+/* ── Troca de idioma PT | EN ──────────────────────────────────
+   Uma pílula com o contorno dos botões; o idioma atual fica num campo de
+   cor cheio (a cor do texto) que desliza de um lado para o outro. No
+   hover do idioma inativo, o campo de destaque (rosa / amarelo) aparece
+   atrás dele: o mesmo gesto do menu. */
+.idioma {
+  --largura: 2.75rem;
+  position: relative; display: inline-grid; grid-template-columns: repeat(2, var(--largura));
+  height: 2.5rem; padding: 2px; border: 2px solid currentColor; border-radius: 999px;
+  font: 500 var(--t-nav) / 1 var(--gotham); letter-spacing: 0.08em;
+  isolation: isolate;
+}
+.idioma__campo {
+  position: absolute; z-index: -1; top: 2px; bottom: 2px; left: 2px; width: var(--largura);
+  border-radius: 999px; background: var(--texto);
+  transition: transform 0.42s cubic-bezier(0.64, 0.02, 0.18, 1), background-color 0.18s var(--ease);
+}
+.idioma--en .idioma__campo { transform: translateX(var(--largura)); }
+.idioma__opcao {
+  position: relative; display: grid; place-items: center; border-radius: 999px;
+  padding-left: 0.08em; /* compensa o espaçamento da caixa-alta */
+  transition: color 0.3s var(--ease);
+}
+.idioma--pt .idioma__opcao--pt, .idioma--en .idioma__opcao--en { color: var(--fundo); }
+.idioma a.idioma__opcao::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: var(--destaque); transform: scale(0.5); opacity: 0;
+  transition: transform 0.28s var(--ease), opacity 0.16s;
+}
+@media (hover: hover) {
+  .idioma a.idioma__opcao:hover::before { transform: none; opacity: 1; }
+  .idioma a.idioma__opcao:hover { color: var(--sobre-destaque); }
+}
+.idioma a.idioma__opcao:focus-visible { outline: 2px solid var(--foco); outline-offset: 2px; }
+.idioma--grande { --largura: 4rem; height: 3.25rem; font-size: 1.25rem; }
+
+/* Tablet e celular (v7): o nome à esquerda, o menu à direita. A troca de
+   idioma entra na folha do menu. */
 @media (max-width: 1023px) {
-  .menu { display: none; }
-  .cabecalho__barra { grid-template-columns: 1fr auto 1fr; column-gap: var(--space-3); }
-  .cabecalho__abrir { display: inline-flex; grid-column: 1; grid-row: 1; justify-self: start; }
-  .assinatura { grid-column: 2; grid-row: 1; justify-self: center; justify-items: center; text-align: center; }
-  .cabecalho__acoes { grid-column: 3; grid-row: 1; justify-self: end; }
+  .menu, .cabecalho__acoes { display: none; }
+  .cabecalho__barra { grid-template-columns: 1fr auto; column-gap: var(--space-3); }
+  .assinatura { grid-column: 1; grid-row: 1; }
+  .cabecalho__abrir { display: inline-flex; grid-column: 2; grid-row: 1; justify-self: end; }
 }
 @media (max-width: 639px) {
-  .assinatura__nome { font-size: 1.125rem; line-height: 1.25rem; }
-  .assinatura__sub { font-size: 0.75rem; letter-spacing: 0.04em; }
-  .cabecalho__abrir, .passagem-botao { min-width: 2.75rem; min-height: 2.75rem; padding: 0; justify-content: center; }
-  .cabecalho__abrir-texto,
-  .passagem-botao > span:not(.sr-only):not(.passagem-botao__amostra) {
-    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-  }
+  .assinatura__nome { font-size: 1.25rem; }
+  .cabecalho__abrir { min-height: 2.75rem; padding: var(--space-2) var(--space-4); }
 }
 
 /* ── Folha do menu (celular e tablet) ──────────────────────── */
@@ -97,10 +127,11 @@
 .folha__item {
   display: flex; align-items: baseline; gap: var(--space-4);
   padding: var(--space-4) 0; border-bottom: 1px solid var(--linha);
-  font-size: clamp(2rem, 8vw, 3rem); letter-spacing: -0.02em; line-height: 1;
+  font: 700 clamp(2rem, 8vw, 3rem) / 1 var(--gotham); text-transform: uppercase; letter-spacing: 0;
 }
 .folha__item .rotulo { width: var(--space-8); }
-.folha__item[aria-current="page"] { font-style: italic; }
+.folha__item[aria-current="page"] { color: var(--tx-destaque); }
+.folha__idioma { display: grid; gap: var(--space-3); justify-items: start; margin-block: var(--space-8) auto; }
 .folha__rodape { display: flex; flex-wrap: wrap; gap: var(--space-6); }
 html.menu-aberto { overflow: hidden; }
 
@@ -114,12 +145,13 @@ html.menu-aberto { overflow: hidden; }
 }
 [data-mundo="simbolico"] .rodape { background: var(--preto); --destaque: var(--amarelo); }
 .rodape__topo { row-gap: var(--space-8); align-items: end; padding-bottom: var(--space-16); }
-.rodape__convite { grid-column: 1 / span 7; font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; }
+.rodape__convite { grid-column: 1 / span 7; font-size: var(--t-h1); }
 .rodape__cta { grid-column: 9 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); justify-self: end; }
 .rodape__grade { row-gap: var(--space-12); }
 .rodape__grade::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--creme); margin-bottom: var(--space-2); }
 .rodape__col { grid-column: span 2; display: grid; gap: var(--space-3); align-content: start; }
 .rodape__col--id { grid-column: 1 / span 6; }
+.rodape__lado { margin-top: var(--space-4); }
 .rodape__nome { font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
 .rodape__titulo { color: var(--texto-suave); }
 .rodape__col ul li + li { margin-top: var(--space-2); }
