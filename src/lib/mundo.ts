@@ -6,8 +6,8 @@
  * O lado atual fica em <html data-mundo="visivel|simbolico"> e é
  * lembrado durante a visita (sessionStorage).
  *
- * A passagem: o novo mundo aparece através da janela clicada. O arco
- * da janela cresce até virar a tela inteira (View Transitions API).
+ * A passagem: o novo lado aparece através do arco clicado, que
+ * cresce até virar a tela inteira (View Transitions API).
  * Sem suporte, ou com "reduzir movimento", a troca é imediata.
  */
 
@@ -40,7 +40,7 @@ export function atravessar(origem?: Element | null) {
     return;
   }
 
-  // O arco de partida: a própria janela clicada, nas coordenadas da tela.
+  // O arco de partida: o próprio arco clicado, nas coordenadas da tela.
   const r = origem.getBoundingClientRect();
   const W = document.documentElement.clientWidth;
   const H = innerHeight;

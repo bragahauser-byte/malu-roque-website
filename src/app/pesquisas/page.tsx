@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Palavras } from "@/components/Palavras";
 import { Obra } from "@/components/Obra";
-import { Janela } from "@/components/Janela";
+import { Foto } from "@/components/Foto";
+import { Arco } from "@/components/Arco";
 import { creditoObra } from "@/content/arte";
 import { eventos, pesquisas } from "@/content/perfil";
 
 export const metadata: Metadata = {
   title: "Pesquisa",
   description:
-    "Produção acadêmica de Maria Luiza Roque: TCC sobre deusas hindus e arquétipos femininos (PUC-SP, 2024) e artigo sobre manifestações simbólicas no pós-operatório de transplante renal (HCFMUSP, 2026).",
+    "Produção acadêmica de Maria Luiza Roque: TCC sobre deusas hindus e arquétipos femininos (PUC-SP, 2024) e estudo de caso sobre manifestações simbólicas no pós-operatório de transplante renal (HCFMUSP, 2026).",
 };
 
 export default function Pesquisas() {
@@ -33,23 +34,32 @@ export default function Pesquisas() {
             <span className="secao-cabeca__titulo rotulo suave">{p.tipo}</span>
           </div>
           <div className={`pesquisa grade ${i % 2 ? "pesquisa--inversa" : ""}`}>
-            <figure className="pesquisa__figura revelar">
-              <Janela simples>
-                <Obra chave={p.imagem} />
-              </Janela>
-              <figcaption className="credito">{creditoObra(p.imagem)}</figcaption>
-            </figure>
+            <div className="pesquisa__imagens">
+              <figure className="pesquisa__foto revelar">
+                <Arco>
+                  <Foto chave={p.foto} tamanhos="(max-width: 639px) 75vw, (max-width: 1023px) 45vw, 30vw" />
+                </Arco>
+              </figure>
+              <figure className="pesquisa__obra revelar" style={{ "--atraso": "0.12s" } as React.CSSProperties}>
+                <Obra chave={p.imagem} tamanhos="(max-width: 639px) 50vw, 16vw" />
+                <figcaption className="credito">{creditoObra(p.imagem)}</figcaption>
+              </figure>
+            </div>
             <div className="pesquisa__texto">
               <h2 id={`pesquisa-${i}`} className="pesquisa__titulo revelar">
                 {p.titulo}
               </h2>
               <dl className="pesquisa__dados revelar">
                 <div>
+                  <dt className="rotulo">Autoria</dt>
+                  <dd>{p.autoria}</dd>
+                </div>
+                <div>
                   <dt className="rotulo">Instituição</dt>
                   <dd>{p.instituicao}</dd>
                 </div>
                 <div>
-                  <dt className="rotulo">{i === 0 ? "Orientação" : "Apresentação"}</dt>
+                  <dt className="rotulo">{p.detalheRotulo}</dt>
                   <dd>{p.detalhe}</dd>
                 </div>
               </dl>
@@ -59,7 +69,13 @@ export default function Pesquisas() {
                   <li key={w}>{w}</li>
                 ))}
               </ul>
-              <p className="ui suave revelar">PDF disponível em breve.</p>
+              {p.link ? (
+                <a className="botao botao--cheio revelar" href={p.link.url} target="_blank" rel="noopener noreferrer">
+                  {p.link.rotulo} <span className="seta" aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <p className="ui suave revelar">O texto completo não está disponível online.</p>
+              )}
             </div>
           </div>
         </section>

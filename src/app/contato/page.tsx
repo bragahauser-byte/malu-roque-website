@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contato",
-  description: `Contato e agendamento com Maria Luiza Roque (Malu Roque), psicóloga, CRP ${site.crp}: WhatsApp, Instagram, TikTok e LinkedIn.`,
+  description: `Contato com Maria Luiza Roque, psicóloga (atendimento online para todo o Brasil), CRP ${site.crp}: WhatsApp, Instagram, TikTok e LinkedIn.`,
 };
 
 export default function Contato() {
@@ -17,13 +17,13 @@ export default function Contato() {
         <Palavras como="h1" className="abertura__titulo abertura__titulo--largo" texto="Escreva,|*sem cerimônia.*" />
         <div className="abertura__lead">
           <p className="lead revelar">
-            Para saber sobre horários, modalidades e como funciona o atendimento, a forma mais rápida é uma mensagem pelo WhatsApp.
+            Os atendimentos são online, para pessoas de todo o Brasil. Para saber sobre horários e como funciona, a forma mais rápida é uma mensagem pelo WhatsApp.
           </p>
           <div className="revelar">
-            <BotaoWhatsapp texto="Conversar pelo WhatsApp" />
+            <BotaoWhatsapp cheio texto="Conversar pelo WhatsApp" />
           </div>
           <p className="ui suave revelar">
-            {site.nome} · {site.profissao} · CRP {site.crp} · {site.cidade}, presencial e online
+            {site.nome} · {site.profissao} · CRP {site.crp} · WhatsApp {site.whatsappLegivel} · Atuação em {site.cidade} – {site.estado}, Brasil
           </p>
         </div>
       </section>

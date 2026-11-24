@@ -1,28 +1,37 @@
 import { arte, creditoObra, type ChaveArte } from "@/content/arte";
-import { img } from "@/lib/asset";
+import { fonteImagem } from "@/lib/imagens";
 
-/** Imagem do acervo com crédito acessível. */
+/**
+ * Obra do acervo, com srcset (a melhor resolução para cada tela) e crédito.
+ * `tamanhos` descreve a largura na tela, para o navegador escolher a versão.
+ */
 export function Obra({
   chave,
   className = "",
-  pequena = false,
   prioridade = false,
   legenda = false,
   alt,
+  tamanhos = "(max-width: 1023px) 100vw, 50vw",
 }: {
   chave: ChaveArte;
   className?: string;
-  pequena?: boolean;
   prioridade?: boolean;
   legenda?: boolean;
   alt?: string;
+  tamanhos?: string;
+  /** @deprecated mantido por compatibilidade; o srcset já resolve. */
+  pequena?: boolean;
 }) {
   const o = arte[chave];
-  const texto = alt ?? `${o.titulo}, ${o.artista} (${o.ano})`;
+  const f = fonteImagem(chave);
   const imagem = (
     <img
-      src={img(chave, pequena)}
-      alt={texto}
+      src={f.src}
+      srcSet={f.srcSet}
+      sizes={tamanhos}
+      width={f.width}
+      height={f.height}
+      alt={alt ?? `${o.titulo}, ${o.artista} (${o.ano})`}
       loading={prioridade ? "eager" : "lazy"}
       decoding="async"
       fetchPriority={prioridade ? "high" : undefined}

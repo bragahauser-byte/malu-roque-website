@@ -1,18 +1,21 @@
 import Link from "next/link";
-import { JanelaCapa } from "@/components/Passagem";
-import { Janela, JanelaIcone } from "@/components/Janela";
-import { FotoPendente } from "@/components/FotoPendente";
+import { PortalCapa } from "@/components/Passagem";
+import { Arco } from "@/components/Arco";
+import { Foto } from "@/components/Foto";
+import { Frase } from "@/components/Frase";
 import { CartaoTexto } from "@/components/CartaoTexto";
+import { BotaoWhatsapp } from "@/components/BotaoWhatsapp";
 import { Obra } from "@/components/Obra";
 import { Palavras } from "@/components/Palavras";
+import { arte } from "@/content/arte";
 import { site } from "@/content/site";
 import { textos } from "@/content/caderno";
-import { linhaDoTempo, outroLado, pesquisas, publico, recursos } from "@/content/perfil";
+import { atlas, linhaDoTempo, outroLado, pesquisas, publico, recursos } from "@/content/perfil";
 
 /**
- * A CAPA tem dois lados. O conteúdo de cada um está no HTML desde o início
- * (bom para busca e para leitores de tela); o CSS mostra só o lado atual
- * (.so-visivel / .so-simbolico). A janela grande é a passagem.
+ * A CAPA tem dois lados. O conteúdo dos dois está no HTML (bom para busca e
+ * leitores de tela); o CSS mostra só o lado atual (.so-visivel / .so-simbolico).
+ * O portal é a passagem.
  */
 export default function Inicio() {
   const destaques = ["o-que-os-contos-de-fadas-sabem-sobre-crescer", "notas-sobre-uma-loja-de-discos", "o-simbolo-nao-se-explica"]
@@ -26,21 +29,19 @@ export default function Inicio() {
         <div className="capa__texto">
           <div className="so-visivel">
             <p className="rotulo capa__kicker">
-              {site.profissao} clínica · CRP {site.crp}
+              {site.profissao} · CRP {site.crp}
             </p>
             <h1 className="capa__titulo">
               Maria Luiza <em>Roque</em>
             </h1>
             <p className="capa__lead lead">
-              Psicoterapia individual, presencial e online, a partir da Psicologia Analítica de C. G. Jung. Um lugar para olhar com cuidado para o
-              que aparece na superfície e para o que fala por imagens.
+              Atendimento psicológico online para pessoas de todo o Brasil, a partir da Psicologia Analítica de C. G. Jung. Um lugar para olhar com
+              cuidado para o que aparece na superfície e para o que fala por imagens.
             </p>
             <div className="capa__botoes">
-              <Link href="/atendimento/" className="botao botao--cheio">
-                Como funciona o atendimento <span className="seta">→</span>
-              </Link>
-              <Link href="/contato/" className="botao">
-                Contato
+              <BotaoWhatsapp cheio texto="Entrar em contato" />
+              <Link href="/atendimento/" className="botao">
+                Como funciona
               </Link>
             </div>
           </div>
@@ -51,41 +52,58 @@ export default function Inicio() {
               O que me <em>atravessa</em>
             </h1>
             <p className="capa__lead lead">
-              Sonhos, mitos e contos de fadas. Livros espalhados, discos, cinema independente, flores e viagens. O imaginário que acompanha quem
-              escuta, e que também tem lugar no consultório.
+              Sonhos, mitos e contos de fadas. Livros espalhados, discos, cinema independente, arte e viagens. O imaginário que acompanha quem
+              escuta, e que também tem lugar na clínica.
             </p>
             <div className="capa__botoes">
-              <Link href="/caderno/" className="botao botao--cheio">
-                Abrir o caderno <span className="seta">→</span>
-              </Link>
-              <a href="#outro-lado" className="botao">
-                Se fosse um lugar…
+              <a href="#atlas" className="botao botao--cheio">
+                Ver o atlas <span className="seta">↓</span>
               </a>
+              <Link href="/caderno/" className="botao">
+                Abrir o caderno
+              </Link>
             </div>
           </div>
 
-          <ul className="capa__lados ui" aria-label="Lados do site">
+          <ul className="capa__lados ui" aria-label="Os dois lados do site">
             <li className="capa__lado capa__lado--visivel">
-              <JanelaIcone /> Visível <span className="suave">· atendimento, trajetória, pesquisa</span>
+              <span className="capa__ponto" aria-hidden="true" /> Visível <span className="suave">· atendimento, formação, pesquisa</span>
             </li>
             <li className="capa__lado capa__lado--simbolico">
-              <JanelaIcone /> Simbólico <span className="suave">· imaginário, caderno</span>
+              <span className="capa__ponto" aria-hidden="true" /> Simbólico <span className="suave">· arte, sonhos, viagens, caderno</span>
             </li>
           </ul>
         </div>
 
-        <div className="capa__janela">
-          <JanelaCapa />
+        <div className="capa__portal">
+          <PortalCapa />
         </div>
       </section>
 
       {/* ── Lado visível ─────────────────────────────────── */}
       <div className="so-visivel">
+        <section className="manifesto grade" aria-label="Manifesto">
+          <Frase
+            como="h2"
+            className="manifesto__frase revelar"
+            partes={[
+              "Entre",
+              { img: "viagem-janela", forma: "arco", largura: 1.1 },
+              "aquilo que vemos",
+              { img: "redon-flower-clouds", forma: "pilula", largura: 1.9 },
+              "e tudo",
+              { img: "malu-entardecer", forma: "circulo", largura: 1 },
+              "aquilo que nos atravessa.",
+            ]}
+          />
+          <p className="manifesto__nota ui revelar">Psicologia, cultura, imagens e as histórias que nos constituem. É daqui que parte a escuta.</p>
+        </section>
+
         <section className="secao" aria-labelledby="h-atendimento">
           <div className="secao-cabeca grade">
             <span className="secao-cabeca__num rotulo">01</span>
             <span className="secao-cabeca__nome chapeu">Atendimento</span>
-            <Palavras id="h-atendimento" className="secao-cabeca__titulo" texto="Um lugar para ser *escutado.*" />
+            <Palavras id="h-atendimento" className="secao-cabeca__titulo" texto="Online, para *todo o Brasil.*" />
           </div>
           <dl className="fatos grade">
             <div className="fatos__item revelar">
@@ -94,7 +112,7 @@ export default function Inicio() {
             </div>
             <div className="fatos__item revelar" style={{ "--atraso": "0.05s" } as React.CSSProperties}>
               <dt className="rotulo">Formato</dt>
-              <dd>Presencial e online, conforme disponibilidade</dd>
+              <dd>Exclusivamente online, para pessoas de todo o Brasil</dd>
             </div>
             <div className="fatos__item revelar" style={{ "--atraso": "0.1s" } as React.CSSProperties}>
               <dt className="rotulo">Para quem</dt>
@@ -119,9 +137,11 @@ export default function Inicio() {
             <Palavras id="h-quem" className="secao-cabeca__titulo" texto="Do hospital à clínica, *muitos jeitos de escutar.*" />
           </div>
           <div className="quem grade">
-            <div className="quem__foto revelar">
-              <FotoPendente rotulo="Retrato de Maria Luiza (a inserir)" />
-            </div>
+            <figure className="quem__foto revelar">
+              <Arco>
+                <Foto chave="malu-retrato" tamanhos="(max-width: 639px) 75vw, (max-width: 1023px) 45vw, 30vw" />
+              </Arco>
+            </figure>
             <div className="quem__texto">
               <p className="lead revelar">
                 Psicóloga formada pela PUC-SP, especialista em Psicologia Hospitalar pelo Hospital das Clínicas da FMUSP e estudiosa da Psicologia
@@ -175,19 +195,102 @@ export default function Inicio() {
 
       {/* ── Lado simbólico ───────────────────────────────── */}
       <div className="so-simbolico">
-        <section className="secao" id="outro-lado" aria-labelledby="h-outro">
+        <section className="universo" aria-labelledby="h-universo">
+          <div className="grade">
+            <p className="universo__rotulo rotulo" id="h-universo">
+              O que mora deste lado
+            </p>
+            <Frase
+              className="universo__frase revelar"
+              partes={[
+                "Psicologia,",
+                { img: "viagem-museu", forma: "arco", largura: 0.8 },
+                "arte, literatura,",
+                { img: "manet-reading", forma: "retangulo", largura: 1.1 },
+                "cinema, música,",
+                { img: "malu-musica", forma: "circulo", largura: 0.95 },
+                "sonhos, símbolos,",
+                { img: "redon-flower-clouds", forma: "pilula", largura: 1.6 },
+                "viagens",
+                { img: "viagem-arcos", forma: "arco", largura: 0.8 },
+                "e o cotidiano.",
+              ]}
+            />
+          </div>
+          <div className="mosaico grade">
+            <figure className="mosaico__a revelar">
+              <Arco moldura>
+                <Foto chave="viagem-passagem" tamanhos="(max-width: 639px) 90vw, (max-width: 1023px) 60vw, 38vw" />
+              </Arco>
+            </figure>
+            <p className="mosaico__texto lead revelar">
+              Uma revista sem periodicidade fixa, uma sala com luz amarelada, uma loja de discos com a música alta. O outro lado é feito das coisas
+              que despertam curiosidade e vontade de ficar.
+            </p>
+            <figure className="mosaico__b revelar" style={{ "--atraso": "0.1s" } as React.CSSProperties}>
+              <Foto chave="malu-festival" tamanhos="(max-width: 639px) 60vw, 22vw" />
+            </figure>
+            <figure className="mosaico__c revelar" style={{ "--atraso": "0.2s" } as React.CSSProperties}>
+              <Foto chave="viagem-entardecer" tamanhos="(max-width: 639px) 60vw, 16vw" />
+            </figure>
+          </div>
+        </section>
+
+        <section className="secao" id="atlas" aria-labelledby="h-atlas">
           <div className="secao-cabeca grade">
             <span className="secao-cabeca__num rotulo">01</span>
+            <span className="secao-cabeca__nome chapeu">Atlas do inconsciente</span>
+            <Palavras id="h-atlas" className="secao-cabeca__titulo" texto="Seis imagens *que Jung reconheceria.*" />
+          </div>
+          <p className="atlas__nota grade ui">
+            <span>
+              O Livro Vermelho, em que Jung registrou suas imagens interiores a partir de 1913, é a referência central deste lado do site. Suas
+              pinturas não aparecem aqui porque seguem protegidas por direitos autorais: as obras abaixo vêm de acervos abertos e das mesmas fontes que
+              Jung estudou, da alquimia às mandalas.
+            </span>
+          </p>
+          <div className="atlas grade">
+            {[0, 2, 4].map((inicio, c) => (
+              <ol key={c} className={`atlas__coluna atlas__coluna--${c + 1}`} start={inicio + 1}>
+                {atlas.slice(inicio, inicio + 2).map((a, k) => {
+                  const i = inicio + k;
+                  const o = arte[a.obra];
+                  return (
+                    <li key={a.ideia} className="atlas__item revelar">
+                      <figure>
+                        <div className="atlas__img">
+                          <Obra chave={a.obra} tamanhos="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 30vw" />
+                        </div>
+                        <figcaption>
+                          <span className="rotulo atlas__n">{String(i + 1).padStart(2, "0")}</span>
+                          <h3 className="atlas__ideia">{a.ideia}</h3>
+                          <p className="atlas__texto">{a.texto}</p>
+                          <p className="credito">
+                            {o.artista}, <em>{o.titulo}</em> ({o.ano}). {o.acervo}, {o.licenca}.
+                          </p>
+                        </figcaption>
+                      </figure>
+                    </li>
+                  );
+                })}
+              </ol>
+            ))}
+          </div>
+        </section>
+
+        <section className="secao" id="outro-lado" aria-labelledby="h-outro">
+          <div className="secao-cabeca grade">
+            <span className="secao-cabeca__num rotulo">02</span>
             <span className="secao-cabeca__nome chapeu">Se fosse…</span>
             <Palavras id="h-outro" className="secao-cabeca__titulo" texto="Quatro imagens *do outro lado.*" />
           </div>
           <ol className="imagens">
             {outroLado.map((o, i) => (
               <li key={o.pergunta} className={`imagem grade ${i % 2 ? "imagem--inversa" : ""}`}>
-                <div className="imagem__janela revelar">
-                  <Janela simples={false} style={{ "--cor-caixilho": "var(--creme)" } as React.CSSProperties}>
+                <div className="imagem__arco revelar">
+                  <Arco moldura>
                     {o.imagem ? (
-                      <Obra chave={o.imagem} />
+                      <Obra chave={o.imagem} tamanhos="(max-width: 639px) 75vw, (max-width: 1023px) 45vw, 30vw" />
                     ) : (
                       <span className="disco" aria-hidden="true">
                         <span className="disco__vinil">
@@ -195,7 +298,7 @@ export default function Inicio() {
                         </span>
                       </span>
                     )}
-                  </Janela>
+                  </Arco>
                 </div>
                 <div className="imagem__texto revelar" style={{ "--atraso": "0.1s" } as React.CSSProperties}>
                   <span className="rotulo">{String(i + 1).padStart(2, "0")}</span>
@@ -209,7 +312,7 @@ export default function Inicio() {
 
         <section className="secao" aria-labelledby="h-caderno">
           <div className="secao-cabeca grade">
-            <span className="secao-cabeca__num rotulo">02</span>
+            <span className="secao-cabeca__num rotulo">03</span>
             <span className="secao-cabeca__nome chapeu">Do caderno</span>
             <Palavras id="h-caderno" className="secao-cabeca__titulo" texto="Psicologia, cultura *e cotidiano.*" />
           </div>
@@ -227,7 +330,7 @@ export default function Inicio() {
 
         <section className="secao" aria-labelledby="h-clinica">
           <div className="secao-cabeca grade">
-            <span className="secao-cabeca__num rotulo">03</span>
+            <span className="secao-cabeca__num rotulo">04</span>
             <span className="secao-cabeca__nome chapeu">Na clínica</span>
             <Palavras id="h-clinica" className="secao-cabeca__titulo" texto="Essas imagens também *entram na sessão.*" />
           </div>

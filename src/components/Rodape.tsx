@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { navegacao, site } from "@/content/site";
 import { BotaoWhatsapp } from "./BotaoWhatsapp";
-import { JanelaIcone } from "./Janela";
 
 /** Rodapé: um campo de cor sólida, a grade de sempre, o registro profissional. */
 export function Rodape() {
@@ -21,12 +20,11 @@ export function Rodape() {
 
       <div className="rodape__grade grade">
         <div className="rodape__col rodape__col--id">
-          <JanelaIcone className="rodape__janela" />
           <p className="rodape__nome">{site.nome}</p>
           <p className="ui">
             {site.profissao} · CRP {site.crp}
             <br />
-            Psicologia Analítica · {site.cidade}, presencial e online
+            Psicologia Analítica · {site.atendimento}<br />Atuação em {site.cidade} – {site.estado}, Brasil
           </p>
         </div>
         <nav className="rodape__col" aria-label="Rodapé">
@@ -57,7 +55,12 @@ export function Rodape() {
         <div className="rodape__col">
           <p className="rotulo rodape__titulo">Créditos</p>
           <p className="ui rodape__suave">
-            Composto em Georgia e Gotham Condensed. Imagens: obras em domínio público do Art Institute of Chicago (CC0).
+            Composto em Georgia e Gotham Condensed. Obras de acervos abertos (Met, Art Institute of Chicago, British Library, Wellcome Collection).
+          </p>
+          <p className="ui">
+            <Link href="/creditos/" className="link-linha">
+              Créditos e licenças das imagens
+            </Link>
           </p>
         </div>
       </div>

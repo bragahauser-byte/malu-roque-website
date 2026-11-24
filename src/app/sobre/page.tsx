@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Palavras } from "@/components/Palavras";
-import { FotoPendente } from "@/components/FotoPendente";
-import { Janela } from "@/components/Janela";
+import { Foto } from "@/components/Foto";
+import { Arco } from "@/components/Arco";
 import { Obra } from "@/components/Obra";
 import { creditoObra } from "@/content/arte";
 import { site } from "@/content/site";
@@ -19,7 +19,9 @@ export default function Sobre() {
         <p className="abertura__kicker rotulo">Sobre · Quem escuta</p>
         <Palavras como="h1" className="abertura__titulo" texto="Maria Luiza|*Roque*" />
         <div className="abertura__lado revelar">
-          <FotoPendente rotulo="Fotografia principal (a inserir)" />
+          <Arco moldura>
+            <Foto chave="malu-sorriso" prioridade tamanhos="(max-width: 639px) 75vw, (max-width: 1023px) 45vw, 30vw" />
+          </Arco>
         </div>
         <div className="abertura__lead">
           <p className="chapeu revelar">
@@ -30,7 +32,7 @@ export default function Sobre() {
             Psicologia Analítica.
           </p>
           <p className="revelar">
-            Atendo crianças, adolescentes, adultos e idosos. Pelo caminho, passei por hospital, escola, instituições e grupos, e cada lugar ensinou
+            Atendo, online, crianças, adolescentes, adultos e idosos de todo o Brasil. Pelo caminho, passei por hospital, escola, instituições e grupos, e cada lugar ensinou
             um jeito de escutar.
           </p>
         </div>
@@ -44,9 +46,9 @@ export default function Sobre() {
         </div>
         <div className="dupla grade">
           <figure className="dupla__figura revelar">
-            <Janela simples>
+            <Arco>
               <Obra chave="moreau-inspiration" />
-            </Janela>
+            </Arco>
             <figcaption className="credito">{creditoObra("moreau-inspiration")}</figcaption>
           </figure>
           <div className="dupla__texto texto-corrido">
@@ -69,7 +71,14 @@ export default function Sobre() {
           <span className="secao-cabeca__nome chapeu">Trajetória</span>
           <Palavras id="h-trajetoria" className="secao-cabeca__titulo" texto="De 2019 *a 2026*" />
         </div>
-        <ol className="linhas">
+        <div className="trajetoria grade">
+          <figure className="trajetoria__foto revelar">
+            <Arco>
+              <Foto chave="hc-instituto" tamanhos="(max-width: 1023px) 45vw, 24vw" />
+            </Arco>
+            <figcaption className="credito">Instituto Central do Hospital das Clínicas da FMUSP, onde fez a especialização em Psicologia Hospitalar.</figcaption>
+          </figure>
+        <ol className="linhas trajetoria__linhas">
           {linhaDoTempo.map((l) => (
             <li key={l.ano} className="revelar">
               <div className="linha linha--estatica grade">
@@ -79,6 +88,7 @@ export default function Sobre() {
             </li>
           ))}
         </ol>
+        </div>
       </section>
 
       <section className="secao" aria-labelledby="h-ficha">

@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
-   BASE — reset, tipografia, cursor, grade e utilitários
+   BASE — reset, escala tipográfica, cursor, grade e utilitários
    ───────────────────────────────────────────────────────────── */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -7,7 +7,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--cabecalho) + 1rem);
+  scroll-padding-top: calc(var(--cabecalho) + var(--s-4));
   background: var(--fundo);
   color-scheme: light;
 }
@@ -20,9 +20,10 @@ body {
   color: var(--texto);
   font-family: var(--serif);
   font-size: var(--t-corpo);
-  line-height: 1.55;
+  line-height: 1.75rem; /* 28 */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-kerning: normal;
   overflow-x: clip;
 }
 
@@ -31,7 +32,7 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
-h1, h2, h3, h4 { font-weight: 400; line-height: 1.02; letter-spacing: -0.022em; text-wrap: balance; }
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
 p { text-wrap: pretty; }
 strong { font-weight: 700; }
 
@@ -45,10 +46,10 @@ strong { font-weight: 700; }
 }
 
 .pular {
-  position: fixed; top: 0.75rem; left: 0.75rem; z-index: 200;
-  padding: 0.7rem 1.1rem 0.65rem; border-radius: 999px;
+  position: fixed; top: var(--s-3); left: var(--s-3); z-index: 200;
+  padding: var(--s-3) var(--s-4); border-radius: 999px;
   background: var(--texto); color: var(--fundo);
-  font: 500 var(--t-ui) / 1 var(--gotham); text-transform: uppercase; letter-spacing: 0.05em;
+  font: 500 var(--t-botao) / 1 var(--gotham);
   transform: translateY(-200%);
 }
 .pular:focus { transform: none; }
@@ -72,7 +73,9 @@ strong { font-weight: 700; }
 
 /* ── Grade ───────────────────────────────────────────────────
    12 colunas no desktop, 6 no tablet, 4 no celular (--cols).
-   .grade define as colunas; cada filho escolhe onde começa. */
+   .grade define as colunas; cada filho escolhe onde começa.
+   Eixos: coluna 1 (rótulos, títulos, imagens) e coluna 7 (títulos
+   de seção e textos que acompanham imagens). Ver DIRECAO-DE-ARTE.md. */
 .grade {
   display: grid;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
@@ -85,60 +88,74 @@ strong { font-weight: 700; }
 .envoltorio { width: 100%; max-width: var(--largura-max); margin-inline: auto; padding-inline: var(--margem); }
 .inteira { grid-column: 1 / -1; }
 
-/* ── Tipografia utilitária ─────────────────────────────────── */
+/* ── Escala tipográfica (classes) ───────────────────────────
+   display / h1 / h2 / h3 / h4 → Georgia
+   corpo-g / corpo / corpo-p   → Georgia
+   legenda / rótulo / nav / botão / chapéu → Gotham Condensed */
+.t-display { font-size: var(--t-display); line-height: 0.92; letter-spacing: -0.035em; }
+.t-h1 { font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; }
+.t-h2 { font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.025em; }
+.t-h3 { font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
+.t-h4 { font-size: var(--t-h4); line-height: 1.75rem; letter-spacing: -0.01em; }
+.lead { font-size: var(--t-corpo-g); line-height: 1.4; letter-spacing: -0.01em; max-width: var(--medida-lead); }
+.t-corpo-p { font-size: var(--t-corpo-p); line-height: 1.5rem; }
+
+/* rótulo (eyebrow, labels): Gotham Medium, caixa-alta, 14/16 */
 .rotulo {
   font-family: var(--gotham);
   font-weight: 500;
   font-size: var(--t-rotulo);
-  line-height: 1.2;
-  letter-spacing: 0.07em;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.ui { font-family: var(--gotham); font-weight: 400; font-size: var(--t-ui); line-height: 1.4; letter-spacing: 0.01em; }
+/* interface e metadados: Gotham Book, caixa normal, 14/20 (ou 16/24 em .ui--g) */
+.ui { font-family: var(--gotham); font-weight: 400; font-size: var(--t-legenda); line-height: 1.25rem; letter-spacing: 0.02em; }
+.ui--g { font-size: var(--t-corpo-p); line-height: 1.5rem; }
+/* chapéu: pequeno título em Gotham Condensed Bold caixa-alta (à maneira da Obama Foundation) */
 .chapeu {
-  /* pequeno título em Gotham Condensed Bold, à maneira da Obama Foundation */
   font-family: var(--gotham);
   font-weight: 700;
-  font-size: clamp(1.2rem, 1.55vw, 1.55rem);
-  line-height: 1;
-  letter-spacing: 0.005em;
+  font-size: 1.5rem; /* 24 */
+  line-height: 1.5rem;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
-.lead { font-size: var(--t-lead); line-height: 1.4; letter-spacing: -0.01em; }
 .suave { color: var(--texto-suave); }
 
 /* ── Cabeça de seção ─────────────────────────────────────────
    Régua grossa + número + nome (Gotham) + título (Georgia),
    sempre nas mesmas colunas. */
 .secao { padding-top: var(--secao); }
-.secao-cabeca { row-gap: 0.9rem; align-items: baseline; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
-.secao-cabeca::before { content: ""; grid-column: 1 / -1; height: 3px; background: var(--regua); margin-bottom: 0.4rem; }
+.secao-cabeca { row-gap: var(--s-4); align-items: baseline; margin-bottom: var(--s-8); }
+.secao-cabeca::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--regua); margin-bottom: var(--s-2); }
 .secao-cabeca__num { grid-column: 1 / span 1; }
 .secao-cabeca__nome { grid-column: 2 / span 5; }
-.secao-cabeca__titulo { grid-column: 7 / -1; font-size: var(--t-h2); }
+.secao-cabeca__titulo { grid-column: 7 / -1; font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.025em; }
 @media (max-width: 1023px) {
+  .secao-cabeca { margin-bottom: var(--s-7); }
   .secao-cabeca__nome { grid-column: 2 / -1; }
-  .secao-cabeca__titulo { grid-column: 1 / -1; margin-top: 0.75rem; }
+  .secao-cabeca__titulo { grid-column: 1 / -1; margin-top: var(--s-3); }
 }
 
 /* ── Botões ──────────────────────────────────────────────────
-   Pílula em Gotham. No hover o campo se enche de cor: o mesmo
-   gesto do menu, para que o site tenha uma só linguagem. */
+   Pílula em Gotham Medium, caixa normal (menos caixa-alta no site),
+   48 px de altura, alvo de toque confortável. No hover o campo se
+   enche de cor: o mesmo gesto do menu. */
 .botao {
-  display: inline-flex; align-items: center; gap: 0.6em;
-  min-height: 3rem; padding: 0.9rem 1.45rem 0.82rem;
-  border: 1.5px solid currentColor; border-radius: 999px;
-  font: 500 var(--t-ui) / 1 var(--gotham); letter-spacing: 0.05em; text-transform: uppercase;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: var(--botao); padding: var(--s-3) var(--s-5);
+  border: 2px solid currentColor; border-radius: 999px;
+  font: 500 var(--t-botao) / 1.5rem var(--gotham); letter-spacing: 0.02em;
   transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 @media (hover: hover) {
   .botao:hover { background: var(--destaque); border-color: var(--destaque); color: var(--sobre-destaque); }
 }
 .botao--cheio { background: var(--texto); border-color: var(--texto); color: var(--fundo); }
-.botao[aria-disabled="true"] { opacity: 0.55; }
-.botao[aria-disabled="true"]:hover { background: none; border-color: currentColor; color: inherit; }
-.botao .seta { display: inline-block; transition: transform 0.25s var(--ease); }
-.botao:hover .seta { transform: translateX(3px); }
+.botao[aria-disabled="true"] { opacity: 0.56; }
+.botao .seta { display: inline-block; transition: transform 0.24s var(--ease); }
+.botao:hover .seta { transform: translateX(4px); }
 
 .link-linha { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; }
 .link-linha:hover { text-decoration-thickness: 2px; }
@@ -146,50 +163,38 @@ strong { font-weight: 700; }
 /* ── Etiquetas empilhadas (da referência 4162) ─────────────── */
 .etiquetas { display: inline-flex; flex-direction: column; align-items: flex-start; }
 .etiquetas > span {
-  display: inline-block; padding: 0.1em 0.42em 0.16em;
+  display: inline-block; padding: 0.08em 0.4em 0.16em;
   background: var(--c, var(--destaque)); color: var(--preto);
-  font-family: var(--serif); line-height: 1.15; border-radius: 3px;
+  font-family: var(--serif); line-height: 1.16; border-radius: 4px;
 }
-.etiquetas > span:nth-child(2) { margin-left: 1.4em; margin-top: -0.08em; }
-.etiquetas > span:nth-child(3) { margin-left: 2.8em; margin-top: -0.08em; }
+.etiquetas > span:nth-child(2) { margin-left: 1.5em; margin-top: -0.08em; }
+.etiquetas > span:nth-child(3) { margin-left: 3em; margin-top: -0.08em; }
 
-/* ── A janela ────────────────────────────────────────────────
-   Arco romano: topo em semicírculo, laterais retas. O caixilho
-   (moldura, montante e travessa na nascença do arco) é desenhado
-   por cima em linha fina. É o símbolo do site. */
-.janela {
-  container-type: inline-size;
-  position: relative;
-  aspect-ratio: var(--proporcao, 5 / 7);
-  border-top-left-radius: 9999px;
-  border-top-right-radius: 9999px;
-  overflow: hidden;
-  isolation: isolate;
+/* ── O arco ──────────────────────────────────────────────────
+   Moldura arquitetônica: topo em semicírculo, laterais retas, sem
+   divisórias internas. .arco--moldura acrescenta um contorno afastado
+   12 px (como o batente de uma porta), que dá profundidade.
+   Não é símbolo da marca: é a forma da passagem e das molduras. */
+.arco { position: relative; aspect-ratio: var(--proporcao, 5 / 7); }
+.arco__vista {
+  position: absolute; inset: 0; overflow: hidden; isolation: isolate;
+  border-top-left-radius: 9999px; border-top-right-radius: 9999px;
   background: var(--fundo-vista, var(--fundo-2));
 }
-.janela__vista { position: absolute; inset: 0; }
-.janela__vista img { width: 100%; height: 100%; object-fit: cover; }
-.janela__caixilho {
-  position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  border: var(--traco, 2px) solid var(--cor-caixilho, var(--texto));
+.arco__vista img { width: 100%; height: 100%; object-fit: cover; }
+.arco--moldura { margin: var(--s-3) var(--s-3) 0; }
+.arco--moldura::before {
+  content: ""; position: absolute; inset: calc(var(--s-3) * -1) calc(var(--s-3) * -1) 0;
+  border: 2px solid var(--cor-moldura, currentColor); border-bottom: 0;
   border-top-left-radius: 9999px; border-top-right-radius: 9999px;
+  pointer-events: none;
 }
-.janela__caixilho::before { /* montante */
-  content: ""; position: absolute; left: 50%; top: 0; bottom: 0;
-  width: var(--traco, 2px); translate: -50% 0;
-  background: var(--cor-caixilho, var(--texto));
-}
-.janela__caixilho::after { /* travessa, na nascença do arco */
-  content: ""; position: absolute; left: 0; right: 0; top: calc(50cqi - var(--traco, 2px));
-  height: var(--traco, 2px); background: var(--cor-caixilho, var(--texto));
-}
-.janela--simples .janela__caixilho { display: none; }
 
 /* ── Revelação ao rolar: uma só, discreta, uma vez ─────────── */
 .js .revelar { opacity: 0; transform: translateY(16px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: var(--atraso, 0s); }
 .js .revelar.visto { opacity: 1; transform: none; }
 
-/* ── Passagem entre os mundos (View Transitions API) ───────── */
+/* ── Passagem entre os lados (View Transitions API) ────────── */
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-new(root) { z-index: 2; }
 
@@ -198,6 +203,9 @@ strong { font-weight: 700; }
   .js .revelar { opacity: 1; transform: none; }
 }
 
-/* Conteúdo que só existe em um dos mundos */
+/* Conteúdo que só existe em um dos lados */
 [data-mundo="simbolico"] .so-visivel,
 html:not([data-mundo="simbolico"]) .so-simbolico { display: none !important; }
+
+/* Quando o título da seção é só um rótulo (ex.: tipo de trabalho na Pesquisa) */
+.secao-cabeca__titulo.rotulo { font-size: var(--t-rotulo); line-height: 1rem; letter-spacing: 0.08em; }

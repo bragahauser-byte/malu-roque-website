@@ -12,39 +12,39 @@ export const site = {
   crp: "06/214718",
   conceito: "Entre o visível e o simbólico",
   descricao:
-    "Maria Luiza Roque (Malu Roque), psicóloga clínica de orientação junguiana. Um espaço editorial de psicologia, cultura e subjetividade.",
+    "Maria Luiza Roque, psicóloga (CRP 06/214718) de orientação junguiana. Atendimento psicológico online para pessoas de todo o Brasil.",
+  /** Onde a psicóloga atua. Não há consultório físico aberto ao público. */
   cidade: "São Paulo",
+  estado: "SP",
+  /** Modalidade atual: exclusivamente online. */
+  atendimento: "Atendimento online para todo o Brasil",
 
-  /**
-   * WhatsApp: só números, com país e DDD. Ex.: "5511912345678".
-   * Enquanto estiver vazio, o botão aparece como "número em configuração".
-   */
-  whatsapp: "",
+  /** WhatsApp profissional: só números, com país e DDD. */
+  whatsapp: "5511999834047",
+  whatsappLegivel: "+55 11 99983-4047",
+  /** Mensagem neutra: não pressupõe gênero, idade, diagnóstico ou motivo. */
   mensagemWhatsapp:
-    "Olá, Malu! Encontrei seu site e gostaria de informações sobre atendimento.",
+    "Olá! Encontrei seu site e gostaria de informações sobre o atendimento psicológico. Poderia me explicar como funciona?",
 
   redes: {
     instagram: { rotulo: "Instagram", usuario: "@maluroque.psi", url: "https://www.instagram.com/maluroque.psi/" },
     tiktok: { rotulo: "TikTok", usuario: "@maluroque.psi", url: "https://www.tiktok.com/@maluroque.psi" },
-    // TODO: trocar pela URL exata do perfil (linkedin.com/in/...). Por enquanto, busca pelo nome.
-    linkedin: {
-      rotulo: "LinkedIn",
-      usuario: "Maria Luiza Dias Roque",
-      url: "https://www.linkedin.com/search/results/people/?keywords=Maria%20Luiza%20Dias%20Roque",
-    },
+    linkedin: { rotulo: "LinkedIn", usuario: "Maria Luiza Dias Roque", url: "https://www.linkedin.com/in/maria-luiza-dias-roque/" },
   },
 } as const;
 
 /** Menu principal. "curto" é o nome no cabeçalho; "titulo" é o nome editorial da página. */
 export const navegacao = [
   { href: "/sobre/", curto: "Sobre", titulo: "Quem escuta" },
-  { href: "/atendimento/", curto: "Atendimento", titulo: "O consultório" },
+  { href: "/atendimento/", curto: "Atendimento", titulo: "Psicoterapia online" },
   { href: "/caderno/", curto: "Caderno", titulo: "Caderno" },
   { href: "/pesquisas/", curto: "Pesquisa", titulo: "Pesquisa" },
   { href: "/contato/", curto: "Contato", titulo: "Correspondência" },
 ] as const;
 
+/** Link do WhatsApp com a mensagem pré-preenchida (codificação igual à do link aprovado). */
 export function whatsappUrl() {
   if (!site.whatsapp) return null;
-  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.mensagemWhatsapp)}`;
+  const texto = encodeURIComponent(site.mensagemWhatsapp).replace(/!/g, "%21");
+  return `https://wa.me/${site.whatsapp}?text=${texto}`;
 }

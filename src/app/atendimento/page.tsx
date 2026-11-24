@@ -4,7 +4,7 @@ import { Palavras } from "@/components/Palavras";
 import { Temas } from "@/components/Temas";
 import { Obra } from "@/components/Obra";
 import { BotaoWhatsapp } from "@/components/BotaoWhatsapp";
-import { Janela } from "@/components/Janela";
+import { Arco } from "@/components/Arco";
 import { creditoObra } from "@/content/arte";
 import { publico, recursos } from "@/content/perfil";
 import { site } from "@/content/site";
@@ -12,7 +12,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Atendimento",
   description:
-    "Psicoterapia individual com Maria Luiza Roque, presencial e online, para crianças, adolescentes, adultos e idosos. Abordagem: Psicologia Analítica (junguiana).",
+    "Psicoterapia individual online com Maria Luiza Roque (CRP 06/214718), para crianças, adolescentes, adultos e idosos de todo o Brasil. Abordagem: Psicologia Analítica (junguiana).",
 };
 
 const NOTAS = [
@@ -40,7 +40,7 @@ const NOTAS = [
 
 const PASSOS = [
   { n: "01", titulo: "Uma mensagem", texto: "Você escreve pelo WhatsApp ou pelas redes contando, do jeito que conseguir, o que te trouxe até aqui." },
-  { n: "02", titulo: "Uma conversa inicial", texto: "Combinamos horários, modalidade (presencial ou online) e as condições do atendimento. Dúvidas são bem-vindas." },
+  { n: "02", titulo: "Uma conversa inicial", texto: "Combinamos horários e as condições do atendimento, que acontece sempre online. Dúvidas são bem-vindas." },
   { n: "03", titulo: "O processo", texto: "Os encontros acontecem com regularidade. O ritmo e a duração da terapia são construídos ao longo do caminho." },
 ];
 
@@ -48,7 +48,7 @@ export default function Atendimento() {
   return (
     <>
       <section className="abertura grade">
-        <p className="abertura__kicker rotulo">Atendimento · O consultório</p>
+        <p className="abertura__kicker rotulo">Atendimento · Psicoterapia online</p>
         <Palavras como="h1" className="abertura__titulo abertura__titulo--largo" texto="Psicoterapia,|*um lugar para escutar.*" />
         <div className="abertura__lead">
           <p className="lead revelar">
@@ -68,7 +68,7 @@ export default function Atendimento() {
           </div>
           <div className="fatos__item revelar" style={{ "--atraso": "0.05s" } as React.CSSProperties}>
             <dt className="rotulo">Formato</dt>
-            <dd>Presencial e online, conforme disponibilidade</dd>
+            <dd>Exclusivamente online, para pessoas de todo o Brasil</dd>
           </div>
           <div className="fatos__item revelar" style={{ "--atraso": "0.1s" } as React.CSSProperties}>
             <dt className="rotulo">Para quem</dt>
@@ -85,7 +85,7 @@ export default function Atendimento() {
         <div className="secao-cabeca grade">
           <span className="secao-cabeca__num rotulo">01</span>
           <span className="secao-cabeca__nome chapeu">Temas de atuação</span>
-          <Palavras id="h-temas" className="secao-cabeca__titulo" texto="O que costuma *chegar* ao consultório" />
+          <Palavras id="h-temas" className="secao-cabeca__titulo" texto="O que costuma *chegar* à terapia" />
         </div>
         <Temas />
       </section>
@@ -98,9 +98,9 @@ export default function Atendimento() {
         </div>
         <div className="dupla grade">
           <figure className="dupla__figura revelar">
-            <Janela simples>
+            <Arco>
               <Obra chave="redon-dream-vision" />
-            </Janela>
+            </Arco>
             <figcaption className="credito">{creditoObra("redon-dream-vision")}</figcaption>
           </figure>
           <div className="dupla__texto">
@@ -146,7 +146,7 @@ export default function Atendimento() {
         </ol>
         <div className="passos__fim grade">
           <div className="passos__cta revelar">
-            <BotaoWhatsapp texto="Solicitar informações" />
+            <BotaoWhatsapp cheio texto="Entrar em contato" />
             <Link href="/contato/" className="ui link-linha">
               Outras formas de contato
             </Link>

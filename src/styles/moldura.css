@@ -1,6 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
    MOLDURA — cabeçalho, menu, passagem, folha (celular), rodapé
-   e pequenas peças comuns (crédito, foto pendente).
    ───────────────────────────────────────────────────────────── */
 
 /* ── Cabeçalho ─────────────────────────────────────────────── */
@@ -13,54 +12,53 @@
 .cabecalho--rolou { border-bottom-color: var(--linha); }
 .cabecalho__barra { height: var(--cabecalho); align-items: center; }
 
-.assinatura { grid-column: 1 / span 3; display: inline-flex; align-items: center; gap: 0.65rem; justify-self: start; }
-.assinatura__janela { width: 17px; height: 22px; }
-.assinatura__nome { font-family: var(--serif); font-size: 1.4rem; letter-spacing: -0.02em; line-height: 1; }
-
-/* a miniatura da janela: o vidro mostra sempre a cor do outro lado */
-.janela-icone { flex: none; overflow: visible; }
-.janela-icone__vidro { fill: var(--verde); }
-[data-mundo="simbolico"] .janela-icone__vidro { fill: var(--creme); }
-.janela-icone__caixilho { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }
+/* Assinatura: só o nome. A identidade é tipográfica, sem símbolo. */
+.assinatura { grid-column: 1 / span 3; display: grid; gap: var(--s-1); justify-self: start; }
+.assinatura__nome { font-family: var(--serif); font-size: 1.25rem; line-height: 1.25rem; letter-spacing: -0.015em; }
+.assinatura__sub { font: 500 0.75rem / 1rem var(--gotham); letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-suave); }
 
 /* Menu: a pílula de cor cheia atrás da palavra (estudo da claracandelot.com) */
 .menu { grid-column: 4 / span 6; justify-self: center; }
-.menu ul { display: flex; gap: clamp(0.1rem, 0.6vw, 0.6rem); }
+.menu ul { display: flex; gap: var(--s-1); }
 .menu__item {
   position: relative; display: inline-flex; align-items: center;
-  padding: 0.62rem 1.05rem 0.56rem;
-  font: 500 var(--t-ui) / 1 var(--gotham); letter-spacing: 0.06em; text-transform: uppercase;
+  min-height: 2.5rem; padding: var(--s-2) var(--s-4);
+  font: 500 var(--t-nav) / 1rem var(--gotham); letter-spacing: 0.06em; text-transform: uppercase;
   border-radius: 999px; isolation: isolate;
   transition: color 0.18s var(--ease);
 }
 .menu__item::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   border-radius: inherit; background: var(--destaque);
-  transform: scale(0.55, 0.3); opacity: 0;
+  transform: scale(0.56, 0.32); opacity: 0;
   transition: transform 0.28s var(--ease), opacity 0.16s;
 }
 .menu__item:hover, .menu__item:focus-visible { color: var(--sobre-destaque); }
 .menu__item:hover::before, .menu__item:focus-visible::before { transform: none; opacity: 1; }
-.menu__item span { position: relative; }
-.menu__item--atual { box-shadow: inset 0 0 0 1.5px currentColor; }
+.menu__item--atual { box-shadow: inset 0 0 0 2px currentColor; }
 .menu__item--atual:hover { box-shadow: none; }
 .menu__item:focus-visible { outline-offset: 2px; border-radius: 999px; }
 
-.cabecalho__acoes { grid-column: 10 / -1; justify-self: end; display: flex; align-items: center; gap: 0.5rem; }
+.cabecalho__acoes { grid-column: 10 / -1; justify-self: end; display: flex; align-items: center; gap: var(--s-2); }
 
-/* O controle da passagem */
+/* O controle da passagem: a amostra em arco tem a cor do outro lado */
 .passagem-botao, .cabecalho__abrir {
-  display: inline-flex; align-items: center; gap: 0.55rem;
-  min-height: 2.6rem; padding: 0.5rem 1rem 0.45rem 0.85rem;
-  border: 1.5px solid currentColor; border-radius: 999px;
-  font: 500 var(--t-ui) / 1 var(--gotham); letter-spacing: 0.06em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  min-height: 2.5rem; padding: var(--s-2) var(--s-4);
+  border: 2px solid currentColor; border-radius: 999px;
+  font: 500 var(--t-nav) / 1rem var(--gotham); letter-spacing: 0.02em;
   transition: background-color 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease);
 }
-.passagem-botao .janela-icone { width: 14px; height: 18px; }
+.passagem-botao__amostra {
+  flex: none; width: 12px; height: 16px;
+  border-radius: 999px 999px 0 0;
+  background: var(--verde); box-shadow: 0 0 0 1px currentColor;
+}
+[data-mundo="simbolico"] .passagem-botao__amostra { background: var(--creme); }
 @media (hover: hover) {
   .passagem-botao:hover, .cabecalho__abrir:hover { background: var(--destaque); border-color: var(--destaque); color: var(--sobre-destaque); }
 }
-.cabecalho__abrir { display: none; padding-inline: 1rem; }
+.cabecalho__abrir { display: none; }
 
 @media (max-width: 1023px) {
   .menu { display: none; }
@@ -68,10 +66,11 @@
   .cabecalho__acoes { grid-column: 4 / -1; }
   .cabecalho__abrir { display: inline-flex; }
 }
-@media (max-width: 459px) {
-  .assinatura__nome { font-size: 1.2rem; }
-  .passagem-botao { padding-inline: 0.75rem; }
-  .passagem-botao > span:not(.sr-only) {
+@media (max-width: 479px) {
+  .assinatura__nome { font-size: 1rem; line-height: 1.25rem; }
+  .assinatura__sub { letter-spacing: 0.04em; }
+  .passagem-botao { padding-inline: var(--s-3); }
+  .passagem-botao > span:not(.sr-only):not(.passagem-botao__amostra) {
     position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
   }
 }
@@ -80,48 +79,46 @@
 .folha {
   position: fixed; inset: 0; z-index: 40;
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: calc(var(--cabecalho) + 2rem) var(--margem) 2rem;
+  padding: calc(var(--cabecalho) + var(--s-6)) var(--margem) var(--s-6);
   background: var(--fundo);
   opacity: 0; visibility: hidden;
-  transition: opacity 0.25s var(--ease), visibility 0s 0.25s;
+  transition: opacity 0.24s var(--ease), visibility 0s 0.24s;
 }
-.folha--aberta { opacity: 1; visibility: visible; transition: opacity 0.25s var(--ease); }
-.folha__nav ul { border-top: 3px solid var(--regua); }
+.folha--aberta { opacity: 1; visibility: visible; transition: opacity 0.24s var(--ease); }
+.folha__nav ul { border-top: 4px solid var(--regua); }
 .folha__item {
-  display: flex; align-items: baseline; gap: 1rem;
-  padding: 0.9rem 0; border-bottom: 1px solid var(--linha);
+  display: flex; align-items: baseline; gap: var(--s-4);
+  padding: var(--s-4) 0; border-bottom: 1px solid var(--linha);
   font-size: clamp(2rem, 8vw, 3rem); letter-spacing: -0.02em; line-height: 1;
 }
-.folha__item .rotulo { width: 2rem; }
+.folha__item .rotulo { width: var(--s-6); }
 .folha__item[aria-current="page"] { font-style: italic; }
-.folha__rodape { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.folha__rodape { display: flex; flex-wrap: wrap; gap: var(--s-5); }
 html.menu-aberto { overflow: hidden; }
 
 /* ── Rodapé ────────────────────────────────────────────────── */
 .rodape {
-  --texto: var(--creme); --texto-suave: rgb(254 250 238 / 0.66); --linha: rgb(254 250 238 / 0.22);
+  --texto: var(--creme); --texto-suave: rgb(254 250 238 / 0.7); --linha: rgb(254 250 238 / 0.24);
   --destaque: var(--rosa); --sobre-destaque: var(--preto);
   margin-top: var(--secao);
   background: var(--verde); color: var(--texto);
-  padding-block: clamp(3.5rem, 7vw, 6rem) 2rem;
+  padding-block: var(--s-9) var(--s-6);
 }
 [data-mundo="simbolico"] .rodape { background: var(--preto); --destaque: var(--amarelo); }
 .rodape :focus-visible { outline-color: var(--creme); }
-.rodape__topo { row-gap: 1.75rem; align-items: end; padding-bottom: clamp(3rem, 6vw, 5rem); }
+.rodape__topo { row-gap: var(--s-6); align-items: end; padding-bottom: var(--s-8); }
 .rodape__convite { grid-column: 1 / span 7; font-size: var(--t-h1); line-height: 1; letter-spacing: -0.03em; }
-.rodape__cta { grid-column: 9 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; justify-self: end; }
-.rodape__grade { row-gap: 2.5rem; }
-.rodape__grade::before { content: ""; grid-column: 1 / -1; height: 3px; background: var(--creme); margin-bottom: 0.5rem; }
-.rodape__col { grid-column: span 2; }
+.rodape__cta { grid-column: 9 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-5); justify-self: end; }
+.rodape__grade { row-gap: var(--s-7); }
+.rodape__grade::before { content: ""; grid-column: 1 / -1; height: 4px; background: var(--creme); margin-bottom: var(--s-2); }
+.rodape__col { grid-column: span 2; display: grid; gap: var(--s-3); align-content: start; }
 .rodape__col--id { grid-column: 1 / span 6; }
-.rodape__janela { width: 22px; height: 29px; margin-bottom: 1rem; }
-[data-mundo="simbolico"] .rodape .janela-icone__vidro { fill: var(--verde); }
-.rodape__nome { font-size: var(--t-h3); letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-.rodape__titulo { margin-bottom: 0.9rem; color: var(--texto-suave); }
-.rodape__col ul li + li { margin-top: 0.35rem; }
+.rodape__nome { font-size: var(--t-h3); line-height: 1.2; letter-spacing: -0.015em; }
+.rodape__titulo { color: var(--texto-suave); }
+.rodape__col ul li + li { margin-top: var(--s-2); }
 .rodape__col a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
 .rodape__suave { color: var(--texto-suave); }
-.rodape__nota { margin-top: clamp(3rem, 6vw, 5rem); color: var(--texto-suave); font-size: 0.8125rem; }
+.rodape__nota { margin-top: var(--s-8); color: var(--texto-suave); }
 .rodape__nota span { grid-column: 1 / span 8; }
 
 @media (max-width: 1023px) {
@@ -134,14 +131,5 @@ html.menu-aberto { overflow: hidden; }
 }
 
 /* ── Peças comuns ──────────────────────────────────────────── */
-.credito { margin-top: 0.6rem; font: 400 0.8125rem / 1.35 var(--gotham); letter-spacing: 0.01em; color: var(--texto-suave); }
+.credito { margin-top: var(--s-3); font: 400 var(--t-legenda) / 1.25rem var(--gotham); letter-spacing: 0.02em; color: var(--texto-suave); }
 .credito em { font-style: italic; }
-
-.foto-pendente {
-  position: relative; display: grid; place-items: center; align-content: center; gap: 0.75rem;
-  width: 100%; aspect-ratio: 4 / 5; padding: 1.5rem; text-align: center;
-  background: var(--fundo-2); border: 1.5px dashed var(--linha); color: var(--texto-suave);
-}
-.foto-pendente--arco { aspect-ratio: 5 / 7; border-top-left-radius: 9999px; border-top-right-radius: 9999px; }
-.foto-pendente__icone { width: 1.25rem; height: 1.6rem; }
-

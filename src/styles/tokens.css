@@ -1,74 +1,95 @@
 /* ─────────────────────────────────────────────────────────────
-   TOKENS — cores, tipografia, grade e movimento.
-   Paleta extraída da referência "paleta de cor/image 4162.jpg".
+   TOKENS — cores, tipografia, espaçamento, grade e movimento.
+   Paleta medida na referência "paleta de cor/image 4162.jpg".
+   Medidas em múltiplos de 4 px (1rem = 16 px). Valores fluidos têm
+   os dois extremos em múltiplos de 4 (390 px → 1440 px de tela).
    Nenhum gradiente: só campos de cor sólidos.
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  /* Paleta (valores medidos na imagem 4162) */
+  /* ── Paleta ─────────────────────────────────────────────── */
   --creme: #fefaee;      /* base: papel quente, nunca branco frio */
   --creme-2: #f4eddb;    /* creme um tom abaixo, para blocos e fichas */
   --verde: #084e32;      /* verde-garrafa: estrutura, profundidade, o "outro lado" */
-  --verde-2: #0d6141;    /* verde um tom acima, só para hover sobre o verde */
+  --verde-2: #0a5838;    /* verde um tom acima, superfícies sobre o verde */
   --rosa: #f897f0;       /* destaque principal */
   --amarelo: #f0ce5b;    /* destaque secundário */
   --preto: #0c0d08;      /* texto */
-  --lilas: #b8b7fb;      /* apoio raro (etiquetas) */
-  --menta: #5ceda0;      /* ponto de luz raríssimo (o "online") */
+  --lilas: #b8b7fb;      /* apoio raro (etiquetas, cartões) */
+  --menta: #5ceda0;      /* reservado */
 
-  /* Papéis — o mundo VISÍVEL (padrão) */
+  /* Papéis — o lado VISÍVEL (padrão) */
   --fundo: var(--creme);
   --fundo-2: var(--creme-2);
   --texto: var(--preto);
-  --texto-suave: rgb(12 13 8 / 0.62);
+  --texto-suave: rgb(12 13 8 / 0.66);
   --linha: rgb(12 13 8 / 0.18);
-  --regua: var(--preto);         /* a régua grossa sobre as seções */
-  --destaque: var(--rosa);       /* hover do menu, seleção, etiquetas */
-  --destaque-2: var(--amarelo);
-  --sobre-destaque: var(--preto);/* texto sobre o destaque */
-  --campo: var(--verde);         /* bandas de cor sólida */
+  --regua: var(--preto);
+  --destaque: var(--rosa);
+  --sobre-destaque: var(--preto);
+  --campo: var(--verde);
   --sobre-campo: var(--creme);
 
-  /* Tipografia
+  /* ── Tipografia ─────────────────────────────────────────────
      Georgia: voz editorial (títulos literários, texto, citações).
      Gelasio entra só se a Georgia faltar (mesmas métricas).
-     Gotham Condensed: interface, rótulos, navegação, dados. */
+     Gotham Condensed: interface, rótulos, navegação, dados e a
+     frase-manifesto. */
   --serif: Georgia, var(--font-gelasio), "Times New Roman", serif;
   --gotham: "Gotham Cond", "Gotham Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
 
-  --t-mega: clamp(3.2rem, 9.6vw, 10.5rem);
-  --t-display: clamp(2.6rem, 6.4vw, 6.75rem);
-  --t-h1: clamp(2.3rem, 5vw, 4.75rem);
-  --t-h2: clamp(1.85rem, 3.4vw, 3.25rem);
-  --t-h3: clamp(1.3rem, 1.8vw, 1.75rem);
-  --t-lead: clamp(1.18rem, 1.55vw, 1.5rem);
-  --t-corpo: clamp(1.02rem, 1.05vw, 1.125rem);
-  --t-ui: 0.9375rem;     /* 15px Gotham Cond: menu, botões */
-  --t-rotulo: 0.8125rem; /* 13px Gotham Cond caixa-alta: rótulos */
+  /* Escala                          tamanho  /  entrelinha */
+  --t-display: clamp(3.5rem, 1.829rem + 6.86vw, 8rem); /* 56→128 / 0.92 */
+  --t-frase: clamp(3rem, 0.400rem + 10.67vw, 10rem); /* 48→160 / 0.9  Gotham Bold */
+  --t-h1: clamp(2.5rem, 1.571rem + 3.81vw, 5rem); /* 40→80  / 1.0 */
+  --t-h2: clamp(2rem, 1.443rem + 2.29vw, 3.5rem); /* 32→56  / 1.08 */
+  --t-h3: clamp(1.5rem, 1.314rem + 0.76vw, 2rem); /* 24→32  / 1.2 */
+  --t-h4: 1.25rem;                                        /* 20     / 28px */
+  --t-corpo-g: clamp(1.25rem, 1.157rem + 0.38vw, 1.5rem); /* 20→24  / 1.4  body large */
+  --t-corpo: 1.125rem;                                    /* 18     / 28px body */
+  --t-corpo-p: 1rem;                                      /* 16     / 24px body small */
+  --t-legenda: 0.875rem;                                  /* 14     / 20px caption, metadados */
+  --t-rotulo: 0.875rem;                                   /* 14     / 16px eyebrow, labels (caixa-alta) */
+  --t-nav: 1rem;                                          /* 16     / 16px navegação (caixa-alta) */
+  --t-botao: 1rem;                                        /* 16     / 16px botões */
 
-  /* Grade: 12 colunas, margens e calhas fluidas (ver .grade em base.css) */
+  --medida: 36rem;        /* largura máxima de texto corrido (~65 caracteres) */
+  --medida-lead: 32rem;
+
+  /* ── Espaçamento (múltiplos de 4) ───────────────────────── */
+  --s-1: 0.25rem;  /*   4 */
+  --s-2: 0.5rem;   /*   8 */
+  --s-3: 0.75rem;  /*  12 */
+  --s-4: 1rem;     /*  16 */
+  --s-5: 1.5rem;   /*  24 */
+  --s-6: 2rem;     /*  32 */
+  --s-7: 3rem;     /*  48 */
+  --s-8: 4rem;     /*  64 */
+  --s-9: 6rem;     /*  96 */
+  --s-10: 8rem;    /* 128 */
+
+  /* ── Grade ───────────────────────────────────────────────── */
   --cols: 12;
-  --margem: clamp(1.25rem, 3.6vw, 3.5rem);
-  --calha: clamp(0.875rem, 1.6vw, 1.5rem);
+  --margem: clamp(1.25rem, 0.414rem + 3.43vw, 3.5rem); /* 20→56 */
+  --calha: clamp(1rem, 0.814rem + 0.76vw, 1.5rem); /* 16→24 */
   --largura-max: 1680px;
-  --secao: clamp(4.5rem, 10vw, 9rem);
-  --cabecalho: 4.5rem;
+  --secao: clamp(4rem, 2.143rem + 7.62vw, 9rem); /* 64→144 entre seções */
+  --cabecalho: 4.5rem;                               /* 72 */
+  --botao: 3rem;                                     /* 48: altura mínima de botões e alvos de toque */
 
-  /* Movimento: poucas curvas, sempre com motivo */
+  /* ── Movimento: poucas curvas, sempre com motivo ─────────── */
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
-  --ease-passagem: cubic-bezier(0.76, 0, 0.18, 1);
 }
 
-/* O mundo SIMBÓLICO: o mesmo site, visto do outro lado da janela. */
+/* O lado SIMBÓLICO: o mesmo site, visto do outro lado da passagem. */
 [data-mundo="simbolico"] {
   --fundo: var(--verde);
-  --fundo-2: #0a5838;
+  --fundo-2: var(--verde-2);
   --texto: var(--creme);
-  --texto-suave: rgb(254 250 238 / 0.68);
-  --linha: rgb(254 250 238 / 0.22);
+  --texto-suave: rgb(254 250 238 / 0.72);
+  --linha: rgb(254 250 238 / 0.24);
   --regua: var(--creme);
   --destaque: var(--amarelo);
-  --destaque-2: var(--rosa);
   --sobre-destaque: var(--verde);
   --campo: var(--rosa);
   --sobre-campo: var(--preto);

@@ -1,8 +1,9 @@
 # Maria Luiza Roque — entre o visível e o simbólico
 
 Site editorial de **Malu Roque**, psicóloga clínica de orientação junguiana.
-Um site com dois lados, o **visível** (atendimento, formação, trajetória,
-pesquisa) e o **simbólico** (o imaginário e o caderno). Entre eles, uma janela.
+Atendimento psicológico online para todo o Brasil. Um site com dois lados, o
+**visível** (atendimento, formação, trajetória, pesquisa) e o **simbólico**
+(arte, sonhos, símbolos, viagens e o caderno). Entre eles, uma passagem.
 
 > Primeiro protótipo. Tudo aqui foi feito para ser trocado, ampliado e refinado.
 
@@ -26,63 +27,57 @@ npm run preview    # serve a pasta out/ em http://localhost:4173
 
 ## Onde mexer
 
-| Quero mudar…                               | Arquivo                                   |
-| ------------------------------------------ | ----------------------------------------- |
-| WhatsApp, redes, CRP, cidade, menu         | `src/content/site.ts`                     |
-| Formação, experiências, temas, pesquisas   | `src/content/perfil.ts`                   |
-| Textos do Caderno (revista)                | `src/content/caderno.ts`                  |
-| Lista de obras/imagens e créditos          | `src/content/arte.ts`                     |
-| Texto da capa (os dois lados)              | `src/app/page.tsx` |
-| A janela e a passagem entre os mundos      | `src/components/Passagem.tsx`, `src/lib/mundo.ts` |
-| O desenho da janela                         | `src/components/Janela.tsx`               |
-| Texto das páginas                          | `src/app/<página>/page.tsx`               |
-| Cores, fontes, tamanhos, espaçamentos      | `src/styles/tokens.css`                   |
-| Cursor desenhado (seta e mão)              | `src/styles/base.css` (bloco "Cursor")    |
-| Lado simbólico ("Se fosse…")               | `src/content/perfil.ts` (lista `outroLado`) |
+| Quero mudar…                                 | Arquivo                                            |
+| -------------------------------------------- | -------------------------------------------------- |
+| WhatsApp, mensagem, redes, CRP, cidade, menu | `src/content/site.ts`                              |
+| Formação, experiências, temas, pesquisas     | `src/content/perfil.ts`                            |
+| Atlas do inconsciente e "Se fosse…"          | `src/content/perfil.ts` (`atlas`, `outroLado`)     |
+| Textos do Caderno                            | `src/content/caderno.ts`                           |
+| Obras (créditos, acervo, licença)            | `src/content/arte.ts`                              |
+| Fotografias (texto alternativo)              | `src/content/fotos.ts`                             |
+| Texto da capa (os dois lados)                | `src/app/page.tsx`                                 |
+| A passagem entre os lados                    | `src/components/Passagem.tsx`, `src/lib/mundo.ts`  |
+| O arco (moldura sem divisórias)              | `src/components/Arco.tsx`                          |
+| Frases com imagens entre as palavras         | `src/components/Frase.tsx`                         |
+| Cores, escala tipográfica, espaçamentos      | `src/styles/tokens.css`                            |
+| Cursor desenhado (seta e mão)                | `src/styles/base.css` (bloco "Cursor")             |
 
 Páginas: `/` início (dois lados) · `/sobre` · `/atendimento` · `/caderno` ·
-`/pesquisas` · `/contato`.
+`/pesquisas` · `/contato` · `/creditos`.
 
-### Configurar o WhatsApp
+### Dados profissionais e contato
 
-Em `src/content/site.ts`, preencha `whatsapp` só com números, com país e DDD:
+Em `src/content/site.ts`:
 
-```ts
-whatsapp: "5511999999999",
-```
+- `crp`: 06/214718. Aparece no cabeçalho, na capa, no Sobre, no Atendimento, no Contato e no rodapé.
+- `atendimento`: exclusivamente online, para todo o Brasil. Não há endereço de
+  consultório. Atuação em São Paulo – SP.
+- `whatsapp`: 5511999834047.
+- `mensagemWhatsapp`: a mensagem pré-preenchida, neutra. O link gerado é
+  idêntico ao aprovado (`https://wa.me/5511999834047?text=Ol%C3%A1%21%20…`).
+- `redes`: Instagram e TikTok @maluroque.psi, e LinkedIn
+  linkedin.com/in/maria-luiza-dias-roque.
 
-Enquanto estiver vazio, todos os botões aparecem como
-"WhatsApp · número em configuração". A mensagem inicial fica em `mensagemWhatsapp`.
+### Imagens (sempre na melhor resolução disponível)
 
-O CRP (06/214718) está no campo `crp` e aparece no cabeçalho da capa, no
-Sobre, no Atendimento, no Contato e no rodapé. Ainda falta o **link exato do
-LinkedIn** (hoje é uma busca pelo nome).
+1. Coloque o original **na maior resolução que tiver** em
+   `recursos/arte-originais/` (obras) ou `recursos/fotos/` (fotografias).
+   Use um nome curto, por exemplo `malu-retrato.jpg`.
+2. Rode `npm run imagens`. Ele gera WebP em 640, 1024, 1600 e 2400 px, até a
+   largura do original e nunca ampliando, mais o manifesto
+   `src/content/imagens.json`.
+3. Registre a imagem: obras em `src/content/arte.ts` (com acervo, licença e
+   link) e fotos em `src/content/fotos.ts` (com texto alternativo).
+4. Use com `<Obra chave="…" />` ou `<Foto chave="…" />`, que montam o `srcset`.
+   Para a moldura em arco: `<Arco><Foto chave="…" /></Arco>`.
 
-### Trocar imagens
+Recortes servem só para tirar margens de papel e são declarados no próprio
+script. Fontes e licenças de tudo: **IMAGENS.md**. A pasta `recursos/` fica
+fora do Git.
 
-**Suas fotografias.** Os espaços com listras lilases e a frase "a inserir" são
-lugares reservados (componente `FotoPendente`). Coloque as fotos em
-`public/img/malu/` (por exemplo `retrato.webp`) e troque o `<FotoPendente … />`
-correspondente por:
+### Auditoria de medidas
 
-```tsx
-// no topo do arquivo: import { asset } from "@/lib/asset";
-<img src={asset("/img/malu/retrato.webp")} alt="Retrato de Maria Luiza Roque" />
-```
-
-Eles aparecem na capa, seção "Quem escuta" (`src/app/page.tsx`), e na
-abertura da página Sobre (`src/app/sobre/page.tsx`). Para manter o formato
-da janela, use `<Janela simples><img … /></Janela>`.
-
-**Obras do acervo.** As imagens ficam em `public/img/arte/<nome>.webp` (1200px)
-e `<nome>-p.webp` (640px). Para trocar uma imagem por outra com o mesmo nome,
-basta substituir os dois arquivos. Para adicionar uma nova:
-
-1. coloque o original (jpg/png) em `recursos/arte-originais/`;
-2. rode `npm run imagens`, que gera as versões WebP leves;
-3. registre o nome e os créditos em `src/content/arte.ts`.
-
-A pasta `recursos/` fica fora do Git (é o seu material bruto).
+`npm run auditar` lista medidas fora da escala de 4 px nas folhas de estilo.
 
 ### Publicar um texto no Caderno
 
@@ -134,4 +129,4 @@ Para colocar a fonte no projeto num computador novo, copie os `.woff2` de
 "inspiracao site malu/tipografia gotham" (Light, Book, BookItalic, Medium e
 Bold) para `public/fonts/gotham/`.
 
-As decisões de direção de arte estão em [`DIRECAO-DE-ARTE.md`](DIRECAO-DE-ARTE.md).
+As decisões de direção de arte estão em [`DIRECAO-DE-ARTE.md`](DIRECAO-DE-ARTE.md) e as fontes das imagens em [`IMAGENS.md`](IMAGENS.md).

@@ -8,7 +8,8 @@
     "build": "next build && node scripts/rsc-planos.mjs",
     "preview": "node scripts/servir.mjs",
     "imagens": "node scripts/otimizar-imagens.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "auditar": "node scripts/auditar-medidas.cjs"
   },
   "dependencies": {
     "next": "^16.4.6",

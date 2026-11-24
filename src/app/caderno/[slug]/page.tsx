@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { textos } from "@/content/caderno";
 import { Obra } from "@/components/Obra";
-import { Janela } from "@/components/Janela";
+import { Arco } from "@/components/Arco";
 import { creditoObra } from "@/content/arte";
 import { Palavras } from "@/components/Palavras";
 import { CartaoTexto } from "@/components/CartaoTexto";
@@ -49,9 +49,9 @@ export default async function TextoPagina({ params }: { params: Promise<{ slug: 
       <div className="grade">
         {t.imagem && (
           <div className="texto-pagina__figura cortina">
-            <Janela simples>
+            <Arco>
               <Obra chave={t.imagem} prioridade />
-            </Janela>
+            </Arco>
             <p className="credito">{creditoObra(t.imagem)}</p>
           </div>
         )}

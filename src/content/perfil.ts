@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────
 // PERFIL PROFISSIONAL
 // Fonte: documento "Site Malu" (formação, experiências, pesquisas).
-// Edite aqui para atualizar Sobre, Consultório e Pesquisa.
+// Edite aqui para atualizar Sobre, Atendimento e Pesquisa.
 // ─────────────────────────────────────────────────────────────
 
 export const formacao = [
@@ -75,10 +75,10 @@ export const experiencias: Experiencia[] = [
   },
   {
     cargo: "Psicóloga clínica",
-    lugar: "Consultório próprio",
+    lugar: "Atendimento clínico próprio",
     periodo: "mar. 2025 — atual",
-    modalidade: "Híbrido",
-    descricao: "Psicoterapia de crianças, adolescentes, adultos e idosos, nas modalidades presencial e remota.",
+    modalidade: "Online",
+    descricao: "Psicoterapia de crianças, adolescentes, adultos e idosos. Atualmente, os atendimentos são exclusivamente online, para todo o Brasil.",
     destaque: true,
   },
   {
@@ -167,7 +167,7 @@ export const linhaDoTempo = [
   { ano: "2021", texto: "Instituto Jô Clemente: acompanhar de perto pessoas com deficiência intelectual, de 16 a 74 anos." },
   { ano: "2023", texto: "Um semestre em Milão, na Università Cattolica del Sacro Cuore. Na volta, as “Cartas terapêuticas” numa escola estadual." },
   { ano: "2024", texto: "Clínica Ana Maria Poppovic e PROAD/UNIFESP. O TCC sobre deusas hindus e arquétipos femininos." },
-  { ano: "2025", texto: "Especialização em Psicologia Hospitalar no HCFMUSP e a abertura do consultório." },
+  { ano: "2025", texto: "Especialização em Psicologia Hospitalar no HCFMUSP e o início dos atendimentos clínicos próprios." },
   { ano: "2026", texto: "Ambulatório de Psicologia Analítica do CAISM/UNIFESP, o Moitará da SBPA e o artigo “Do Vulcão ao Guerreiro”." },
 ];
 
@@ -221,31 +221,43 @@ export const temas = [
 
 export const recursos = ["Mitologia e contos", "Literatura", "Música e cinema", "Arte e recursos expressivos", "Análise simbólica"];
 
+/**
+ * Produção acadêmica. Dados conferidos nos próprios documentos (pasta de
+ * referências): o PDF do TCC (também no repositório da PUC-SP) e o texto do
+ * artigo do HC ("versão 2"), que não traz periódico, DOI nem dados de
+ * publicação. Nada além disso foi presumido.
+ */
 export const pesquisas = [
   {
     tipo: "Trabalho de Conclusão de Curso",
     titulo: "Deusas Hindus e os Arquétipos Femininos no Processo de Individuação",
-    instituicao: "Pontifícia Universidade Católica de São Paulo (PUC-SP)",
+    autoria: "Maria Luiza Dias Roque",
+    instituicao: "Pontifícia Universidade Católica de São Paulo (PUC-SP), Faculdade de Ciências Humanas e da Saúde, curso de Psicologia",
     ano: "2024",
-    detalhe: "Orientadora: Profa. Dra. Irene Pereira Gaeta",
+    detalheRotulo: "Orientação",
+    detalhe: "Profa. Dra. Irene Pereira Gaeta",
     descricao:
-      "Pesquisa que aborda as relações entre deusas da mitologia hindu, os arquétipos femininos e o processo de individuação, a partir da perspectiva da Psicologia Analítica.",
-    imagem: "redon-sita",
-    imagem2: "lakshmi-sarasvati",
-    palavras: ["mitologia hindu", "arquétipos", "feminino", "individuação"],
+      "Pesquisa teórica, exploratória e qualitativa sobre as manifestações arquetípicas do feminino em deusas hindus. A partir dos contos “Durga” e “Kali”, analisa como essas imagens ajudam a compreender o processo de individuação e conclui que as duas deusas descrevem simbolicamente aspectos dessa jornada humana e da necessidade de integração do feminino na psique.",
+    palavras: ["Hinduísmo", "Deusas", "Individuação", "Arquétipos", "Feminino"],
+    link: { rotulo: "Ler o trabalho completo (PDF, repositório da PUC-SP)", url: "https://repositorio.pucsp.br/jspui/bitstream/handle/44593/1/TCC.pdf_Maria%20Luiza%20Dias%20Roq.pdf" },
+    foto: "tcc-banner",
+    imagem: "lakshmi-sarasvati",
   },
   {
-    tipo: "Artigo monográfico — Psicologia Hospitalar",
+    tipo: "Artigo — estudo de caso, Especialização em Psicologia Hospitalar",
     titulo: "Do Vulcão ao Guerreiro: manifestações simbólicas em pós-operatório de transplante renal",
+    autoria: "Giovana Gatto Nogueira, Maria Luiza Dias Roque e Marina Guimarães da Rocha",
     instituicao: "Hospital das Clínicas da Faculdade de Medicina da USP (HCFMUSP)",
     ano: "2026",
+    detalheRotulo: "Apresentação",
     detalhe:
-      "Apresentado no XXI Encontro Científico do Curso de Pós-Graduação Lato Sensu da Divisão de Psicologia do Instituto Central do HCFMUSP, em 26 de fevereiro de 2026.",
+      "XXI Encontro Científico do Curso de Pós-Graduação Lato Sensu da Divisão de Psicologia do Instituto Central do HCFMUSP, em 26 de fevereiro de 2026.",
     descricao:
-      "Estudo de caso que explora manifestações simbólicas no contexto pós-operatório de transplante renal, articulando a experiência do adoecimento e do tratamento com conceitos da Psicologia Analítica e a compreensão dos processos simbólicos.",
+      "Estudo de caso qualitativo, à luz da Psicologia Analítica, baseado em sete atendimentos psicológicos à beira-leito de uma paciente em internação prolongada após um transplante renal. Pelo método da amplificação simbólica, o trabalho acompanha três símbolos centrais: o vulcão (afetos represados que buscavam expressão), o guerreiro (enfrentamento e retomada de autonomia) e o elevador (a oscilação entre altos e baixos da recuperação).",
+    palavras: ["Teoria junguiana", "Simbolismo", "Psicologia hospitalar", "Transplante renal", "Medicina psicossomática"],
+    link: null,
+    foto: "hc-escadaria",
     imagem: "volaire-vesuvius",
-    imagem2: "redon-siren",
-    palavras: ["psicologia hospitalar", "transplante renal", "símbolo", "estudo de caso"],
   },
 ] as const;
 
@@ -265,17 +277,55 @@ export const outroLado = [
     pergunta: "Se fosse uma loja",
     resposta:
       "Venderia objetos com história: livros de literatura, psicologia, mitologia e filosofia, revistas independentes, gravuras, cadernos e coisinhas para passar o tempo, como argila, pintura, lego e crochê.",
-    imagem: "manet-reading",
+    imagem: "redon-pandora",
   },
   {
     pergunta: "Se fosse um universo",
     resposta:
       "Um mundo em que príncipes, sereias, fadas, reis e rainhas convivem com pessoas comuns, filhos, filhas e famílias. O fantástico e o cotidiano lado a lado, com a atmosfera de um filme de cinema independente.",
-    imagem: "redon-siren",
+    imagem: "redon-pegaso",
   },
   {
     pergunta: "Se fosse uma experiência",
     resposta: "Entrar numa loja de discos enquanto toca, bem alto, uma música que se ama. Prazer, nostalgia e vontade de ficar.",
     imagem: null,
+  },
+] as const;
+
+/**
+ * Atlas do outro lado: seis obras de acervos abertos, cada uma ligada a uma
+ * ideia da Psicologia Analítica. Textos curtos, sem atribuir a Jung frases
+ * que ele não escreveu.
+ */
+export const atlas = [
+  {
+    ideia: "O sonho",
+    obra: "redon-olhos-fechados",
+    texto: "Para Jung, o sonho é uma expressão espontânea do inconsciente: menos um disfarce a ser decifrado, mais uma imagem a ser escutada.",
+  },
+  {
+    ideia: "A sombra",
+    obra: "goya-sono-da-razao",
+    texto: "A sombra reúne o que não reconhecemos em nós. O que é negado não desaparece: costuma voltar, às vezes em forma de monstros.",
+  },
+  {
+    ideia: "A travessia",
+    obra: "bocklin-ilha-dos-mortos",
+    texto: "Toda transformação pede uma passagem por águas escuras: algo termina para que outra coisa possa começar.",
+  },
+  {
+    ideia: "A união dos opostos",
+    obra: "rosarium-rei-rainha",
+    texto: "Jung estudou estas xilogravuras de 1550 em “A psicologia da transferência” (1946). O rei e a rainha, o sol e a lua: opostos que se encontram sem se anular.",
+  },
+  {
+    ideia: "A transformação",
+    obra: "splendor-solis-sol",
+    texto: "Jung leu a alquimia como uma linguagem simbólica da transformação psíquica. Depois da noite, um sol que nasce sobre a cidade.",
+  },
+  {
+    ideia: "O centro",
+    obra: "mandala-jnanadakini",
+    texto: "Jung desenhou mandalas durante anos e as reconheceu em culturas muito distantes: círculos que organizam o caos em torno de um centro, imagem do que chamou de si-mesmo.",
   },
 ] as const;

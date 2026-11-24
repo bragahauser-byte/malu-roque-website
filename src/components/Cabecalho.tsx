@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navegacao, site } from "@/content/site";
 import { BotaoPassagem } from "./Passagem";
-import { JanelaIcone } from "./Janela";
 
 /**
  * CABEÇALHO
@@ -68,8 +67,8 @@ export function Cabecalho() {
       <header className={`cabecalho ${rolou ? "cabecalho--rolou" : ""}`}>
         <div className="cabecalho__barra grade">
           <Link href="/" className="assinatura" aria-label={`${site.nome}, página inicial`}>
-            <JanelaIcone className="assinatura__janela" />
-            <span className="assinatura__nome">Malu Roque</span>
+            <span className="assinatura__nome">Maria Luiza Roque</span>
+            <span className="assinatura__sub">Psicóloga · CRP {site.crp}</span>
           </Link>
 
           <nav className="menu" aria-label="Principal">

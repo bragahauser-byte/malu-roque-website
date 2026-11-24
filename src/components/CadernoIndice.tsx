@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { categorias, textos, type Categoria } from "@/content/caderno";
-import { img } from "@/lib/asset";
+import { Obra } from "./Obra";
 import { CartaoTexto } from "./CartaoTexto";
-import { Janela } from "./Janela";
+import { Arco } from "./Arco";
 
 /**
  * Índice do Caderno (estudo de camilarosa.net/work): filtros corridos,
  * contador e dois modos de ver.
  *  - mesa: grade de 12 colunas com ritmo fixo de larguras (8+4, 4+4+4, 6+6…)
- *  - lista: títulos grandes em réguas; a janela fixa à direita mostra a
+ *  - lista: títulos grandes em réguas; o arco fixo à direita mostra a
  *    imagem do texto sob o mouse (sem nada seguindo o ponteiro).
  */
 
@@ -87,10 +87,10 @@ export function CadernoIndice() {
               </li>
             ))}
           </ol>
-          <div className="caderno-lista__janela" aria-hidden="true">
-            <Janela style={{ "--fundo-vista": emFoco?.cor } as React.CSSProperties}>
-              {visiveis.map((t, i) => (t.imagem ? <img key={t.slug} src={img(t.imagem, true)} alt="" loading="lazy" className={i === ativo ? "ativa" : ""} /> : null))}
-            </Janela>
+          <div className="caderno-lista__arco" aria-hidden="true">
+            <Arco style={{ "--fundo-vista": emFoco?.cor } as React.CSSProperties}>
+              {visiveis.map((t, i) => (t.imagem ? <Obra key={t.slug} chave={t.imagem} alt="" className={i === ativo ? "ativa" : ""} tamanhos="(max-width: 1023px) 0px, 25vw" /> : null))}
+            </Arco>
           </div>
         </div>
       )}

@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { temas } from "@/content/perfil";
-import { img } from "@/lib/asset";
+import { Obra } from "./Obra";
 import { arte } from "@/content/arte";
-import { Janela } from "./Janela";
+import { Arco } from "./Arco";
 
 /**
  * Temas de atuação: lista com pequenos símbolos de cor (homenagem à lista
  * de programas da Obama Foundation). Ao passar o mouse, focar ou tocar,
- * o tema se abre e a janela ao lado troca de obra.
+ * o tema se abre e o arco ao lado troca de obra.
  */
 export function Temas() {
   const [ativo, setAtivo] = useState(0);
@@ -37,12 +37,12 @@ export function Temas() {
           </li>
         ))}
       </ul>
-      <div className="temas__janela" aria-hidden="true">
-        <Janela simples>
+      <div className="temas__arco" aria-hidden="true">
+        <Arco>
           {temas.map((t, i) => (
-            <img key={t.titulo} src={img(t.imagem)} alt="" className={i === ativo ? "ativa" : ""} loading="lazy" />
+            <Obra key={t.titulo} chave={t.imagem} alt="" className={i === ativo ? "ativa" : ""} tamanhos="(max-width: 1023px) 0px, 30vw" />
           ))}
-        </Janela>
+        </Arco>
         <p className="credito">
           {obra.artista}, <em>{obra.titulo}</em> ({obra.ano})
         </p>

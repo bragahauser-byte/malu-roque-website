@@ -1,0 +1,375 @@
+{
+ "bocklin-ilha-dos-mortos": {
+  "pasta": "arte",
+  "w": 3791,
+  "h": 2299,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "bocklin-sea": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 904,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "caillebotte-rain": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 932,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "degas-star": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1550,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "goya-sono-da-razao": {
+  "pasta": "arte",
+  "w": 1560,
+  "h": 2309,
+  "larguras": [
+   640,
+   1024,
+   1560
+  ]
+ },
+ "hokusai-cranes": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 2611,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "hokusai-iris": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 821,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "lakshmi-sarasvati": {
+  "pasta": "arte",
+  "w": 843,
+  "h": 1243,
+  "larguras": [
+   640,
+   843
+  ]
+ },
+ "mandala-jnanadakini": {
+  "pasta": "arte",
+  "w": 2753,
+  "h": 3311,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "manet-reading": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1483,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "moreau-inspiration": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1626,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "munch-window": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1774,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "ragamala-hindol": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1611,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "redon-carro-apolo": {
+  "pasta": "arte",
+  "w": 1953,
+  "h": 1574,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   1953
+  ]
+ },
+ "redon-dream-vision": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1026,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "redon-flower-clouds": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 995,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "redon-olhos-fechados": {
+  "pasta": "arte",
+  "w": 2830,
+  "h": 3457,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "redon-pandora": {
+  "pasta": "arte",
+  "w": 1678,
+  "h": 3859,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   1678
+  ]
+ },
+ "redon-pegaso": {
+  "pasta": "arte",
+  "w": 2596,
+  "h": 3683,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "redon-sita": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1678,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "redon-still-life": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 1754,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "rosarium-rei-rainha": {
+  "pasta": "arte",
+  "w": 2465,
+  "h": 3048,
+  "larguras": [
+   640,
+   1024,
+   1600,
+   2400
+  ]
+ },
+ "splendor-solis-sol": {
+  "pasta": "arte",
+  "w": 1015,
+  "h": 1535,
+  "larguras": [
+   640,
+   1015
+  ]
+ },
+ "volaire-vesuvius": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 552,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "whistler-nocturne": {
+  "pasta": "arte",
+  "w": 1200,
+  "h": 793,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "hc-escadaria": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "hc-instituto": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "malu-entardecer": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "malu-festival": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "malu-musica": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "malu-retrato": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "malu-sorriso": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "tcc-banner": {
+  "pasta": "fotos",
+  "w": 1200,
+  "h": 1600,
+  "larguras": [
+   640,
+   1024,
+   1200
+  ]
+ },
+ "viagem-arcos": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "viagem-entardecer": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "viagem-janela": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "viagem-museu": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ },
+ "viagem-passagem": {
+  "pasta": "fotos",
+  "w": 960,
+  "h": 1280,
+  "larguras": [
+   640,
+   960
+  ]
+ }
+}
