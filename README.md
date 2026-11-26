@@ -102,7 +102,10 @@ Todos os cartões usam o mesmo componente e a mesma interação.
 ## Publicação
 
 O site é publicado no **GitHub Pages** automaticamente a cada `git push` na
-branch `main` (ver `.github/workflows/pages.yml`).
+branch `main` (ver `.github/workflows/pages.yml`), no domínio próprio
+**https://maluroque.com.br** (arquivo `public/CNAME`; DNS no Registro.br).
+`src/app/sitemap.ts` e `src/app/robots.ts` geram `sitemap.xml` e `robots.txt`
+para o Google Search Console.
 
 ```bash
 git add .

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { Barlow_Condensed, Caveat, Gelasio } from "next/font/google";
-import { site } from "@/content/site";
+import { site, SITE_URL } from "@/content/site";
 import { Cabecalho } from "@/components/Cabecalho";
 import { Rodape } from "@/components/Rodape";
 import { Revelador } from "@/components/Revelador";
@@ -60,9 +60,10 @@ const fontesGotham = GOTHAM.map(
 ).join("");
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: { default: `${site.nome} — Psicóloga · CRP ${site.crp}`, template: `%s · ${site.apelido}` },
   description: site.descricao,
-  openGraph: { title: `${site.nome} — ${site.conceito}`, description: site.descricao, locale: "pt_BR", type: "website" },
+  openGraph: { title: `${site.nome} — ${site.conceito}`, description: site.descricao, locale: "pt_BR", type: "website", url: SITE_URL, siteName: site.nome },
   // ?v=6: força o navegador a trocar o favicon antigo (ícones ficam muito tempo em cache)
   manifest: asset("/site.webmanifest"),
   icons: {

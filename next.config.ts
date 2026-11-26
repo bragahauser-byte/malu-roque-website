@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-// No GitHub Pages o site mora em /malu-roque-website. Localmente e na Vercel, na raiz.
+// O site mora na raiz (maluroque.com.br). PAGES_BASE_PATH só se um dia voltar a um subcaminho.
 const base = process.env.PAGES_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {

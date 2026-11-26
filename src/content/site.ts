@@ -5,6 +5,9 @@
 
 import type { Lingua } from "@/lib/lingua";
 
+/** Endereço oficial do site (domínio próprio, sem barra no fim). */
+export const SITE_URL = "https://maluroque.com.br";
+
 export const site = {
   nome: "Maria Luiza Roque",
   nomeConselho: "Maria Luiza D. Roque",

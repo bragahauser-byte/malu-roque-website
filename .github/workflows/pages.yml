@@ -24,9 +24,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Domínio próprio (maluroque.com.br): o site mora na raiz, sem basePath.
       - run: npm run build
-        env:
-          PAGES_BASE_PATH: /${{ github.event.repository.name }}
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
