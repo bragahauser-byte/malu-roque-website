@@ -17,7 +17,7 @@ import { rota, tradutor, type Lingua } from "@/lib/lingua";
 
 export const metadadosInicio = (l: Lingua): Metadata =>
   l === "en"
-    ? { title: { absolute: "Maria Luiza Roque — Psychologist · CRP 06/214718" }, description: dados("en").descricao, openGraph: { locale: "en_US" } }
+    ? { title: { absolute: "Maria Luiza Roque (Malu Roque) — Psychologist · CRP 06/214718" }, description: dados("en").descricao, openGraph: { locale: "en_US" } }
     : {};
 
 /**

@@ -10,6 +10,7 @@ import { Passagens } from "@/components/Passagens";
 import { Lembretes } from "@/components/Lembretes";
 import { asset } from "@/lib/asset";
 import { scriptMundo } from "@/lib/mundo";
+import { dadosEstruturados, PREVIA } from "@/lib/seo";
 
 /** Idioma: as páginas em /en/ marcam <html lang="en"> antes da pintura (o layout é um só para os dois idiomas). */
 const scriptIdioma = `try{var b=${JSON.stringify(process.env.NEXT_PUBLIC_BASE_PATH ?? "")};var p=location.pathname.slice(b.length);if(p==="/en"||p.indexOf("/en/")===0)document.documentElement.lang="en"}catch(e){}`;
@@ -61,9 +62,14 @@ const fontesGotham = GOTHAM.map(
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${site.nome} — Psicóloga · CRP ${site.crp}`, template: `%s · ${site.apelido}` },
+  title: { default: `${site.nome} (${site.apelido}) — Psicóloga · CRP ${site.crp}`, template: `%s · ${site.apelido}` },
   description: site.descricao,
-  openGraph: { title: `${site.nome} — ${site.conceito}`, description: site.descricao, locale: "pt_BR", type: "website", url: SITE_URL, siteName: site.nome },
+  openGraph: { title: `${site.nome} (${site.apelido}) — Psicóloga`, description: site.descricao, locale: "pt_BR", type: "website", url: SITE_URL, siteName: site.nome, images: [{ url: PREVIA, width: 1200, height: 630 }] },
+  twitter: { card: "summary_large_image", images: [PREVIA] },
+  authors: [{ name: site.nome, url: SITE_URL }],
+  creator: site.nome,
+  keywords: [site.nome, site.apelido, "Maria Luiza Dias Roque", "psicóloga junguiana", "psicologia analítica", "psicoterapia online", "psicóloga online", "PUC-SP", "HCFMUSP", `CRP ${site.crp}`],
+  formatDetection: { telephone: false },
   // ?v=6: força o navegador a trocar o favicon antigo (ícones ficam muito tempo em cache)
   manifest: asset("/site.webmanifest"),
   icons: {
@@ -87,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: scriptMundo + scriptEntrada + scriptIdioma }} />
         {temGotham && <link rel="preload" href={asset("/fonts/gotham/GothamCond-Medium.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" />}
         {temGotham && <style dangerouslySetInnerHTML={{ __html: fontesGotham }} />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(dadosEstruturados()).replace(/</g, String.fromCharCode(92) + "u003c") }} />
       </head>
       <body>
         <Cabecalho />

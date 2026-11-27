@@ -1,21 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/content/site";
+import { PARES } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
-/** Páginas em português e o par em inglês (hreflang). Textos do Caderno ainda em rascunho ficam de fora. */
-const PARES: [string, string][] = [
-  ["/", "/en/"],
-  ["/sobre/", "/en/about/"],
-  ["/atendimento/", "/en/therapy/"],
-  ["/pesquisas/", "/en/research/"],
-  ["/caderno/", "/en/notebook/"],
-  ["/caderno/destinos/", "/en/notebook/destinos/"],
-  ["/caderno/intercambios/", "/en/notebook/intercambios/"],
-  ["/caderno/discos/", "/en/notebook/discos/"],
-  ["/contato/", "/en/contact/"],
-  ["/creditos/", "/en/credits/"],
-];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const agora = new Date();
